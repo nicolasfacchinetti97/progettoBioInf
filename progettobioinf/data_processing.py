@@ -1,8 +1,8 @@
 from epigenomic_dataset import load_epigenomes
 from ucsc_genomes_downloader import Genome
 
-from progettobioinf.dataprocessing.data_retrieval import *
-from progettobioinf.dataprocessing.data_visualization import *
+from progettobioinf.data_retrieval import *
+from progettobioinf.data_visualization import *
 
 # Data Rertieval
 def dataRetrieval(cell_line, assembly, window_size):

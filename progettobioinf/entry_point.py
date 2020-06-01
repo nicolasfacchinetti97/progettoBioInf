@@ -1,5 +1,5 @@
-from progettobioinf.dataprocessing.initial_setup import *
-from progettobioinf.dataprocessing.data_processing import *
+from progettobioinf.initial_setup import *
+from progettobioinf.data_processing import *
 
 if __name__ == '__main__':
 

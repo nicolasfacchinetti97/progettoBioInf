@@ -1,4 +1,4 @@
-from progettobioinf.dataprocessing.data_elaboration import *
+from progettobioinf.data_elaboration import *
 
 def prepare_data(epigenomes, labels, sequences,):
     tasks = {
