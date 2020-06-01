@@ -13,6 +13,7 @@ def one_hot_encode(genome, data: pd.DataFrame, nucleotides: str = "actg") -> np.
         nucleotides=nucleotides,
         batch_size=1
     ))
+
 def flat_one_hot_encode(genome, data: pd.DataFrame, window_size: int, nucleotides: str = "actg") -> np.ndarray:
     return one_hot_encode(genome, data, nucleotides).reshape(-1, window_size * 4).astype(int)
 

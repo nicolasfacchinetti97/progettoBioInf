@@ -2,26 +2,10 @@ from epigenomic_dataset import load_epigenomes
 from ucsc_genomes_downloader import Genome
 
 from progettobioinf.dataprocessing.data_retrieval import *
-from progettobioinf.dataprocessing.data_elaboration import *
-from progettobioinf.dataprocessing.utility import *
+from progettobioinf.dataprocessing.data_visualization import *
 
-cell_line = "K562"
-assembly = "hg19"
-window_size = 200
-
-# Initial Setup
-# Step 1. Data Retrieval
-# Step 2. Data Elaboration
-# Step 3. Data Visualization
-
-if __name__ == '__main__':
-
-    # Initial Setup
-    print('Initial Setup...')
-    create_img_folder()
-
-    # Step 1. Data Retrieval
-    print('Step 1. Data Retrieval')
+# Data Rertieval
+def dataRetrieval(cell_line, assembly, window_size):
 
     ## Epigenomic
     promoters_epigenomes, promoters_labels = load_epigenomes(
@@ -71,8 +55,10 @@ if __name__ == '__main__':
     print(sequences["promoters"][:2])
     print(sequences["enhancers"][:2])
 
-    # Step 2. Data elaboration
-    print('Step 2. Data elaboration')
+    return epigenomes, labels, sequences
+
+# Step 2. Data elaboration
+def dataElaboration(epigenomes, labels, cell_line):
 
     ## Rate between features and samples
     rate_features_samples(epigenomes)
@@ -137,4 +123,26 @@ if __name__ == '__main__':
     ## Scatter plot (most uncorrelated touples)
     detect_most_n_uncorrelated_touples(epigenomes, scores, 3, labels)
 
-    # TODO Features distributions
+    # Features distributions
+    get_top_n_different_features(epigenomes, labels, 5)
+    get_top_n_different_tuples(epigenomes, 5)
+
+    # Features selection
+    start_feature_selection(epigenomes, labels, cell_line)
+
+# Step 3. Data Visualization
+def data_visualization(epigenomes, labels, sequences):
+    # Data visualization
+    visualization_data = prepare_data(epigenomes, labels, sequences)
+    xs = visualization_data[0]
+    ys = visualization_data[1]
+    titles = visualization_data[2]
+    colors = visualization_data[3]
+
+    ## PCA
+    visualization_PCA(xs, ys, titles, colors)
+
+    ## TSNE
+    #visualization_TSNE(xs, ys, titles, colors)
+    # TODO tsne-cuda funziona solo su linux?
+    # controlla errore su TSNE: OSError: no file with expected extension

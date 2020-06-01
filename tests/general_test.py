@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from progettobioinf.dataprocessing.utility import *
+from progettobioinf.dataprocessing.initial_setup import *
 
 def test_create_folder():
     create_img_folder()

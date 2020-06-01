@@ -2,13 +2,20 @@ from sklearn.impute import KNNImputer
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import RobustScaler
-from tqdm.auto import tqdm # A simple loading bar
+from tqdm.auto import tqdm  # A simple loading bar
 from scipy.stats import entropy
 from scipy.stats import pearsonr
 from scipy.stats import spearmanr
 from minepy import MINE
 import numpy as np
 import seaborn as sns
+from sklearn.metrics.pairwise import euclidean_distances
+from sklearn.ensemble import RandomForestClassifier
+from boruta import BorutaPy
+from multiprocessing import cpu_count
+from sklearn.decomposition import PCA
+from prince import MFA
+from tsnecuda import TSNE as CTSNE
 
 # Rate between features and samples
 def rate_features_samples(epigenomes):
@@ -17,6 +24,7 @@ def rate_features_samples(epigenomes):
             f"The rate between features and samples for {region} data is: {x.shape[0] / x.shape[1]}"
         )
         print("=" * 80)
+
 
 # NaN Detection
 def nan_detection(epigenomes):
@@ -29,13 +37,15 @@ def nan_detection(epigenomes):
         )))
         print("=" * 80)
 
+
 # KNN imputer
-def __knn_imputer(df:pd.DataFrame, neighbours:int=5)->pd.DataFrame:
+def __knn_imputer(df: pd.DataFrame, neighbours: int = 5) -> pd.DataFrame:
     return pd.DataFrame(
         KNNImputer(n_neighbors=neighbours).fit_transform(df.values),
         columns=df.columns,
         index=df.index
     )
+
 
 def knn_imputation(epigenomes):
     for region, x in epigenomes.items():
@@ -49,12 +59,14 @@ def check_class_balance(labels):
     for axis, (region, y) in zip(axes.ravel(), labels.items()):
         y.hist(ax=axis, bins=3)
         axis.set_title(f"Classes count in {region}")
-    fig.savefig('img/class_balance.png')
+    fig.savefig('img/K562/class_balance.png')
+
 
 # Constant Features
-def __drop_const_features(df:pd.DataFrame)->pd.DataFrame:
+def __drop_const_features(df: pd.DataFrame) -> pd.DataFrame:
     """Return DataFrame without constant features."""
     return df.loc[:, (df != df.iloc[0]).any()]
+
 
 def drop_constant_features(epigenomes):
     for region, x in epigenomes.items():
@@ -65,19 +77,22 @@ def drop_constant_features(epigenomes):
         else:
             print(f"No constant features were found in {region}!")
 
+
 # Z-scoring
-def __robust_zscoring(df:pd.DataFrame)->pd.DataFrame:
+def __robust_zscoring(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(
         RobustScaler().fit_transform(df.values),
         columns=df.columns,
         index=df.index
     )
 
+
 def data_normalization(epigenomes):
     epigenomes = {
         region: __robust_zscoring(x)
         for region, x in epigenomes.items()
     }
+
 
 # Correlation with output
 
@@ -90,6 +105,7 @@ def execute_pearson(epigenomes, labels, p_value_threshold, uncorrelated):
                 print(region, column, correlation)
                 uncorrelated[region].add(column)
 
+
 ## Monotonic Correlation (Spearman)
 def execute_spearman(epigenomes, labels, p_value_threshold, uncorrelated):
     for region, x in epigenomes.items():
@@ -98,6 +114,7 @@ def execute_spearman(epigenomes, labels, p_value_threshold, uncorrelated):
             if p_value > p_value_threshold:
                 print(region, column, correlation)
                 uncorrelated[region].add(column)
+
 
 ## Non-Linear Correlation (MIC)
 def execute_mic(epigenomes, labels, correlation_threshold, uncorrelated):
@@ -112,6 +129,7 @@ def execute_mic(epigenomes, labels, correlation_threshold, uncorrelated):
             else:
                 uncorrelated[region].remove(column)
 
+
 ### Drop features uncorrelated with output
 def drop_features(epigenomes, uncorrelated):
     for region, x in epigenomes.items():
@@ -120,6 +138,7 @@ def drop_features(epigenomes, uncorrelated):
             for col in uncorrelated[region]
             if col in x.columns
         ])
+
 
 # Features correlations
 def check_features_correlations(epigenomes, scores, p_value_threshold, correlation_threshold, extremely_correlated):
@@ -138,6 +157,7 @@ def check_features_correlations(epigenomes, scores, p_value_threshold, correlati
                     else:
                         extremely_correlated[region].add(column)
 
+
 # Most "n" correlated touples
 def detect_most_n_correlated_touples(epigenomes, scores, n, labels):
     for region, x in epigenomes.items():
@@ -148,7 +168,8 @@ def detect_most_n_correlated_touples(epigenomes, scores, n, labels):
             x[columns],
             labels[region],
         ], axis=1), hue=labels[region].columns[0])
-        plt.savefig('img/scatter_plot_correlated_'+region+".png")
+        plt.savefig('img/K562/scatter_plot_correlated_' + region + ".png")
+
 
 # Most "n" uncorrelated touples
 def detect_most_n_uncorrelated_touples(epigenomes, scores, n, labels):
@@ -160,4 +181,105 @@ def detect_most_n_uncorrelated_touples(epigenomes, scores, n, labels):
             x[columns],
             labels[region],
         ], axis=1), hue=labels[region].columns[0])
-        plt.savefig('img/scatter_plot_uncorrelated_'+region+".png")
+        plt.savefig('img/K562/scatter_plot_uncorrelated_' + region + ".png")
+
+
+# Features distributions
+def __get_top_most_different(dist, n: int):
+    return np.argsort(-np.mean(dist, axis=1).flatten())[:n]
+
+
+def get_top_n_different_features(epigenomes, labels, top_number):
+    for region, x in epigenomes.items():
+        dist = euclidean_distances(x.T)
+        most_distance_columns_indices = __get_top_most_different(dist, top_number)
+        columns = x.columns[most_distance_columns_indices]
+        fig, axes = plt.subplots(nrows=1, ncols=5, figsize=(25, 5))
+        print(f"Top {top_number} different features from {region}.")
+        for column, axis in zip(columns, axes.flatten()):
+            head, tail = x[column].quantile([0.05, 0.95]).values.ravel()
+
+            mask = ((x[column] < tail) & (x[column] > head)).values
+
+            cleared_x = x[column][mask]
+            cleared_y = labels[region].values.ravel()[mask]
+
+            cleared_x[cleared_y == 0].hist(ax=axis, bins=20)
+            cleared_x[cleared_y == 1].hist(ax=axis, bins=20)
+
+            axis.set_title(column)
+
+        fig.tight_layout()
+        plt.savefig('img/K562/top_' + str(top_number) + '_different_features_' + region + '.png')
+
+
+def __get_top_most_different_tuples(dist, n: int):
+    return list(zip(*np.unravel_index(np.argsort(-dist.ravel()), dist.shape)))[:n]
+
+
+def get_top_n_different_tuples(epigenomes, top_number):
+    for region, x in epigenomes.items():
+        dist = euclidean_distances(x.T)
+        dist = np.triu(dist)
+        tuples = __get_top_most_different_tuples(dist, top_number)
+        fig, axes = plt.subplots(nrows=1, ncols=5, figsize=(25, 5))
+        print(f"Top {top_number} different tuples of features from {region}.")
+        for (i, j), axis in zip(tuples, axes.flatten()):
+            column_i = x.columns[i]
+            column_j = x.columns[j]
+            for column in (column_i, column_j):
+                head, tail = x[column].quantile([0.05, 0.95]).values.ravel()
+                mask = ((x[column] < tail) & (x[column] > head)).values
+                x[column][mask].hist(ax=axis, bins=20, alpha=0.5)
+            axis.set_title(f"{column_i} and {column_j}")
+        fig.tight_layout()
+        plt.savefig('img/K562/top_' + str(top_number) + '_different_tuples_' + region + '.png')
+
+
+def get_features_filter(X:pd.DataFrame, y:pd.DataFrame, name:str)->BorutaPy:
+    boruta_selector = BorutaPy(
+        RandomForestClassifier(n_jobs=cpu_count(), class_weight='balanced', max_depth=5),
+        n_estimators='auto',
+        verbose=2,
+        alpha=0.05, # p_value
+        max_iter=10, # In practice one would run at least 100-200 times
+        random_state=42
+    )
+    boruta_selector.fit(X.values, y.values.ravel())
+    return boruta_selector
+
+# Features selection
+def start_feature_selection(epigenomes, labels, cell_line):
+    filtered_epigenomes = {
+        region:get_features_filter(
+            X=x,
+            y=labels[region],
+            name=f"{cell_line}/{region}"
+        ).transform(x.values)
+        for region, x in tqdm(
+            epigenomes.items(),
+            desc="Running Baruta Feature estimation"
+        )
+    }
+    return filtered_epigenomes
+
+# PCA
+def pca(x:np.ndarray, n_components:int=2)->np.ndarray:
+    return PCA(n_components=n_components, random_state=42).fit_transform(x)
+
+# MFA
+def mfa(x:pd.DataFrame, n_components:int=2, nucleotides:str='actg')->np.ndarray:
+    return MFA(groups={
+        nucleotide: [
+            column
+            for column in x.columns
+            if nucleotide in column
+        ]
+        for nucleotide in nucleotides
+    }, n_components=n_components, random_state=42).fit_transform(x)
+
+# TSNE
+def cannylab_tsne(x:np.ndarray, perplexity:int, dimensionality_threshold:int=50):
+    if x.shape[1] > dimensionality_threshold:
+        x = pca(x, n_components=dimensionality_threshold)
+    return CTSNE(perplexity=perplexity, random_seed=42).fit_transform(x)
