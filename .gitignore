@@ -9,4 +9,7 @@ __pycache__
 coverage.xml
 *.csv.gz
 *.bed.gz
-*.json
+progettobioinf/dataprocessing/datasets/*
+progettobioinf/dataprocessing/genomes/*
+progettobioinf/dataprocessing/img/*
+tests/img/*
