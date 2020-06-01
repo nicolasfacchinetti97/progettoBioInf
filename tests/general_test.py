@@ -2,6 +2,10 @@ import pytest
 from progettobioinf.dataprocessing.initial_setup import *
 import matplotlib.pyplot as plt
 
+import sys, os
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/../')
+
 def test_create_folder():
     create_img_folder()
 
