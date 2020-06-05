@@ -1,6 +1,11 @@
 import numpy as np
 import pandas as pd
 from keras_bed_sequence import BedSequence
+import logging
+logging.getLogger(__name__)
+
+logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
+                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
 def to_bed(data: pd.DataFrame) -> pd.DataFrame:
     """Return bed coordinates from given dataset."""

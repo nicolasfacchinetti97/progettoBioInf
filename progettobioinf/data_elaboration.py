@@ -16,26 +16,32 @@ from multiprocessing import cpu_count
 from sklearn.decomposition import PCA
 from prince import MFA
 from tsnecuda import TSNE as CTSNE
+import os
+import logging
+logging.getLogger(__name__)
+
+logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
+                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
 # Rate between features and samples
 def rate_features_samples(epigenomes):
     for region, x in epigenomes.items():
-        print(
+        logging.info(
             f"The rate between features and samples for {region} data is: {x.shape[0] / x.shape[1]}"
         )
-        print("=" * 80)
+        logging.info("=" * 80)
 
 
 # NaN Detection
 def nan_detection(epigenomes):
     for region, x in epigenomes.items():
-        print("\n".join((
+        logging.info("\n".join((
             f"Nan values report for {region} data:",
             f"In the document there are {x.isna().values.sum()} NaN values out of {x.values.size} values.",
             f"The sample (row) with most values has {x.isna().sum(axis=0).max()} NaN values out of {x.shape[1]} values.",
             f"The feature (column) with most values has {x.isna().sum().max()} NaN values out of {x.shape[0]} values."
         )))
-        print("=" * 80)
+        logging.info("=" * 80)
 
 
 # KNN imputer
@@ -50,6 +56,7 @@ def __knn_imputer(df: pd.DataFrame, neighbours: int = 5) -> pd.DataFrame:
 def knn_imputation(epigenomes):
     for region, x in epigenomes.items():
         epigenomes[region] = __knn_imputer(x)
+    return epigenomes
 
 
 # Class Balance
@@ -60,6 +67,7 @@ def check_class_balance(labels):
         y.hist(ax=axis, bins=3)
         axis.set_title(f"Classes count in {region}")
     fig.savefig('img/K562/class_balance.png')
+    logging.info('class balance img saved')
 
 
 # Constant Features
@@ -72,10 +80,11 @@ def drop_constant_features(epigenomes):
     for region, x in epigenomes.items():
         result = __drop_const_features(x)
         if x.shape[1] != result.shape[1]:
-            print(f"Features in {region} were constant and had to be dropped!")
+            logging.info(f"Features in {region} were constant and had to be dropped!")
             epigenomes[region] = result
         else:
-            print(f"No constant features were found in {region}!")
+            logging.info(f"No constant features were found in {region}!")
+    return epigenomes
 
 
 # Z-scoring
@@ -92,6 +101,8 @@ def data_normalization(epigenomes):
         region: __robust_zscoring(x)
         for region, x in epigenomes.items()
     }
+    logging.info("Data normalized")
+    return epigenomes
 
 
 # Correlation with output
@@ -102,7 +113,7 @@ def execute_pearson(epigenomes, labels, p_value_threshold, uncorrelated):
         for column in tqdm(x.columns, desc=f"Running Pearson test for {region}", dynamic_ncols=True, leave=False):
             correlation, p_value = pearsonr(x[column].values.ravel(), labels[region].values.ravel())
             if p_value > p_value_threshold:
-                print(region, column, correlation)
+                logging.info("p_value > p_value_threshold")
                 uncorrelated[region].add(column)
 
 
@@ -112,7 +123,7 @@ def execute_spearman(epigenomes, labels, p_value_threshold, uncorrelated):
         for column in tqdm(x.columns, desc=f"Running Spearman test for {region}", dynamic_ncols=True, leave=False):
             correlation, p_value = spearmanr(x[column].values.ravel(), labels[region].values.ravel())
             if p_value > p_value_threshold:
-                print(region, column, correlation)
+                logging.info("Adding column to uncorrelated region")
                 uncorrelated[region].add(column)
 
 
@@ -125,8 +136,10 @@ def execute_mic(epigenomes, labels, correlation_threshold, uncorrelated):
             mine.compute_score(x[column].values.ravel(), labels[region].values.ravel())
             score = mine.mic()
             if score < correlation_threshold:
-                print(region, column, score)
+                logging.info("score < correlation_threshold")
             else:
+                logging.info("score > correlation_threshold")
+                logging.info("Removing column from uncorrelated region")
                 uncorrelated[region].remove(column)
 
 
@@ -138,7 +151,7 @@ def drop_features(epigenomes, uncorrelated):
             for col in uncorrelated[region]
             if col in x.columns
         ])
-
+    return epigenomes
 
 # Features correlations
 def check_features_correlations(epigenomes, scores, p_value_threshold, correlation_threshold, extremely_correlated):
@@ -151,7 +164,6 @@ def check_features_correlations(epigenomes, scores, p_value_threshold, correlati
                 correlation = np.abs(correlation)
                 scores[region].append((correlation, column, feature))
                 if p_value < p_value_threshold and correlation > correlation_threshold:
-                    print(region, column, feature, correlation)
                     if entropy(x[column]) > entropy(x[feature]):
                         extremely_correlated[region].add(feature)
                     else:
@@ -163,12 +175,13 @@ def detect_most_n_correlated_touples(epigenomes, scores, n, labels):
     for region, x in epigenomes.items():
         _, firsts, seconds = list(zip(*scores[region][:n]))
         columns = list(set(firsts + seconds))
-        print(f"Most correlated features from {region} epigenomes")
+        logging.info(f"Most correlated features from {region} epigenomes")
         sns.pairplot(pd.concat([
             x[columns],
             labels[region],
         ], axis=1), hue=labels[region].columns[0])
         plt.savefig('img/K562/scatter_plot_correlated_' + region + ".png")
+        logging.info('Scatter plot correlated saved')
 
 
 # Most "n" uncorrelated touples
@@ -176,12 +189,14 @@ def detect_most_n_uncorrelated_touples(epigenomes, scores, n, labels):
     for region, x in epigenomes.items():
         _, firsts, seconds = list(zip(*scores[region][-n:]))
         columns = list(set(firsts + seconds))
-        print(f"Least correlated features from {region} epigenomes")
+        logging.info(f"Least correlated features from {region} epigenomes")
         sns.pairplot(pd.concat([
             x[columns],
             labels[region],
         ], axis=1), hue=labels[region].columns[0])
         plt.savefig('img/K562/scatter_plot_uncorrelated_' + region + ".png")
+        logging.info('Scatter plot uncorrelated saved')
+
 
 
 # Features distributions
@@ -195,7 +210,7 @@ def get_top_n_different_features(epigenomes, labels, top_number):
         most_distance_columns_indices = __get_top_most_different(dist, top_number)
         columns = x.columns[most_distance_columns_indices]
         fig, axes = plt.subplots(nrows=1, ncols=5, figsize=(25, 5))
-        print(f"Top {top_number} different features from {region}.")
+        logging.info(f"Top {top_number} different features from {region}.")
         for column, axis in zip(columns, axes.flatten()):
             head, tail = x[column].quantile([0.05, 0.95]).values.ravel()
 
@@ -211,6 +226,7 @@ def get_top_n_different_features(epigenomes, labels, top_number):
 
         fig.tight_layout()
         plt.savefig('img/K562/top_' + str(top_number) + '_different_features_' + region + '.png')
+        logging.info('Top different features saved')
 
 
 def __get_top_most_different_tuples(dist, n: int):
@@ -223,7 +239,7 @@ def get_top_n_different_tuples(epigenomes, top_number):
         dist = np.triu(dist)
         tuples = __get_top_most_different_tuples(dist, top_number)
         fig, axes = plt.subplots(nrows=1, ncols=5, figsize=(25, 5))
-        print(f"Top {top_number} different tuples of features from {region}.")
+        logging.info(f"Top {top_number} different tuples of features from {region}.")
         for (i, j), axis in zip(tuples, axes.flatten()):
             column_i = x.columns[i]
             column_j = x.columns[j]
@@ -234,9 +250,10 @@ def get_top_n_different_tuples(epigenomes, top_number):
             axis.set_title(f"{column_i} and {column_j}")
         fig.tight_layout()
         plt.savefig('img/K562/top_' + str(top_number) + '_different_tuples_' + region + '.png')
+        logging.info('Top different tuples saved')
 
 
-def get_features_filter(X:pd.DataFrame, y:pd.DataFrame, name:str)->BorutaPy:
+def get_features_filter(X:pd.DataFrame, y:pd.DataFrame)->BorutaPy:
     boruta_selector = BorutaPy(
         RandomForestClassifier(n_jobs=cpu_count(), class_weight='balanced', max_depth=5),
         n_estimators='auto',
@@ -249,13 +266,13 @@ def get_features_filter(X:pd.DataFrame, y:pd.DataFrame, name:str)->BorutaPy:
     return boruta_selector
 
 # Features selection
-def start_feature_selection(epigenomes, labels, cell_line):
+def start_feature_selection(epigenomes, labels):
     filtered_epigenomes = {
         region:get_features_filter(
             X=x,
-            y=labels[region],
-            name=f"{cell_line}/{region}"
+            y=labels[region]
         ).transform(x.values)
+
         for region, x in tqdm(
             epigenomes.items(),
             desc="Running Baruta Feature estimation"
@@ -283,3 +300,14 @@ def cannylab_tsne(x:np.ndarray, perplexity:int, dimensionality_threshold:int=50)
     if x.shape[1] > dimensionality_threshold:
         x = pca(x, n_components=dimensionality_threshold)
     return CTSNE(perplexity=perplexity, random_seed=42).fit_transform(x)
+
+
+# Save State
+def save_elaboration_state():
+    file_exists = os.path.isfile('/state/state.txt')
+    if (file_exists):
+        state_file = open('/state/state.txt', 'a')
+        state_file.write('elaboration_step')
+        state_file.close()
+    else:
+        logging.error("State file doesn't exists!")
