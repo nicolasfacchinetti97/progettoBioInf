@@ -1,9 +1,12 @@
-progettobioinf
+Progetto di Bioinformatica 2019/2020
 =========================================================================================
 |travis| |sonar_quality| |sonar_maintainability| |codacy|
 |code_climate_maintainability| |pip| |downloads|
 
-Progetto di Bioinf 2020
+Introduzione
+----------------------------------------------
+Since some software handling coverages sometimes
+get slightly different results, here's three of them:
 
 How do I install this package?
 ----------------------------------------------
@@ -20,7 +23,6 @@ get slightly different results, here's three of them:
 
 |coveralls| |sonar_coverage| |code_climate_coverage|
 
-Progetto di Bioinf 2020
 
 .. |travis| image:: https://travis-ci.org/nicolasfacchinetti97/progettoBioInf.png
    :target: https://travis-ci.org/nicolasfacchinetti97/progettoBioInf

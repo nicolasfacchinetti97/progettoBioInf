@@ -4,7 +4,6 @@ from ucsc_genomes_downloader import Genome
 from progettobioinf.data_retrieval import *
 from progettobioinf.data_visualization import *
 from progettobioinf.initial_setup import *
-import logging
 
 logging.getLogger(__name__)
 
@@ -67,6 +66,16 @@ def dataRetrieval(cell_line, assembly, window_size):
     save_dictionary_as_csv('epigenomes.csv', epigenomes)
 
     # TODO aggiungi questo codice in una funzione sotto, refactorizza questa parte e aggiungi le loggate quando crea i vari csv
+    if os.path.exists('csv/' + cell_line + '/sequence_promoters.csv'):
+        logging.info('sequence_promoters already exists')
+    else:
+        epigenomes['promoters'].to_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',')
+
+    if os.path.exists('csv/' + cell_line + '/sequence_enhancers.csv'):
+        logging.info('sequence_enhancers already exists')
+    else:
+        epigenomes['enhancers'].to_csv('csv/' + cell_line + '/sequence_enhancers.csv', sep=',')
+
     if os.path.exists('csv/' + cell_line + '/initial_promoters.csv'):
         logging.info('Initial_promoters already exists')
     else:
@@ -175,18 +184,15 @@ def dataElaboration(epigenomes, labels, cell_line):
     logging.info("Getting top n different features")
     get_top_n_different_features(epigenomes, labels, 5)
 
-    logging.info("Getting top n different tuples")
+    logging.info("Getting top n different touples")
     get_top_n_different_tuples(epigenomes, 5)
+
+    start_feature_selection(epigenomes, labels)
 
     for region, x in epigenomes.items():
         logging.info('Saving epigenomes elaborated csv (' + region + ')')
         # np.savetxt('epigenomes_elaborated_np_' + region + '.csv', epigenomes[region], delimiter=',')
         epigenomes[region].to_csv('csv/' + cell_line + '/elaborated_' + region + '.csv', sep=',')
-
-    for region, y in labels.items():
-        logging.info('Saving labels (' + region + ')')
-        # np.savetxt('labels_elaborated_' + region + '.csv', labels[region], delimiter=',')
-        labels[region].to_csv('csv/' + cell_line + '/labels_elaborated_' + region + '.csv', sep=',')
 
     logging.info("Exiting data elaboration")
     return epigenomes
@@ -195,11 +201,19 @@ def dataElaboration(epigenomes, labels, cell_line):
 # Step 3. Data Visualization
 def data_visualization(epigenomes, labels, sequences, cell_line):
     logging.info("Starting data visualization")
-    visualization_data = prepare_data(epigenomes, labels, sequences)
-    xs = visualization_data[0]
-    ys = visualization_data[1]
-    titles = visualization_data[2]
-    colors = visualization_data[3]
+
+    # epigenomes["promoters"].drop(epigenomes["promoters"].columns[[0, 3]], axis=1,
+    #                              inplace=True)
+    #
+    # epigenomes["enhancers"].drop(epigenomes["enhancers"].columns[[0, 3]], axis=1,
+    #                              inplace=True)
+    #
+    # labels["promoters"].drop(labels["promoters"].columns[[0, 3]], axis=1,
+    #                          inplace=True)
+    # labels["enhancers"].drop(labels["enhancers"].columns[[0, 3]], axis=1,
+    #                          inplace=True)
+
+    xs, ys, titles, colors = prepare_data(epigenomes, labels, sequences)
 
     ## PCA
     visualization_PCA(xs, ys, titles, colors, cell_line)

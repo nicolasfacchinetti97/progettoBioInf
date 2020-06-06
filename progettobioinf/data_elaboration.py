@@ -268,7 +268,6 @@ def get_features_filter(X: pd.DataFrame, y: pd.DataFrame) -> BorutaPy:
     return boruta_selector
 
 
-# Features selection
 def start_feature_selection(epigenomes, labels):
     filtered_epigenomes = {
         region: get_features_filter(
@@ -284,26 +283,25 @@ def start_feature_selection(epigenomes, labels):
     return filtered_epigenomes
 
 
-# PCA
 def pca(x: np.ndarray, n_components: int = 2) -> np.ndarray:
     return PCA(n_components=n_components, random_state=42).fit_transform(x)
-
-
-# MFA
-def mfa(x: pd.DataFrame, n_components: int = 2, nucleotides: str = 'actg') -> np.ndarray:
-    return MFA(groups={
-        nucleotide: [
-            column
-            for column in x.columns
-            if nucleotide in column
-        ]
-        for nucleotide in nucleotides
-    }, n_components=n_components, random_state=42).fit_transform(x)
 
 
 def are_data_elaborated(cell_line):
     return are_enhancers_elaborated(cell_line) and are_promoters_elaborated(
         cell_line) and are_labels_enhancers_elaborated(cell_line) and are_labels_promoters_elaborated(cell_line)
+
+
+def are_sequence_data_elaborated(cell_line):
+    return are_sequence_enhancers_elaborated(cell_line) and are_sequence_promoters_elaborated(cell_line)
+
+
+def are_sequence_promoters_elaborated(cell_line):
+    return os.path.exists('csv/' + cell_line + '/sequence_promoters.csv')
+
+
+def are_sequence_enhancers_elaborated(cell_line):
+    return os.path.exists('csv/' + cell_line + '/sequence_enhancers.csv')
 
 
 def are_promoters_elaborated(cell_line):
@@ -315,8 +313,8 @@ def are_enhancers_elaborated(cell_line):
 
 
 def are_labels_promoters_elaborated(cell_line):
-    return os.path.exists('csv/' + cell_line + '/labels_elaborated_promoters.csv')
+    return os.path.exists('csv/' + cell_line + '/initial_labels_promoters.csv')
 
 
 def are_labels_enhancers_elaborated(cell_line):
-    return os.path.exists('csv/' + cell_line + '/labels_elaborated_enhancers.csv')
+    return os.path.exists('csv/' + cell_line + '/initial_labels_enhancers.csv')

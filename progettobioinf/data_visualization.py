@@ -1,17 +1,18 @@
 from progettobioinf.data_elaboration import *
-import logging
+
 logging.getLogger(__name__)
 
 logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
                     datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
-def prepare_data(epigenomes, labels, sequences,):
+
+def prepare_data(epigenomes, labels, sequences):
     logging.info("Preparing data")
     tasks = {
         "x": [
             *[
-                val
-                for val in epigenomes
+                val.values
+                for val in epigenomes.values()
             ],
             *[
                 val.values
@@ -21,8 +22,7 @@ def prepare_data(epigenomes, labels, sequences,):
             pd.concat(sequences.values()).values,
             *[
                 np.hstack([
-                    pca(epigenomes[region], n_components=25),
-                    mfa(sequences[region], n_components=25)
+                    pca(epigenomes[region].to_numpy(), n_components=25)
                 ])
                 for region in epigenomes
             ]
@@ -65,8 +65,9 @@ def prepare_data(epigenomes, labels, sequences,):
         "tab:blue",
         "tab:orange",
     ])
-    logging.info("Data prepared")
+
     return xs, ys, titles, colors
+
 
 def visualization_PCA(xs, ys, titles, colors, cell_line):
     logging.info("Data visualization PCA")
@@ -79,6 +80,7 @@ def visualization_PCA(xs, ys, titles, colors, cell_line):
         axis.set_title(f"PCA decomposition - {title}")
     plt.savefig('img/' + cell_line + '/pca_decomposition.png')
     logging.info("PCA img saved")
+
 
 def are_data_already_visualized(cell_line):
     return os.path.exists('img/' + cell_line + '/pca_decomposition.png')
