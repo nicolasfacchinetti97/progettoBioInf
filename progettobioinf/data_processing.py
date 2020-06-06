@@ -5,14 +5,15 @@ from progettobioinf.data_retrieval import *
 from progettobioinf.data_visualization import *
 from progettobioinf.initial_setup import *
 import logging
+
 logging.getLogger(__name__)
 
 logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
                     datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
+
 # Data Retrieval
 def dataRetrieval(cell_line, assembly, window_size):
-
     ## Epigenomic
     promoters_epigenomes, promoters_labels = load_epigenomes(
         cell_line=cell_line,
@@ -30,13 +31,13 @@ def dataRetrieval(cell_line, assembly, window_size):
 
     ## Epigenomes Dictionary
     epigenomes = {
-    "promoters": promoters_epigenomes,
-    "enhancers": enhancers_epigenomes
+        "promoters": promoters_epigenomes,
+        "enhancers": enhancers_epigenomes
     }
 
     labels = {
-    "promoters": promoters_labels,
-    "enhancers": enhancers_labels
+        "promoters": promoters_labels,
+        "enhancers": enhancers_labels
     }
 
     ## Genome from UCSC
@@ -53,7 +54,7 @@ def dataRetrieval(cell_line, assembly, window_size):
             flat_one_hot_encode(genome, data, window_size),
             window_size
         )
-        for region, data in epigenomes.items() # TODO check this line
+        for region, data in epigenomes.items()  # TODO check this line
     }
 
     # print(epigenomes["promoters"][:2])
@@ -61,14 +62,36 @@ def dataRetrieval(cell_line, assembly, window_size):
     # print(sequences["promoters"][:2])
     # print(sequences["enhancers"][:2])
 
-    # TODO remove this code...
+    # TODO remove this 2 lines of code...
     logging.info('Saving epigenomes csv')
     save_dictionary_as_csv('epigenomes.csv', epigenomes)
 
+    # TODO aggiungi questo codice in una funzione sotto, refactorizza questa parte e aggiungi le loggate quando crea i vari csv
+    if os.path.exists('csv/' + cell_line + '/initial_promoters.csv'):
+        logging.info('Initial_promoters already exists')
+    else:
+        epigenomes['promoters'].to_csv('csv/' + cell_line + '/initial_promoters.csv', sep=',')
+
+    if os.path.exists('csv/' + cell_line + '/initial_enhancers.csv'):
+        logging.info('Initial_enhancers already exists')
+    else:
+        epigenomes['enhancers'].to_csv('csv/' + cell_line + '/initial_enhancers.csv', sep=',')
+
+    if os.path.exists('csv/' + cell_line + '/initial_labels_enhancers.csv'):
+        logging.info('labels_enhancers already exists')
+    else:
+        labels['enhancers'].to_csv('csv/' + cell_line + '/initial_labels_enhancers.csv', sep=',')
+
+    if os.path.exists('csv/' + cell_line + '/initial_labels_promoters.csv'):
+        logging.info('labels_promoters already exists')
+    else:
+        labels['promoters'].to_csv('csv/' + cell_line + '/initial_labels_promoters.csv', sep=',')
+
     return epigenomes, labels, sequences
 
+
 # Step 2. Data elaboration
-def dataElaboration(epigenomes, labels):
+def dataElaboration(epigenomes, labels, cell_line):
     logging.info("Starting Data Elaboration")
 
     ## Rate between features and samples
@@ -134,6 +157,7 @@ def dataElaboration(epigenomes, labels):
     check_features_correlations(epigenomes, scores, p_value_threshold, correlation_threshold, extremely_correlated)
 
     # Sort the obtained scores
+    logging.info("Sorting the obtained scores")
     scores = {
         region: sorted(score, key=lambda x: np.abs(x[0]), reverse=True)
         for region, score in scores.items()
@@ -154,34 +178,23 @@ def dataElaboration(epigenomes, labels):
     logging.info("Getting top n different tuples")
     get_top_n_different_tuples(epigenomes, 5)
 
-    # Features selection
-    logging.info("Starting feature selection - Boruta")
-    epigenomes = start_feature_selection(epigenomes, labels)
-
-    # Last step
-    # TODO check this code...
-    logging.info("Saving elaboration state")
-    save_elaboration_state()
-
-    # TODO remove this code
-    logging.info('Saving epigenomes elaborated csv')
-    save_dictionary_as_csv('epigenomes_elaborated.csv', epigenomes)
-
     for region, x in epigenomes.items():
         logging.info('Saving epigenomes elaborated csv (' + region + ')')
-        np.savetxt('epigenomes_elaborated_np_' + region + '.csv', epigenomes[region], delimiter=',')
+        # np.savetxt('epigenomes_elaborated_np_' + region + '.csv', epigenomes[region], delimiter=',')
+        epigenomes[region].to_csv('csv/' + cell_line + '/elaborated_' + region + '.csv', sep=',')
 
     for region, y in labels.items():
         logging.info('Saving labels (' + region + ')')
-        np.savetxt('labels_elaborated_' + region + '.csv', labels[region], delimiter=',')
+        # np.savetxt('labels_elaborated_' + region + '.csv', labels[region], delimiter=',')
+        labels[region].to_csv('csv/' + cell_line + '/labels_elaborated_' + region + '.csv', sep=',')
 
     logging.info("Exiting data elaboration")
     return epigenomes
 
+
 # Step 3. Data Visualization
-def data_visualization(epigenomes, labels, sequences):
+def data_visualization(epigenomes, labels, sequences, cell_line):
     logging.info("Starting data visualization")
-    # Data visualization
     visualization_data = prepare_data(epigenomes, labels, sequences)
     xs = visualization_data[0]
     ys = visualization_data[1]
@@ -189,13 +202,6 @@ def data_visualization(epigenomes, labels, sequences):
     colors = visualization_data[3]
 
     ## PCA
-    # visualization_PCA(xs, ys, titles, colors)
-    # TODO fix pca error: ValueError: could not convert string to float: 'promoters'
-
-
-    ## TSNE
-    #visualization_TSNE(xs, ys, titles, colors)
-    # TODO tsne-cuda funziona solo su linux?
-    # controlla errore su TSNE: OSError: no file with expected extension
+    visualization_PCA(xs, ys, titles, colors, cell_line)
 
     logging.info("Exiting Data Visualization")

@@ -1,27 +1,29 @@
-from sklearn.impute import KNNImputer
-import pandas as pd
+import logging
+import os
+from multiprocessing import cpu_count
+
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import RobustScaler
-from tqdm.auto import tqdm  # A simple loading bar
+import numpy as np
+import pandas as pd
+import seaborn as sns
+from boruta import BorutaPy
+from minepy import MINE
+from prince import MFA
 from scipy.stats import entropy
 from scipy.stats import pearsonr
 from scipy.stats import spearmanr
-from minepy import MINE
-import numpy as np
-import seaborn as sns
-from sklearn.metrics.pairwise import euclidean_distances
-from sklearn.ensemble import RandomForestClassifier
-from boruta import BorutaPy
-from multiprocessing import cpu_count
 from sklearn.decomposition import PCA
-from prince import MFA
-from tsnecuda import TSNE as CTSNE
-import os
-import logging
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.impute import KNNImputer
+from sklearn.metrics.pairwise import euclidean_distances
+from sklearn.preprocessing import RobustScaler
+from tqdm.auto import tqdm  # A simple loading bar
+
 logging.getLogger(__name__)
 
 logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
                     datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
+
 
 # Rate between features and samples
 def rate_features_samples(epigenomes):
@@ -153,6 +155,7 @@ def drop_features(epigenomes, uncorrelated):
         ])
     return epigenomes
 
+
 # Features correlations
 def check_features_correlations(epigenomes, scores, p_value_threshold, correlation_threshold, extremely_correlated):
     for region, x in epigenomes.items():
@@ -196,7 +199,6 @@ def detect_most_n_uncorrelated_touples(epigenomes, scores, n, labels):
         ], axis=1), hue=labels[region].columns[0])
         plt.savefig('img/K562/scatter_plot_uncorrelated_' + region + ".png")
         logging.info('Scatter plot uncorrelated saved')
-
 
 
 # Features distributions
@@ -253,22 +255,23 @@ def get_top_n_different_tuples(epigenomes, top_number):
         logging.info('Top different tuples saved')
 
 
-def get_features_filter(X:pd.DataFrame, y:pd.DataFrame)->BorutaPy:
+def get_features_filter(X: pd.DataFrame, y: pd.DataFrame) -> BorutaPy:
     boruta_selector = BorutaPy(
         RandomForestClassifier(n_jobs=cpu_count(), class_weight='balanced', max_depth=5),
         n_estimators='auto',
         verbose=2,
-        alpha=0.05, # p_value
-        max_iter=10, # In practice one would run at least 100-200 times
+        alpha=0.05,  # p_value
+        max_iter=10,  # In practice one would run at least 100-200 times
         random_state=42
     )
     boruta_selector.fit(X.values, y.values.ravel())
     return boruta_selector
 
+
 # Features selection
 def start_feature_selection(epigenomes, labels):
     filtered_epigenomes = {
-        region:get_features_filter(
+        region: get_features_filter(
             X=x,
             y=labels[region]
         ).transform(x.values)
@@ -280,12 +283,14 @@ def start_feature_selection(epigenomes, labels):
     }
     return filtered_epigenomes
 
+
 # PCA
-def pca(x:np.ndarray, n_components:int=2)->np.ndarray:
+def pca(x: np.ndarray, n_components: int = 2) -> np.ndarray:
     return PCA(n_components=n_components, random_state=42).fit_transform(x)
 
+
 # MFA
-def mfa(x:pd.DataFrame, n_components:int=2, nucleotides:str='actg')->np.ndarray:
+def mfa(x: pd.DataFrame, n_components: int = 2, nucleotides: str = 'actg') -> np.ndarray:
     return MFA(groups={
         nucleotide: [
             column
@@ -295,19 +300,23 @@ def mfa(x:pd.DataFrame, n_components:int=2, nucleotides:str='actg')->np.ndarray:
         for nucleotide in nucleotides
     }, n_components=n_components, random_state=42).fit_transform(x)
 
-# TSNE
-def cannylab_tsne(x:np.ndarray, perplexity:int, dimensionality_threshold:int=50):
-    if x.shape[1] > dimensionality_threshold:
-        x = pca(x, n_components=dimensionality_threshold)
-    return CTSNE(perplexity=perplexity, random_seed=42).fit_transform(x)
+
+def are_data_elaborated(cell_line):
+    return are_enhancers_elaborated(cell_line) and are_promoters_elaborated(
+        cell_line) and are_labels_enhancers_elaborated(cell_line) and are_labels_promoters_elaborated(cell_line)
 
 
-# Save State
-def save_elaboration_state():
-    file_exists = os.path.isfile('/state/state.txt')
-    if (file_exists):
-        state_file = open('/state/state.txt', 'a')
-        state_file.write('elaboration_step')
-        state_file.close()
-    else:
-        logging.error("State file doesn't exists!")
+def are_promoters_elaborated(cell_line):
+    return os.path.exists('csv/' + cell_line + '/elaborated_promoters.csv')
+
+
+def are_enhancers_elaborated(cell_line):
+    return os.path.exists('csv/' + cell_line + '/elaborated_enhancers.csv')
+
+
+def are_labels_promoters_elaborated(cell_line):
+    return os.path.exists('csv/' + cell_line + '/labels_elaborated_promoters.csv')
+
+
+def are_labels_enhancers_elaborated(cell_line):
+    return os.path.exists('csv/' + cell_line + '/labels_elaborated_enhancers.csv')

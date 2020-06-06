@@ -68,7 +68,7 @@ def prepare_data(epigenomes, labels, sequences,):
     logging.info("Data prepared")
     return xs, ys, titles, colors
 
-def visualization_PCA(xs, ys, titles, colors):
+def visualization_PCA(xs, ys, titles, colors, cell_line):
     logging.info("Data visualization PCA")
     fig, axes = plt.subplots(nrows=2, ncols=4, figsize=(32, 16))
 
@@ -77,19 +77,8 @@ def visualization_PCA(xs, ys, titles, colors):
         axis.xaxis.set_visible(False)
         axis.yaxis.set_visible(False)
         axis.set_title(f"PCA decomposition - {title}")
-    plt.savefig('img/pca_decomposition.png')
+    plt.savefig('img/' + cell_line + '/pca_decomposition.png')
     logging.info("PCA img saved")
 
-
-def visualization_TSNE(xs, ys, titles, colors):
-    logging.info("Data visualization TSNE")
-    for perpexity in tqdm((30, 40, 50, 100, 500, 5000), desc="Running perplexities"):
-        fig, axes = plt.subplots(nrows=2, ncols=4, figsize=(40, 20))
-        for x, y, title, axis in tqdm(zip(xs, ys, titles, axes.flatten()), desc="Computing TSNEs", total=len(xs)):
-            axis.scatter(*cannylab_tsne(x, perplexity=perpexity).T, s=1, color=colors[y])
-            axis.xaxis.set_visible(False)
-            axis.yaxis.set_visible(False)
-            axis.set_title(f"TSNE decomposition - {title}")
-        fig.tight_layout()
-        plt.savefig('img/TSNE_decomposition_'+perpexity+'.png')
-        logging.info("PCA img saved")
+def are_data_already_visualized(cell_line):
+    return os.path.exists('img/' + cell_line + '/pca_decomposition.png')

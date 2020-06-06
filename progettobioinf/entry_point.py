@@ -26,18 +26,39 @@ def main():
 
         # Step 2. Data Elaboration
         logging.info('Step 2. Data elaboration')
-        if(is_state_file_contains_step('elaboration_step', cell_line)):
-            logging.info('Skipping Data Elaboration')
+        if are_data_elaborated(cell_line):
+            logging.info('Data already elaborated. Skipping Data Elaboration and load csv files.')
+            # enhancers = np.loadtxt('epigenomes_elaborated_np_enhancers.csv', delimiter=',')
+            # promoters = np.loadtxt('epigenomes_elaborated_np_promoters.csv', delimiter=',')
+            #
+            # enhancers_labels = np.loadtxt('labels_elaborated_enhancers.csv', delimiter=',')
+            # promoters_labels = np.loadtxt('labels_elaborated_promoters.csv', delimiter='')
+
+            elaborated_promoters = pd.read_csv('csv/' + cell_line + '/elaborated_promoters.csv', sep=',')
+            elaborated_enhancers = pd.read_csv('csv/' + cell_line + '/elaborated_enhancers.csv', sep=',')
+
+            elaborated_promoters_labels = pd.read_csv('csv/' + cell_line + '/labels_elaborated_promoters.csv', sep=',')
+            elaborated_enhancers_labels = pd.read_csv('csv/' + cell_line + '/labels_elaborated_enhancers.csv', sep=',')
+
+            epigenomes["promoters"] = elaborated_promoters
+            epigenomes["enhancers"] = elaborated_enhancers
+
+            labels["promoters"] = elaborated_promoters_labels
+            labels["enhancers"] = elaborated_enhancers_labels
+
         else:
-            epigenomes = dataElaboration(epigenomes, labels)
+            epigenomes = dataElaboration(epigenomes, labels, cell_line)
 
         # Step 3. Data Visualization
         logging.info('Step 3. Data Visualization')
-        if(is_state_file_contains_step('visualization_step', cell_line)):
-            logging.info('Skipping Data Visualization')
+        if are_data_already_visualized(cell_line):
+            logging.info('Data already visualized. Skipping Data Visualization.')
         else:
-            data_visualization(epigenomes, labels, sequences)
+            # TODO check this error ValueError: could not convert string to float: 'chr10'
+            # TODO delete chr column (all string column) from dataset because PCA works only with float!
+            data_visualization(epigenomes, labels, sequences, cell_line)
 
+        # TODO
         # Step 4. Holdout
 
         # Step 5. Fit models (Prediction of Active Enhancers/Promoters)
