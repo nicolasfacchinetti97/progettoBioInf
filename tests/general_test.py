@@ -49,3 +49,24 @@
 #     df = df.to_numpy()
 #
 #     print(df)
+
+# import compress_json
+#
+# def testxxxy():
+#     compress_json.local_dump("results", "img/results_promoters.json")
+#
+#
+# import json
+#
+# from progettobioinf.results import *
+# import matplotlib.pyplot as plt
+#
+# def test_json():
+#     with open('results2.json') as json_file:
+#         results = json.load(json_file)
+#         df_results = convert_results_to_dataframe(results)
+#         df_results.to_csv('results2.csv', sep=',')
+#
+#     df_results = pd.read_csv('results.csv', sep=',')
+#     df_results.groupby('model').plot.bar()
+

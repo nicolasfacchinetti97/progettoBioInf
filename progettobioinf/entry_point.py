@@ -1,4 +1,7 @@
 from progettobioinf.data_processing import *
+from progettobioinf.results import *
+from progettobioinf.setup_models import *
+from progettobioinf.training_models import *
 
 logging.getLogger(__name__)
 
@@ -38,9 +41,12 @@ def main():
             epigenomes = {"promoters": elaborated_promoters, "enhancers": elaborated_enhancers}
 
             logging.info("Loading labels data.")
-            elaborated_promoters_labels = pd.read_csv('csv/' + cell_line + '/initial_labels_promoters.csv', sep=',')
-            elaborated_enhancers_labels = pd.read_csv('csv/' + cell_line + '/initial_labels_enhancers.csv', sep=',')
-            labels = {"promoters": elaborated_promoters_labels, "enhancers": elaborated_enhancers_labels}
+            fields = [cell_line]
+            initial_labels_promoters = pd.read_csv('csv/' + cell_line + '/initial_labels_promoters.csv', sep=',',
+                                                   usecols=fields)
+            initial_labels_enhancers = pd.read_csv('csv/' + cell_line + '/initial_labels_enhancers.csv', sep=',',
+                                                   usecols=fields)
+            labels = {"promoters": initial_labels_promoters, "enhancers": initial_labels_enhancers}
 
         else:
             logging.info("Data are not elaborated/visualized.")
@@ -57,14 +63,77 @@ def main():
             logging.info('Step 3. Data Visualization')
             data_visualization(epigenomes, labels, sequences, cell_line)
 
-        # TODO
-        # Step 4. Holdout
+        # Step 4. Training the models
+        logging.info("Step 5. Training the models")
 
-        # Step 5. Fit models (Prediction of Active Enhancers/Promoters)
+        for region, x in epigenomes.items():
+            if os.path.exists('json/' + cell_line + '/results_' + region + ".json"):
+                logging.info("Results " + region + " ok!")
 
-        # Step 6. Measuring Performance
+            else:
+                logging.info("Step 5.1 Training " + region)
+                logging.info("Dropping non-numeric column")
+                epigenomes[region].drop('chrom', axis=1, inplace=True)
+                epigenomes[region].drop('chromStart', axis=1, inplace=True)
+                epigenomes[region].drop('chromEnd', axis=1, inplace=True)
+                epigenomes[region].drop('strand', axis=1, inplace=True)
 
-        # Step 7. Statistical Test (Wilcoxon)
+                X = epigenomes[region].to_numpy()
+                y = labels[region].to_numpy().ravel()
+                logging.info("X shape: " + ''.join(str(X.shape)))
+                logging.info("y shape: " + ''.join(str(y.shape)))
+
+                logging.info("Setup models: " + region)
+                models, kwargs, holdouts, splits = setup_models(X.shape[1])
+                training_the_models(holdouts, splits, models, kwargs, X, y, cell_line, region)
+
+        # if os.path.exists('json/' + cell_line + '/results_promoters.json'):
+        #     logging.info("Results promoters ok!")
+        # else:
+        #     logging.info("Step 5.1 Training Promoters")
+        #     logging.info("Dropping non-numeric column")
+        #     epigenomes["promoters"].drop('chrom', axis=1, inplace=True)
+        #     epigenomes["promoters"].drop('chromStart', axis=1, inplace=True)
+        #     epigenomes["promoters"].drop('chromEnd', axis=1, inplace=True)
+        #     epigenomes["promoters"].drop('strand', axis=1, inplace=True)
+        #
+        #     X = epigenomes["promoters"].to_numpy()
+        #     y = labels["promoters"].to_numpy().ravel()
+        #     logging.info("X shape: " + ''.join(str(X.shape)))
+        #     logging.info("y shape: " + ''.join(str(y.shape)))
+        #
+        #     logging.info("Setup models (promoters)")
+        #     models, kwargs, holdouts, splits = setup_models(X.shape[1])
+        #     training_the_models(holdouts, splits, models, kwargs, X, y, cell_line, "promoters")
+        #
+        # if os.path.exists('json/' + cell_line + '/results_enhancers.json'):
+        #     logging.info("Results promoters ok!")
+        # else:
+        #     logging.info("Step 5.2 Training Enhancers")
+        #     logging.info("Dropping non-numeric column")
+        #     epigenomes["enhancers"].drop('chrom', axis=1, inplace=True)
+        #     epigenomes["enhancers"].drop('chromStart', axis=1, inplace=True)
+        #     epigenomes["enhancers"].drop('chromEnd', axis=1, inplace=True)
+        #     epigenomes["enhancers"].drop('strand', axis=1, inplace=True)
+        #
+        #     X = epigenomes["enhancers"].to_numpy()
+        #     y = labels["enhancers"].to_numpy().ravel()
+        #     logging.info("X shape: " + ''.join(str(X.shape)))
+        #     logging.info("y shape: " + ''.join(str(y.shape)))
+        #
+        #     logging.info("Setup models (enhancers)")
+        #     models, kwargs, holdouts, splits = setup_models(X.shape[1])
+        #     training_the_models(holdouts, splits, models, kwargs, X, y, cell_line, "enhancers")
+
+        # Step 6. Results and statistical tests
+        #TODO
+        logging.info("TODO!!! Step 6. Results and statistical tests")
+        # results = get_results(holdouts, splits, models, kwargs, X, y)
+        # results_df = convert_results_to_dataframe(results)
+        # save_results_df_to_csv(results_df)
+        # save_barplots_to_png()
+
+        # TODO aggiungi test statistici e plot dei risultati
 
         logging.info('Exiting cell_line' + cell_line)
 

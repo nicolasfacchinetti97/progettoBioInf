@@ -17,6 +17,8 @@ def create_initial_folders(cell_line):
     create_img_cell_line_folder(cell_line)
     create_csv_folder()
     create_csv_cell_line_folder(cell_line)
+    create_json_folder()
+    create_json_cell_line_folder(cell_line)
 
 
 def create_img_folder():
@@ -49,6 +51,22 @@ def create_csv_cell_line_folder(cell_line):
         logging.info('csv ' + cell_line + ' folder created')
     else:
         logging.info('csv ' + cell_line + ' folder already exists')
+
+
+def create_json_folder():
+    if not os.path.exists('json'):
+        os.mkdir('json')
+        logging.info('json folder created')
+    else:
+        logging.info('json folder already exists')
+
+
+def create_json_cell_line_folder(cell_line):
+    if not os.path.exists('json/' + cell_line):
+        os.mkdir('json/' + cell_line)
+        logging.info('json ' + cell_line + ' folder created')
+    else:
+        logging.info('json ' + cell_line + ' folder already exists')
 
 
 def save_dictionary_as_csv(filename, dictionary):

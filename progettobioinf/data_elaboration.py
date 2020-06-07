@@ -8,7 +8,6 @@ import pandas as pd
 import seaborn as sns
 from boruta import BorutaPy
 from minepy import MINE
-from prince import MFA
 from scipy.stats import entropy
 from scipy.stats import pearsonr
 from scipy.stats import spearmanr
