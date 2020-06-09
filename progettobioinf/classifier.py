@@ -3,7 +3,7 @@ from multiprocessing import cpu_count
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
-from tensorflow.keras.layers import Dense, Input, BatchNormalization, Activation, Dropout
+from tensorflow.keras.layers import Dense, Input, BatchNormalization, Activation, Dropout, Conv2D, Reshape
 from tensorflow.keras.models import Sequential
 
 
@@ -85,3 +85,32 @@ def get_ffnn(shape_value):
     )
 
     return ffnn
+
+def get_cnn(shape_value):
+    cnn = Sequential([
+        Input(shape=(shape_value,)),
+        Reshape((200, 4, 1)),
+        Conv2D(64, kernel_size=(10, 2), activation="relu"),
+        Conv2D(64, kernel_size=(10, 2), activation="relu"),
+        Dropout(0.3),
+        Conv2D(32, kernel_size=(10, 2), strides=(2, 1), activation="relu"),
+        Conv2D(32, kernel_size=(10, 1), activation="relu"),
+        Conv2D(32, kernel_size=(10, 1), activation="relu"),
+        Dropout(0.3),
+        Flatten(),
+        Dense(32, activation="relu"),
+        Dense(16, activation="relu"),
+        Dense(1, activation="sigmoid")
+    ], "CNN")
+
+    cnn.compile(
+        optimizer="nadam",
+        loss="binary_crossentropy",
+        metrics=[
+            "accuracy",
+            AUC(curve="ROC", name="auroc"),
+            AUC(curve="PR", name="auprc")
+        ]
+    )
+
+    return cnn
