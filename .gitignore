@@ -13,3 +13,8 @@ progettobioinf/datasets/*
 progettobioinf/genomes/*
 progettobioinf/img/*
 tests/img/*
+csv/
+genomes/
+img/
+progettobioinf/json/
+epigenomes.csv

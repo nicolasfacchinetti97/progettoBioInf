@@ -3,7 +3,7 @@ import logging
 from keras_tqdm import TQDMNotebookCallback as ktqdm
 from tensorflow.keras.callbacks import EarlyStopping
 
-from progettobioinf.classifier import *
+from classifier import *
 from sklearn.model_selection import StratifiedShuffleSplit
 
 logging.getLogger(__name__)

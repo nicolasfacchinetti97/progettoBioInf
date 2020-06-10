@@ -1,9 +1,9 @@
 from epigenomic_dataset import load_epigenomes
 from ucsc_genomes_downloader import Genome
 
-from progettobioinf.data_retrieval import *
-from progettobioinf.data_visualization import *
-from progettobioinf.initial_setup import *
+from data_retrieval import *
+from data_visualization import *
+from initial_setup import *
 
 logging.getLogger(__name__)
 
@@ -28,6 +28,9 @@ def dataRetrieval(cell_line, assembly, window_size):
         window_size=window_size
     )
 
+    promoters_epigenomes = promoters_epigenomes.droplevel(1, axis=1) 
+    enhancers_epigenomes = enhancers_epigenomes.droplevel(1, axis=1)
+    
     ## Epigenomes Dictionary
     epigenomes = {
         "promoters": promoters_epigenomes,
@@ -42,11 +45,6 @@ def dataRetrieval(cell_line, assembly, window_size):
     ## Genome from UCSC
     genome = Genome(assembly)
 
-    genome.bed_to_sequence(to_bed(epigenomes["promoters"])[:2])
-
-    ## Flat One Hot Encode
-    flat_one_hot_encode(genome, epigenomes["promoters"][:2], window_size)
-
     ## Sequences Dictionary
     sequences = {
         region: to_dataframe(
@@ -55,11 +53,6 @@ def dataRetrieval(cell_line, assembly, window_size):
         )
         for region, data in epigenomes.items()  # TODO check this line
     }
-
-    # print(epigenomes["promoters"][:2])
-    # print(epigenomes["enhancers"][:2])
-    # print(sequences["promoters"][:2])
-    # print(sequences["enhancers"][:2])
 
     # TODO remove this 2 lines of code...
     logging.info('Saving epigenomes csv')
@@ -219,3 +212,26 @@ def data_visualization(epigenomes, labels, sequences, cell_line):
     visualization_PCA(xs, ys, titles, colors, cell_line)
 
     logging.info("Exiting Data Visualization")
+
+
+def load_data_from_csv(cell_line):
+    logging.info("Loading sequences data.")
+    elaborated_sequences_promoters = pd.read_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',')
+    elaborated_sequences_enhancers = pd.read_csv('csv/' + cell_line + '/sequence_enhancers.csv', sep=',')
+    sequences = {"promoters": elaborated_sequences_promoters, "enhancers": elaborated_sequences_enhancers}
+
+    logging.info("Loading epigenomes data.")
+    elaborated_promoters = pd.read_csv('csv/' + cell_line + '/elaborated_promoters.csv', sep=',')
+    elaborated_enhancers = pd.read_csv('csv/' + cell_line + '/elaborated_enhancers.csv', sep=',')
+    epigenomes = {"promoters": elaborated_promoters, "enhancers": elaborated_enhancers}
+
+    logging.info("Loading labels data.")
+    fields = [cell_line]
+    initial_labels_promoters = pd.read_csv('csv/' + cell_line + '/initial_labels_promoters.csv', sep=',',
+                                           usecols=fields)
+    initial_labels_enhancers = pd.read_csv('csv/' + cell_line + '/initial_labels_enhancers.csv', sep=',',
+                                           usecols=fields)
+    labels = {"promoters": initial_labels_promoters, "enhancers": initial_labels_enhancers}
+
+    return epigenomes, labels, sequences
+

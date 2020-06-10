@@ -1,4 +1,4 @@
-from progettobioinf.data_elaboration import *
+from data_elaboration import *
 
 logging.getLogger(__name__)
 

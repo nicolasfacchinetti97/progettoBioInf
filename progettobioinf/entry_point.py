@@ -1,7 +1,7 @@
-from progettobioinf.data_processing import *
-from progettobioinf.results import *
-from progettobioinf.setup_models import *
-from progettobioinf.training_models import *
+from data_processing import *
+from results import *
+from setup_models import *
+from training_models import *
 
 logging.getLogger(__name__)
 
@@ -24,29 +24,12 @@ def main():
         initial_setup(cell_line)
 
         logging.info("Check if data are already elaborated/visualized")
+        #TODO sarebbe meglio dividere ogni fase e in caso contrario prendere singolarmente lo step sotto
         if are_data_elaborated(cell_line) and are_sequence_data_elaborated(cell_line) and are_data_already_visualized(
                 cell_line):
-
             logging.info('Data already elaborated and visualized. Skipping Data Elaboration/Visualization and load '
                          'csv files.')
-
-            logging.info("Loading sequences data.")
-            elaborated_sequences_promoters = pd.read_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',')
-            elaborated_sequences_enhancers = pd.read_csv('csv/' + cell_line + '/sequence_enhancers.csv', sep=',')
-            sequences = {"promoters": elaborated_sequences_promoters, "enhancers": elaborated_sequences_enhancers}
-
-            logging.info("Loading epigenomes data.")
-            elaborated_promoters = pd.read_csv('csv/' + cell_line + '/elaborated_promoters.csv', sep=',')
-            elaborated_enhancers = pd.read_csv('csv/' + cell_line + '/elaborated_enhancers.csv', sep=',')
-            epigenomes = {"promoters": elaborated_promoters, "enhancers": elaborated_enhancers}
-
-            logging.info("Loading labels data.")
-            fields = [cell_line]
-            initial_labels_promoters = pd.read_csv('csv/' + cell_line + '/initial_labels_promoters.csv', sep=',',
-                                                   usecols=fields)
-            initial_labels_enhancers = pd.read_csv('csv/' + cell_line + '/initial_labels_enhancers.csv', sep=',',
-                                                   usecols=fields)
-            labels = {"promoters": initial_labels_promoters, "enhancers": initial_labels_enhancers}
+            epigenomes, labels, sequences = load_data_from_csv(cell_line)
 
         else:
             logging.info("Data are not elaborated/visualized.")
