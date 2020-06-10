@@ -81,6 +81,5 @@ def get_results(holdouts, splits, models, kwargs, X, y, cell_line, task):
 
             logging.info("Add results to Json --> results_" + task + ".json")
             compress_json.local_dump(results, "json/" + cell_line + "/results_" + task + ".json")
-
     return results
 

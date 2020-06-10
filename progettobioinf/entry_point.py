@@ -67,7 +67,7 @@ def main():
                 labels = labels[region].to_numpy().ravel()
                 logging.info("labels shape: " + ''.join(str(labels.shape)))
                 
-                epigenomes = cleanup_data(epigenomes, region)
+                epigenomes = cleanup_epigenomics_data(epigenomes, region)
                 logging.info("Setup models for Tabular Data: " + region)
                 # list of models, args for training, indeces train/test, num splits
                 #models, kwargs, holdouts, splits = setup_models_ffnn(epigenomes.shape[1])
@@ -75,8 +75,10 @@ def main():
                
                 logging.info("Step 4.2 Training Sequence Data" + region)
                 
-                sequences = cleanup_data(sequences, region)
+                #TODO da modificare completamente! i dati di sequenza erano sbagliati!!!!
+                sequences = cleanup_sequences_data(sequences, region)
                 logging.info("Setup models for Sequence Data: " + region)
+
                 models, kwargs, holdouts, splits = setup_model_cnn(sequences.shape)
                 training_the_models(holdouts, splits, models, kwargs, sequences, labels, cell_line, region)
 

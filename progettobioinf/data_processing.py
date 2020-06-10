@@ -1,6 +1,3 @@
-from epigenomic_dataset import load_epigenomes
-from ucsc_genomes_downloader import Genome
-
 from data_retrieval import *
 from data_visualization import *
 from initial_setup import *
@@ -13,50 +10,9 @@ logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
 
 # Data Retrieval
 def dataRetrieval(cell_line, assembly, window_size):
-    ## Epigenomic
-    promoters_epigenomes, promoters_labels = load_epigenomes(
-        cell_line=cell_line,
-        dataset="fantom",
-        regions="promoters",
-        window_size=window_size
-    )
-
-    enhancers_epigenomes, enhancers_labels = load_epigenomes(
-        cell_line=cell_line,
-        dataset="fantom",
-        regions="enhancers",
-        window_size=window_size
-    )
-
-    promoters_epigenomes = promoters_epigenomes.droplevel(1, axis=1) 
-    enhancers_epigenomes = enhancers_epigenomes.droplevel(1, axis=1)
-    
-    ## Epigenomes Dictionary
-    epigenomes = {
-        "promoters": promoters_epigenomes,
-        "enhancers": enhancers_epigenomes
-    }
-
-    labels = {
-        "promoters": promoters_labels,
-        "enhancers": enhancers_labels
-    }
-
-    ## Genome from UCSC
-    genome = Genome(assembly)
-
-    ## Sequences Dictionary
-    sequences = {
-        region: to_dataframe(
-            flat_one_hot_encode(genome, data, window_size),
-            window_size
-        )
-        for region, data in epigenomes.items()  # TODO check this line
-    }
-
-    # TODO remove this 2 lines of code...
-    logging.info('Saving epigenomes csv')
-    save_dictionary_as_csv('epigenomes.csv', epigenomes)
+    # retrieve epigenomic, labels and sequences data
+    epigenomes, labels = retrieve_epigenomes_labels(cell_line, window_size)
+    sequences = retreive_sequences(epigenomes, genome, window_size)
 
     # TODO aggiungi questo codice in una funzione sotto, refactorizza questa parte e aggiungi le loggate quando crea i vari csv
     if os.path.exists('csv/' + cell_line + '/sequence_promoters.csv'):
@@ -232,14 +188,19 @@ def load_data_from_csv(cell_line):
 
     return epigenomes, labels, sequences
 
-def cleanup_data(uncleaned_data, region):
-    logging.info("Dropping non-numeric column")
+def cleanup_epigenomics_data(uncleaned_data, region):
     uncleaned_data[region].drop('chrom', axis=1, inplace=True)
     uncleaned_data[region].drop('chromStart', axis=1, inplace=True)
     uncleaned_data[region].drop('chromEnd', axis=1, inplace=True)
     uncleaned_data[region].drop('strand', axis=1, inplace=True)
 
     cleaned_data = uncleaned_data[region].to_numpy()
-    logging.info("X shape: " + ''.join(str(cleaned_data.shape)))
+    logging.info("Shape of epigenomics data for " + region + ": " + ''.join(str(cleaned_data.shape)))
+
+    return cleaned_data
+
+def cleanup_sequences_data(uncleaned_data, region):
+    cleaned_data = uncleaned_data[region].to_numpy()
+    logging.info("Shape of sequences data for " + region + ": " + ''.join(str(cleaned_data.shape)))
 
     return cleaned_data
