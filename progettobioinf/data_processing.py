@@ -62,18 +62,16 @@ def dataRetrieval(cell_line, assembly, window_size):
     if os.path.exists('csv/' + cell_line + '/sequence_promoters.csv'):
         logging.info('sequence_promoters already exists')
     else:
-        epigenomes['promoters'].to_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',')
-
+        sequences['promoters'].to_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',')
     if os.path.exists('csv/' + cell_line + '/sequence_enhancers.csv'):
         logging.info('sequence_enhancers already exists')
     else:
-        epigenomes['enhancers'].to_csv('csv/' + cell_line + '/sequence_enhancers.csv', sep=',')
+        sequences['enhancers'].to_csv('csv/' + cell_line + '/sequence_enhancers.csv', sep=',')
 
     if os.path.exists('csv/' + cell_line + '/initial_promoters.csv'):
         logging.info('Initial_promoters already exists')
     else:
         epigenomes['promoters'].to_csv('csv/' + cell_line + '/initial_promoters.csv', sep=',')
-
     if os.path.exists('csv/' + cell_line + '/initial_enhancers.csv'):
         logging.info('Initial_enhancers already exists')
     else:
@@ -83,7 +81,6 @@ def dataRetrieval(cell_line, assembly, window_size):
         logging.info('labels_enhancers already exists')
     else:
         labels['enhancers'].to_csv('csv/' + cell_line + '/initial_labels_enhancers.csv', sep=',')
-
     if os.path.exists('csv/' + cell_line + '/initial_labels_promoters.csv'):
         logging.info('labels_promoters already exists')
     else:
