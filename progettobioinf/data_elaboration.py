@@ -226,7 +226,7 @@ def get_top_n_different_features(epigenomes, labels, top_number, cell_line):
             axis.set_title(column)
 
         fig.tight_layout()
-        plt.savefig('img/' + cell_line '/top_' + str(top_number) + '_different_features_' + region + '.png')
+        plt.savefig('img/' + cell_line + '/top_' + str(top_number) + '_different_features_' + region + '.png')
         logging.info('Top different features saved')
 
 
