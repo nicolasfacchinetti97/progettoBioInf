@@ -1,3 +1,11 @@
+import os
+# to suppress the annoying logging of tensorlow
+# 0 = all messages are logged (default behavior)
+# 1 = INFO messages are not printed
+# 2 = INFO and WARNING messages are not printed
+# 3 = INFO, WARNING, and ERROR messages are not printed
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
+
 from data_processing import *
 from results import *
 from setup_models import *
@@ -47,70 +55,35 @@ def main():
             data_visualization(epigenomes, labels, sequences, cell_line)
 
         # Step 4. Training the models
-        logging.info("Step 5. Training the models")
+        logging.info("Step 4. Training the models")
 
         for region, x in epigenomes.items():
             if os.path.exists('json/' + cell_line + '/results_' + region + ".json"):
                 logging.info("Results " + region + " ok!")
 
             else:
-                logging.info("Step 5.1 Training " + region)
-                logging.info("Dropping non-numeric column")
-                epigenomes[region].drop('chrom', axis=1, inplace=True)
-                epigenomes[region].drop('chromStart', axis=1, inplace=True)
-                epigenomes[region].drop('chromEnd', axis=1, inplace=True)
-                epigenomes[region].drop('strand', axis=1, inplace=True)
+                logging.info("Step 4.1 Training Tabular Data" + region)
+            
+                labels = labels[region].to_numpy().ravel()
+                logging.info("labels shape: " + ''.join(str(labels.shape)))
+                
+                epigenomes = cleanup_data(epigenomes, region)
+                logging.info("Setup models for Tabular Data: " + region)
+                # list of models, args for training, indeces train/test, num splits
+                #models, kwargs, holdouts, splits = setup_models_ffnn(epigenomes.shape[1])
+                #training_the_models(holdouts, splits, models, kwargs, epigenomes, labels, cell_line, region)
+               
+                logging.info("Step 4.2 Training Sequence Data" + region)
+                
+                sequences = cleanup_data(sequences, region)
+                logging.info("Setup models for Sequence Data: " + region)
+                models, kwargs, holdouts, splits = setup_model_cnn(sequences.shape)
+                training_the_models(holdouts, splits, models, kwargs, sequences, labels, cell_line, region)
 
-                X = epigenomes[region].to_numpy()
-                y = labels[region].to_numpy().ravel()
-                logging.info("X shape: " + ''.join(str(X.shape)))
-                logging.info("y shape: " + ''.join(str(y.shape)))
-
-                logging.info("Setup models: " + region)
-                models, kwargs, holdouts, splits = setup_models(X.shape[1])
-                training_the_models(holdouts, splits, models, kwargs, X, y, cell_line, region)
-
-        # if os.path.exists('json/' + cell_line + '/results_promoters.json'):
-        #     logging.info("Results promoters ok!")
-        # else:
-        #     logging.info("Step 5.1 Training Promoters")
-        #     logging.info("Dropping non-numeric column")
-        #     epigenomes["promoters"].drop('chrom', axis=1, inplace=True)
-        #     epigenomes["promoters"].drop('chromStart', axis=1, inplace=True)
-        #     epigenomes["promoters"].drop('chromEnd', axis=1, inplace=True)
-        #     epigenomes["promoters"].drop('strand', axis=1, inplace=True)
-        #
-        #     X = epigenomes["promoters"].to_numpy()
-        #     y = labels["promoters"].to_numpy().ravel()
-        #     logging.info("X shape: " + ''.join(str(X.shape)))
-        #     logging.info("y shape: " + ''.join(str(y.shape)))
-        #
-        #     logging.info("Setup models (promoters)")
-        #     models, kwargs, holdouts, splits = setup_models(X.shape[1])
-        #     training_the_models(holdouts, splits, models, kwargs, X, y, cell_line, "promoters")
-        #
-        # if os.path.exists('json/' + cell_line + '/results_enhancers.json'):
-        #     logging.info("Results promoters ok!")
-        # else:
-        #     logging.info("Step 5.2 Training Enhancers")
-        #     logging.info("Dropping non-numeric column")
-        #     epigenomes["enhancers"].drop('chrom', axis=1, inplace=True)
-        #     epigenomes["enhancers"].drop('chromStart', axis=1, inplace=True)
-        #     epigenomes["enhancers"].drop('chromEnd', axis=1, inplace=True)
-        #     epigenomes["enhancers"].drop('strand', axis=1, inplace=True)
-        #
-        #     X = epigenomes["enhancers"].to_numpy()
-        #     y = labels["enhancers"].to_numpy().ravel()
-        #     logging.info("X shape: " + ''.join(str(X.shape)))
-        #     logging.info("y shape: " + ''.join(str(y.shape)))
-        #
-        #     logging.info("Setup models (enhancers)")
-        #     models, kwargs, holdouts, splits = setup_models(X.shape[1])
-        #     training_the_models(holdouts, splits, models, kwargs, X, y, cell_line, "enhancers")
-
-        # Step 6. Results and statistical tests
+        
+        # Step 5. Results and statistical tests
         #TODO
-        logging.info("TODO!!! Step 6. Results and statistical tests")
+        logging.info("TODO!!! Step 5. Results and statistical tests")
         # results = get_results(holdouts, splits, models, kwargs, X, y)
         # results_df = convert_results_to_dataframe(results)
         # save_results_df_to_csv(results_df)

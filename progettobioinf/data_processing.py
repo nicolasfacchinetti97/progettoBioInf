@@ -235,3 +235,14 @@ def load_data_from_csv(cell_line):
 
     return epigenomes, labels, sequences
 
+def cleanup_data(uncleaned_data, region):
+    logging.info("Dropping non-numeric column")
+    uncleaned_data[region].drop('chrom', axis=1, inplace=True)
+    uncleaned_data[region].drop('chromStart', axis=1, inplace=True)
+    uncleaned_data[region].drop('chromEnd', axis=1, inplace=True)
+    uncleaned_data[region].drop('strand', axis=1, inplace=True)
+
+    cleaned_data = uncleaned_data[region].to_numpy()
+    logging.info("X shape: " + ''.join(str(cleaned_data.shape)))
+
+    return cleaned_data

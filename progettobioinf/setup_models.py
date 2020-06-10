@@ -11,7 +11,36 @@ logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
                     datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
 
-def setup_models(shape_value):
+def setup_model_cnn(shape_value):
+    models = []
+    kwargs = []
+
+    logging.info("Setup Convolutional Neural Network")
+    cnn = get_cnn(shape_value)
+    models.append(cnn)
+    kwargs.append(dict(
+        epochs=10,
+        batch_size=16,
+        validation_split=0.1,
+        shuffle=True,
+        verbose=False,
+        callbacks=[
+            EarlyStopping(monitor="val_loss", mode="min", patience=50),
+            ktqdm(leave_outer=False)
+        ]
+
+#epochs=1000,
+#        shuffle=True,
+#        verbose=False,
+#        callbacks=[
+#            EarlyStopping(monitor="val_loss", mode="min", patience=50),
+#        ]
+    ))
+
+    holdouts, splits = __preparing_the_holdouts()
+    return models, kwargs, holdouts, splits
+
+def setup_models_ffnn(shape_value):
     models = []
     kwargs = []
 
@@ -74,6 +103,11 @@ def setup_models(shape_value):
             ktqdm(leave_outer=False)
         ]
     ))
+
+    #logging.info("Setup Convolutional Neural Network")
+    #cnn = get_cnn(shape_value)
+    #models.append(cnn)
+    #kwargs.append(dict)
 
     holdouts, splits = __preparing_the_holdouts()
     return models, kwargs, holdouts, splits
