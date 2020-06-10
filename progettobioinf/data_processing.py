@@ -110,7 +110,7 @@ def dataElaboration(epigenomes, labels, cell_line):
 
     ## Class Balance
     logging.info("Checking class balance")
-    check_class_balance(labels)
+    check_class_balance(labels, cell_line)
 
     ## Drop constant features
     logging.info("Dropping constant features")
@@ -167,18 +167,18 @@ def dataElaboration(epigenomes, labels, cell_line):
 
     ## Scatter plot (most correlated touples)
     logging.info("Scatter plot - detect most n correlated touples")
-    detect_most_n_correlated_touples(epigenomes, scores, 3, labels)
+    detect_most_n_correlated_touples(epigenomes, scores, 3, labels, cell_line)
 
     ## Scatter plot (most uncorrelated touples)
     logging.info("Scatter plot - detect most n uncorrelated touples")
-    detect_most_n_uncorrelated_touples(epigenomes, scores, 3, labels)
+    detect_most_n_uncorrelated_touples(epigenomes, scores, 3, labels, cell_line)
 
     # Features distributions
     logging.info("Getting top n different features")
-    get_top_n_different_features(epigenomes, labels, 5)
+    get_top_n_different_features(epigenomes, labels, 5, cell_line)
 
     logging.info("Getting top n different touples")
-    get_top_n_different_tuples(epigenomes, 5)
+    get_top_n_different_tuples(epigenomes, 5, cell_line)
 
     start_feature_selection(epigenomes, labels)
 

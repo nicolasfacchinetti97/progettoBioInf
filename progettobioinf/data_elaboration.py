@@ -61,13 +61,13 @@ def knn_imputation(epigenomes):
 
 
 # Class Balance
-def check_class_balance(labels):
+def check_class_balance(labels, cell_line):
     fig, axes = plt.subplots(ncols=2, figsize=(10, 5))
 
     for axis, (region, y) in zip(axes.ravel(), labels.items()):
         y.hist(ax=axis, bins=3)
         axis.set_title(f"Classes count in {region}")
-    fig.savefig('img/K562/class_balance.png')
+    fig.savefig('img/' + cell_line + '/class_balance.png')
     logging.info('class balance img saved')
 
 
@@ -173,7 +173,7 @@ def check_features_correlations(epigenomes, scores, p_value_threshold, correlati
 
 
 # Most "n" correlated touples
-def detect_most_n_correlated_touples(epigenomes, scores, n, labels):
+def detect_most_n_correlated_touples(epigenomes, scores, n, labels, cell_line):
     for region, x in epigenomes.items():
         _, firsts, seconds = list(zip(*scores[region][:n]))
         columns = list(set(firsts + seconds))
@@ -182,12 +182,12 @@ def detect_most_n_correlated_touples(epigenomes, scores, n, labels):
             x[columns],
             labels[region],
         ], axis=1), hue=labels[region].columns[0])
-        plt.savefig('img/K562/scatter_plot_correlated_' + region + ".png")
+        plt.savefig('img/' + cell_line + '/scatter_plot_correlated_' + region + ".png")
         logging.info('Scatter plot correlated saved')
 
 
 # Most "n" uncorrelated touples
-def detect_most_n_uncorrelated_touples(epigenomes, scores, n, labels):
+def detect_most_n_uncorrelated_touples(epigenomes, scores, n, labels, cell_line):
     for region, x in epigenomes.items():
         _, firsts, seconds = list(zip(*scores[region][-n:]))
         columns = list(set(firsts + seconds))
@@ -196,7 +196,7 @@ def detect_most_n_uncorrelated_touples(epigenomes, scores, n, labels):
             x[columns],
             labels[region],
         ], axis=1), hue=labels[region].columns[0])
-        plt.savefig('img/K562/scatter_plot_uncorrelated_' + region + ".png")
+        plt.savefig('img/' + cell_line + '/scatter_plot_uncorrelated_' + region + ".png")
         logging.info('Scatter plot uncorrelated saved')
 
 
@@ -205,7 +205,7 @@ def __get_top_most_different(dist, n: int):
     return np.argsort(-np.mean(dist, axis=1).flatten())[:n]
 
 
-def get_top_n_different_features(epigenomes, labels, top_number):
+def get_top_n_different_features(epigenomes, labels, top_number, cell_line):
     for region, x in epigenomes.items():
         dist = euclidean_distances(x.T)
         most_distance_columns_indices = __get_top_most_different(dist, top_number)
@@ -226,7 +226,7 @@ def get_top_n_different_features(epigenomes, labels, top_number):
             axis.set_title(column)
 
         fig.tight_layout()
-        plt.savefig('img/K562/top_' + str(top_number) + '_different_features_' + region + '.png')
+        plt.savefig('img/' + cell_line '/top_' + str(top_number) + '_different_features_' + region + '.png')
         logging.info('Top different features saved')
 
 
@@ -234,7 +234,7 @@ def __get_top_most_different_tuples(dist, n: int):
     return list(zip(*np.unravel_index(np.argsort(-dist.ravel()), dist.shape)))[:n]
 
 
-def get_top_n_different_tuples(epigenomes, top_number):
+def get_top_n_different_tuples(epigenomes, top_number, cell_line):
     for region, x in epigenomes.items():
         dist = euclidean_distances(x.T)
         dist = np.triu(dist)
@@ -250,7 +250,7 @@ def get_top_n_different_tuples(epigenomes, top_number):
                 x[column][mask].hist(ax=axis, bins=20, alpha=0.5)
             axis.set_title(f"{column_i} and {column_j}")
         fig.tight_layout()
-        plt.savefig('img/K562/top_' + str(top_number) + '_different_tuples_' + region + '.png')
+        plt.savefig('img/' + cell_line + '/top_' + str(top_number) + '_different_tuples_' + region + '.png')
         logging.info('Top different tuples saved')
 
 
