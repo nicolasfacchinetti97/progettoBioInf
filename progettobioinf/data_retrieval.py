@@ -105,9 +105,17 @@ def are_data_visualized(cell_line):
 def are_data_retrieved(cell_line):
     return (are_sequences_retrieved(cell_line) and are_epigenomics_retrieved and are_labels_retrieved(cell_line))
 
-# added in case is necessary to add some later sequence data elaboration
-def are_data_elaborated(cell_line):                     
-    return are_epigenomics_elaborated(cell_line)
+def is_done_features_correlation(cell_line, n, top_number):
+    statement = True
+    for region in ["promoters", "enhancers"]:
+        statement = (statement and os.path.exists('img/{}/scatter_plot_most_{}_uncorrelated_{}.png'.format(cell_line, n, region)) and
+        os.path.exists('img/{}/scatter_plot_most_{}_correlated_{}.png'.format(cell_line, n, region)) and
+        os.path.exists('img/{}/top_{}_different_features_{}.png'.format(cell_line, top_number, region)) and
+        os.path.exists('img/{}/top_{}_different_tuples_{}.png'.format(cell_line, top_number, region)))
+    return statement
+
+def are_data_elaborated(cell_line, n, top_number):                     
+    return (are_epigenomics_elaborated(cell_line) and is_done_features_correlation(cell_line, n, top_number))
 
 def load_csv_retrieved_data(cell_line):
     sequences_promoters = pd.read_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',')
@@ -130,7 +138,9 @@ def load_csv_retrieved_data(cell_line):
 
 def load_csv_elaborated_data(cell_line):
     elaborated_promoters = pd.read_csv('csv/' + cell_line + '/elaborated_promoters.csv', sep=',')
+    elaborated_promoters.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
     elaborated_enhancers = pd.read_csv('csv/' + cell_line + '/elaborated_enhancers.csv', sep=',')
+    elaborated_enhancers.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
     epigenomes = {"promoters": elaborated_promoters, "enhancers": elaborated_enhancers}
 
     return epigenomes

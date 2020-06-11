@@ -41,11 +41,13 @@ def main():
 
         # Step 2. Data Elaboration
         logging.info('Step 2. Data Elaboration')
-        if are_data_elaborated(cell_line):
-            logging.info('Data already elaborated! Load from .csv files...')
+        top_number = 5                                          # parameters for features correlation
+        number_tuples = 3
+        if are_data_elaborated(cell_line, number_tuples, top_number):
+            logging.info('All the elaborations done! Load from .csv files...')
             epigenomes = load_csv_elaborated_data(cell_line)
         else:
-            epigenomes = dataElaboration(epigenomes, labels, cell_line)
+            epigenomes = dataElaboration(epigenomes, labels, cell_line, number_tuples, top_number)
 
         # Step 3. Data Visualization
         logging.info('Step 3. Data Visualization')

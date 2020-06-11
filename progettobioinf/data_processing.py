@@ -46,99 +46,23 @@ def dataRetrieval(cell_line, genome, window_size):
 
 
 # Step 2. Data elaboration
-def dataElaboration(epigenomes, labels, cell_line):
+def dataElaboration(epigenomes, labels, cell_line, number_tuples, top_number):
     logging.info("Starting Data Elaboration")
 
-    ## Rate between features and samples
-    logging.info("Rate features samples")
-    rate_features_samples(epigenomes)
+    if are_epigenomics_elaborated(cell_line):
+        logging.info("The epigenomics data already elaborated! Load from .csv files...")
+        epigenomes = load_csv_elaborated_data(cell_line)
+    else:
+        epigenomes = elaborate_epigenomics_data(epigenomes, labels, cell_line)
+    
+    if is_done_features_correlation(cell_line, number_tuples, top_number):
+        logging.info("Feature correlations image alredy done... skip step")
+    else:
+        do_features_correlations(epigenomes, labels, cell_line, number_tuples, top_number)
+    
 
-    ## NaN detection
-    logging.info("NaN Detection")
-    nan_detection(epigenomes)
-
-    ## KNN imputation
-    logging.info("KNN imputation")
-    epigenomes = knn_imputation(epigenomes)
-
-    ## Class Balance
-    logging.info("Checking class balance")
-    check_class_balance(labels, cell_line)
-
-    ## Drop constant features
-    logging.info("Dropping constant features")
-    epigenomes = drop_constant_features(epigenomes)
-
-    ## Z-Scoring
-    logging.info("Data normalization")
-    epigenomes = data_normalization(epigenomes)
-
-    p_value_threshold = 0.01
-    correlation_threshold = 0.05
-
-    uncorrelated = {
-        region: set()
-        for region in epigenomes
-    }
-
-    ## Pearson
-    logging.info("Executing Pearson Test")
-    execute_pearson(epigenomes, labels, p_value_threshold, uncorrelated)
-
-    ## Spearman
-    logging.info("Executing Spearman Test")
-    execute_spearman(epigenomes, labels, p_value_threshold, uncorrelated)
-
-    ## MIC
-    logging.info("Executing Mic Test")
-    execute_mic(epigenomes, labels, correlation_threshold, uncorrelated)
-
-    ## Drop features uncorrelated with output
-    logging.info("Dropping features uncorrelated with output")
-    epigenomes = drop_features(epigenomes, uncorrelated)
-
-    extremely_correlated = {
-        region: set()
-        for region in epigenomes
-    }
-
-    scores = {
-        region: []
-        for region in epigenomes
-    }
-
-    # Features correlations
-    logging.info("Checking features correlations")
-    check_features_correlations(epigenomes, scores, p_value_threshold, correlation_threshold, extremely_correlated)
-
-    # Sort the obtained scores
-    logging.info("Sorting the obtained scores")
-    scores = {
-        region: sorted(score, key=lambda x: np.abs(x[0]), reverse=True)
-        for region, score in scores.items()
-    }
-
-    ## Scatter plot (most correlated touples)
-    logging.info("Scatter plot - detect most n correlated touples")
-    detect_most_n_correlated_touples(epigenomes, scores, 3, labels, cell_line)
-
-    ## Scatter plot (most uncorrelated touples)
-    logging.info("Scatter plot - detect most n uncorrelated touples")
-    detect_most_n_uncorrelated_touples(epigenomes, scores, 3, labels, cell_line)
-
-    # Features distributions
-    logging.info("Getting top n different features")
-    get_top_n_different_features(epigenomes, labels, 5, cell_line)
-
-    logging.info("Getting top n different touples")
-    get_top_n_different_tuples(epigenomes, 5, cell_line)
-
-    start_feature_selection(epigenomes, labels)
-
-    for region, x in epigenomes.items():
-        logging.info('Saving epigenomes elaborated csv (' + region + ')')
-        # np.savetxt('epigenomes_elaborated_np_' + region + '.csv', epigenomes[region], delimiter=',')
-        epigenomes[region].to_csv('csv/' + cell_line + '/elaborated_' + region + '.csv', sep=',')
+    # ====================== Features selection ======================
+    #start_feature_selection(epigenomes, labels)         # TODO A COSA SERVE? NON RITORNA...
 
     logging.info("Exiting data elaboration")
     return epigenomes
