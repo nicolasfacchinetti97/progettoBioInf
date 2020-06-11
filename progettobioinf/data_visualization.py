@@ -81,6 +81,3 @@ def visualization_PCA(xs, ys, titles, colors, cell_line):
     plt.savefig('img/' + cell_line + '/pca_decomposition.png')
     logging.info("PCA img saved")
 
-
-def are_data_already_visualized(cell_line):
-    return os.path.exists('img/' + cell_line + '/pca_decomposition.png')

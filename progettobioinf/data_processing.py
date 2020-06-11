@@ -9,10 +9,10 @@ logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
 
 
 # Data Retrieval
-def dataRetrieval(cell_line, assembly, window_size):
+def dataRetrieval(cell_line, genome, window_size):
     # retrieve epigenomic, labels and sequences data
     epigenomes, labels = retrieve_epigenomes_labels(cell_line, window_size)
-    sequences = retreive_sequences(epigenomes, genome, window_size)
+    sequences = retrieve_sequences(epigenomes, genome, window_size)
 
     # TODO aggiungi questo codice in una funzione sotto, refactorizza questa parte e aggiungi le loggate quando crea i vari csv
     if os.path.exists('csv/' + cell_line + '/sequence_promoters.csv'):
@@ -33,14 +33,14 @@ def dataRetrieval(cell_line, assembly, window_size):
     else:
         epigenomes['enhancers'].to_csv('csv/' + cell_line + '/initial_enhancers.csv', sep=',')
 
-    if os.path.exists('csv/' + cell_line + '/initial_labels_enhancers.csv'):
+    if os.path.exists('csv/' + cell_line + '/labels_enhancers.csv'):
         logging.info('labels_enhancers already exists')
     else:
-        labels['enhancers'].to_csv('csv/' + cell_line + '/initial_labels_enhancers.csv', sep=',')
-    if os.path.exists('csv/' + cell_line + '/initial_labels_promoters.csv'):
+        labels['enhancers'].to_csv('csv/' + cell_line + '/labels_enhancers.csv', sep=',')
+    if os.path.exists('csv/' + cell_line + '/labels_promoters.csv'):
         logging.info('labels_promoters already exists')
     else:
-        labels['promoters'].to_csv('csv/' + cell_line + '/initial_labels_promoters.csv', sep=',')
+        labels['promoters'].to_csv('csv/' + cell_line + '/labels_promoters.csv', sep=',')
 
     return epigenomes, labels, sequences
 
@@ -166,33 +166,11 @@ def data_visualization(epigenomes, labels, sequences, cell_line):
 
     logging.info("Exiting Data Visualization")
 
-
-def load_data_from_csv(cell_line):
-    logging.info("Loading sequences data.")
-    elaborated_sequences_promoters = pd.read_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',')
-    elaborated_sequences_enhancers = pd.read_csv('csv/' + cell_line + '/sequence_enhancers.csv', sep=',')
-    sequences = {"promoters": elaborated_sequences_promoters, "enhancers": elaborated_sequences_enhancers}
-
-    logging.info("Loading epigenomes data.")
-    elaborated_promoters = pd.read_csv('csv/' + cell_line + '/elaborated_promoters.csv', sep=',')
-    elaborated_enhancers = pd.read_csv('csv/' + cell_line + '/elaborated_enhancers.csv', sep=',')
-    epigenomes = {"promoters": elaborated_promoters, "enhancers": elaborated_enhancers}
-
-    logging.info("Loading labels data.")
-    fields = [cell_line]
-    initial_labels_promoters = pd.read_csv('csv/' + cell_line + '/initial_labels_promoters.csv', sep=',',
-                                           usecols=fields)
-    initial_labels_enhancers = pd.read_csv('csv/' + cell_line + '/initial_labels_enhancers.csv', sep=',',
-                                           usecols=fields)
-    labels = {"promoters": initial_labels_promoters, "enhancers": initial_labels_enhancers}
-
-    return epigenomes, labels, sequences
-
 def cleanup_epigenomics_data(uncleaned_data, region):
-    uncleaned_data[region].drop('chrom', axis=1, inplace=True)
-    uncleaned_data[region].drop('chromStart', axis=1, inplace=True)
-    uncleaned_data[region].drop('chromEnd', axis=1, inplace=True)
-    uncleaned_data[region].drop('strand', axis=1, inplace=True)
+    #uncleaned_data[region].drop('chrom', axis=1, inplace=True)
+    #uncleaned_data[region].drop('chromStart', axis=1, inplace=True)
+    #uncleaned_data[region].drop('chromEnd', axis=1, inplace=True)
+    #uncleaned_data[region].drop('strand', axis=1, inplace=True)
 
     cleaned_data = uncleaned_data[region].to_numpy()
     logging.info("Shape of epigenomics data for " + region + ": " + ''.join(str(cleaned_data.shape)))

@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from keras_bed_sequence import BedSequence
 import logging
+import os
 
 logging.getLogger(__name__)
 
@@ -36,6 +37,7 @@ def to_dataframe(x: np.ndarray, window_size: int, nucleotides: str = "actg") -> 
     )
 
 def retrieve_epigenomes_labels(cell_line, window_size):
+    logging.info("Loading epigenomics data and labels...")
     promoters_epigenomes, promoters_labels = load_epigenomes(
         cell_line=cell_line,
         dataset="fantom",
@@ -66,16 +68,69 @@ def retrieve_epigenomes_labels(cell_line, window_size):
 
     return epigenomes, labels
 
-def retrieve_sequences(epigenomes, genome, window_size):
+def retrieve_sequences(epigenomes, assembly, window_size):
+    logging.info("Loading sequences data...")
     # Genome from UCSC
     genome = Genome(assembly)
 
     # Sequences Dictionary
     sequences = {
         region: to_dataframe(
-            flat_one_hot_encode(genome, data, window_size),
+            flat_one_hot_encode(assembly, data, window_size),
             window_size
         )
         for region, data in epigenomes.items()  # TODO check this line
     }
-    return
+    return sequences
+
+def are_sequences_retrieved(cell_line):
+    return (os.path.exists('csv/' + cell_line + '/sequence_promoters.csv') and
+        os.path.exists('csv/' + cell_line + '/sequence_enhancers.csv'))
+
+def are_epigenomics_retrieved(cell_line):
+    return (os.path.exists('csv/' + cell_line + '/intial_promoters.csv') and
+        os.path.exists('csv/' + cell_line + '/initial_enhancers.csv'))
+
+def are_labels_retrieved(cell_line):
+    return (os.path.exists('csv/' + cell_line + '/labels_promoters.csv') and 
+        os.path.exists('csv/' + cell_line + '/labels_enhancers.csv'))
+
+def are_epigenomics_elaborated(cell_line):
+    return (os.path.exists('csv/' + cell_line + '/elaborated_promoters.csv') and 
+        os.path.exists('csv/' + cell_line + '/elaborated_enhancers.csv'))
+
+def are_data_visualized(cell_line):
+    return os.path.exists('img/' + cell_line + '/pca_decomposition.png')
+
+def are_data_retrieved(cell_line):
+    return (are_sequences_retrieved(cell_line) and are_epigenomics_retrieved and are_labels_retrieved(cell_line))
+
+# added in case is necessary to add some later sequence data elaboration
+def are_data_elaborated(cell_line):                     
+    return are_epigenomics_elaborated(cell_line)
+
+def load_csv_retrieved_data(cell_line):
+    sequences_promoters = pd.read_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',')
+    sequences_enhancers = pd.read_csv('csv/' + cell_line + '/sequence_enhancers.csv', sep=',')
+    sequences = {"promoters": sequences_promoters, "enhancers": sequences_enhancers}
+
+    initial_promoters = pd.read_csv('csv/' + cell_line + '/initial_promoters.csv', sep=',')
+    initial_promoters.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
+    initial_enhancers = pd.read_csv('csv/' + cell_line + '/initial_enhancers.csv', sep=',')
+    initial_enhancers.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
+    epigenomes = {"promoters": initial_promoters, "enhancers": initial_enhancers}
+
+    labels_promoters = pd.read_csv('csv/' + cell_line + '/labels_promoters.csv', sep=',')
+    labels_promoters.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
+    labels_enhancers = pd.read_csv('csv/' + cell_line + '/labels_enhancers.csv', sep=',')
+    labels_enhancers.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
+    labels = {"promoters": labels_promoters, "enhancers": labels_enhancers}
+
+    return epigenomes, labels, sequences
+
+def load_csv_elaborated_data(cell_line):
+    elaborated_promoters = pd.read_csv('csv/' + cell_line + '/elaborated_promoters.csv', sep=',')
+    elaborated_enhancers = pd.read_csv('csv/' + cell_line + '/elaborated_enhancers.csv', sep=',')
+    epigenomes = {"promoters": elaborated_promoters, "enhancers": elaborated_enhancers}
+
+    return epigenomes

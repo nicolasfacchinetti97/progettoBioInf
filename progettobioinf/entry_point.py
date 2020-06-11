@@ -31,27 +31,27 @@ def main():
         logging.info('Step 0. Initial Setup')
         initial_setup(cell_line)
 
-        logging.info("Check if data are already elaborated/visualized")
-        #TODO sarebbe meglio dividere ogni fase e in caso contrario prendere singolarmente lo step sotto
-        if are_data_elaborated(cell_line) and are_sequence_data_elaborated(cell_line) and are_data_already_visualized(
-                cell_line):
-            logging.info('Data already elaborated and visualized. Skipping Data Elaboration/Visualization and load '
-                         'csv files.')
-            epigenomes, labels, sequences = load_data_from_csv(cell_line)
-
+        # Step 1. Data Retrieval
+        logging.info('Step 1. Data Retrieval')
+        if are_data_retrieved(cell_line):
+            logging.info('Data already retrieved! Load from .csv files...')
+            epigenomes, labels, sequences = load_csv_retrieved_data(cell_line)
         else:
-            logging.info("Data are not elaborated/visualized.")
-
-            # Step 1. Data Retrieval
-            logging.info('Step 1. Data Retrieval')
             epigenomes, labels, sequences = dataRetrieval(cell_line, assembly, window_size)
 
-            # Step 2. Data Elaboration
-            logging.info('Step 2. Data Elaboration')
+        # Step 2. Data Elaboration
+        logging.info('Step 2. Data Elaboration')
+        if are_data_elaborated(cell_line):
+            logging.info('Data already elaborated! Load from .csv files...')
+            epigenomes = load_csv_elaborated_data(cell_line)
+        else:
             epigenomes = dataElaboration(epigenomes, labels, cell_line)
 
-            # Step 3. Data Visualization
-            logging.info('Step 3. Data Visualization')
+        # Step 3. Data Visualization
+        logging.info('Step 3. Data Visualization')
+        if are_data_visualized(cell_line):
+            logging.info("Data already visualized! Skip the step...")
+        else:
             data_visualization(epigenomes, labels, sequences, cell_line)
 
         # Step 4. Training the models
@@ -66,7 +66,6 @@ def main():
             
                 labels = labels[region].to_numpy().ravel()
                 logging.info("labels shape: " + ''.join(str(labels.shape)))
-                
                 epigenomes = cleanup_epigenomics_data(epigenomes, region)
                 logging.info("Setup models for Tabular Data: " + region)
                 # list of models, args for training, indeces train/test, num splits

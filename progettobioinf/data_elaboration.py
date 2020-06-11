@@ -16,7 +16,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import KNNImputer
 from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.preprocessing import RobustScaler
-from tqdm.auto import tqdm  # A simple loading bar
+from tqdm.auto import tqdm
 
 logging.getLogger(__name__)
 
@@ -284,36 +284,3 @@ def start_feature_selection(epigenomes, labels):
 
 def pca(x: np.ndarray, n_components: int = 2) -> np.ndarray:
     return PCA(n_components=n_components, random_state=42).fit_transform(x)
-
-
-def are_data_elaborated(cell_line):
-    return are_enhancers_elaborated(cell_line) and are_promoters_elaborated(
-        cell_line) and are_labels_enhancers_elaborated(cell_line) and are_labels_promoters_elaborated(cell_line)
-
-
-def are_sequence_data_elaborated(cell_line):
-    return are_sequence_enhancers_elaborated(cell_line) and are_sequence_promoters_elaborated(cell_line)
-
-
-def are_sequence_promoters_elaborated(cell_line):
-    return os.path.exists('csv/' + cell_line + '/sequence_promoters.csv')
-
-
-def are_sequence_enhancers_elaborated(cell_line):
-    return os.path.exists('csv/' + cell_line + '/sequence_enhancers.csv')
-
-
-def are_promoters_elaborated(cell_line):
-    return os.path.exists('csv/' + cell_line + '/elaborated_promoters.csv')
-
-
-def are_enhancers_elaborated(cell_line):
-    return os.path.exists('csv/' + cell_line + '/elaborated_enhancers.csv')
-
-
-def are_labels_promoters_elaborated(cell_line):
-    return os.path.exists('csv/' + cell_line + '/initial_labels_promoters.csv')
-
-
-def are_labels_enhancers_elaborated(cell_line):
-    return os.path.exists('csv/' + cell_line + '/initial_labels_enhancers.csv')
