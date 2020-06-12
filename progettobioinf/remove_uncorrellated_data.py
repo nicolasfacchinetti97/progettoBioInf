@@ -1,7 +1,8 @@
 # Correlation with output
+import logging
+
 from minepy import MINE
 from scipy.stats import pearsonr, spearmanr
-import logging
 from tqdm.auto import tqdm
 
 logging.getLogger(__name__)

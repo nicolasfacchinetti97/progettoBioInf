@@ -1,8 +1,9 @@
 import logging
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import matplotlib.pyplot as plt
 from sklearn.metrics.pairwise import euclidean_distances
 
 logging.getLogger(__name__)
@@ -91,4 +92,3 @@ def get_top_n_different_tuples(epigenomes, top_number, cell_line):
         fig.tight_layout()
         plt.savefig('img/{}/top_{}_different_tuples_{}.png'.format(cell_line, top_number, region))
         logging.info('Top different tuples saved')
-

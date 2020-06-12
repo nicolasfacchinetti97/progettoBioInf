@@ -1,11 +1,11 @@
 from multiprocessing import cpu_count
 
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from tensorflow.keras.layers import Dense, Input, BatchNormalization, Activation, Dropout, Conv2D, Reshape, Flatten
-from tensorflow.keras.models import Sequential
 from tensorflow.keras.metrics import AUC
+from tensorflow.keras.models import Sequential
+
 
 # def get_knn_classifier():
 #     knn = KNeighborsClassifier(n_neighbors=5)
@@ -97,10 +97,11 @@ def get_ffnn(shape_value):
             AUC(curve="ROC", name="auroc"),
             AUC(curve="PR", name="auprc")
         ]
-        
+
     )
 
     return ffnn
+
 
 def get_cnn(shape_value):
     cnn = Sequential([

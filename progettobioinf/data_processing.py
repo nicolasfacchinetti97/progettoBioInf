@@ -54,12 +54,11 @@ def dataElaboration(epigenomes, labels, cell_line, number_tuples, top_number):
         epigenomes = load_csv_elaborated_data(cell_line)
     else:
         epigenomes = elaborate_epigenomics_data(epigenomes, labels, cell_line)
-    
+
     if is_done_features_correlation(cell_line, number_tuples, top_number):
         logging.info("Feature correlations image alredy done... skip step")
     else:
         do_features_correlations(epigenomes, labels, cell_line, number_tuples, top_number)
-    
 
     # ====================== Features selection ======================
     # start_feature_selection(epigenomes, labels)         # TODO A COSA SERVE? NON RITORNA...

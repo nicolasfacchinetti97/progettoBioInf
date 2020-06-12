@@ -1,17 +1,16 @@
 import logging
-import os
+from typing import Tuple
 
 import compress_json
 import numpy as np
 import pandas as pd
-from sanitize_ml_labels import sanitize_ml_labels
-from sklearn.metrics import accuracy_score, balanced_accuracy_score, roc_auc_score, average_precision_score
-from tqdm.auto import tqdm
-
+from keras.callbacks import EarlyStopping
 from keras_bed_sequence import BedSequence
 from keras_mixed_sequence import MixedSequence
+from sanitize_ml_labels import sanitize_ml_labels
+from sklearn.metrics import accuracy_score, balanced_accuracy_score, roc_auc_score, average_precision_score
 from tensorflow.keras.utils import Sequence
-from typing import Tuple
+from tqdm.auto import tqdm
 
 logging.getLogger(__name__)
 
@@ -45,19 +44,22 @@ def __precomputed(results, model: str, holdout: int) -> bool:
             (df.holdout == holdout)
     ).any()
 
-def __get_sequence_holdouts(train:np.ndarray, test:np.ndarray, bed:pd.DataFrame, labels:np.ndarray, genome, batch_size=1024)->Tuple[Sequence, Sequence]:
+
+def __get_sequence_holdouts(train: np.ndarray, test: np.ndarray, bed: pd.DataFrame, labels: np.ndarray, genome,
+                            batch_size=1024) -> Tuple[Sequence, Sequence]:
     return (
         MixedSequence(
-            x= BedSequence(genome, bed.iloc[train], batch_size=batch_size),
+            x=BedSequence(genome, bed.iloc[train], batch_size=batch_size),
             y=labels[train],
             batch_size=batch_size
         ),
         MixedSequence(
-            x= BedSequence(genome, bed.iloc[test], batch_size=batch_size),
+            x=BedSequence(genome, bed.iloc[test], batch_size=batch_size),
             y=labels[test],
             batch_size=batch_size
         )
     )
+
 
 def training_tabular_models(holdouts, splits, models, kwargs, X, y, cell_line, task):
     results = []
@@ -92,10 +94,12 @@ def training_tabular_models(holdouts, splits, models, kwargs, X, y, cell_line, t
             compress_json.local_dump(results, "json/" + cell_line + "/results_tabular_" + task + ".json")
     return results
 
+
 def training_sequence_models(holdouts, splits, models, kwargs, bed, labels, genome, cell_line, task):
     results = []
 
-    for i, (train_index, test_index) in tqdm(enumerate(holdouts.split(bed, labels)), total=splits, desc="Computing holdouts", dynamic_ncols=True):
+    for i, (train_index, test_index) in tqdm(enumerate(holdouts.split(bed, labels)), total=splits,
+                                             desc="Computing holdouts", dynamic_ncols=True):
         train, test = __get_sequence_holdouts(train_index, test_index, bed, labels, genome)
         for model in tqdm(models, total=len(models), desc="Training models", leave=False, dynamic_ncols=True):
             if __precomputed(results, model.name, i):
@@ -114,21 +118,21 @@ def training_sequence_models(holdouts, splits, models, kwargs, bed, labels, geno
             ).history
             scores = pd.DataFrame(history).iloc[-1].to_dict()
             results.append({
-                "model":model.name,
-                "run_type":"train",
-                "holdout":i,
+                "model": model.name,
+                "run_type": "train",
+                "holdout": i,
                 **{
-                    key:value
+                    key: value
                     for key, value in scores.items()
                     if not key.startswith("val_")
                 }
             })
             results.append({
-                "model":model.name,
-                "run_type":"test",
-                "holdout":i,
+                "model": model.name,
+                "run_type": "test",
+                "holdout": i,
                 **{
-                    key[4:]:value
+                    key[4:]: value
                     for key, value in scores.items()
                     if key.startswith("val_")
                 }

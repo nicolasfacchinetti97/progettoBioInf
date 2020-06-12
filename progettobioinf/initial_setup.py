@@ -1,6 +1,6 @@
-import os
 import csv
 import logging
+import os
 
 logging.getLogger(__name__)
 

@@ -1,13 +1,15 @@
-from sklearn.impute import KNNImputer
-from sklearn.preprocessing import RobustScaler
+import logging
+
 import matplotlib.pyplot as plt
 import pandas as pd
-import logging
+from sklearn.impute import KNNImputer
+from sklearn.preprocessing import RobustScaler
 
 logging.getLogger(__name__)
 
 logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
                     datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
+
 
 # Rate between features and samples
 def rate_features_samples(epigenomes):
@@ -89,4 +91,3 @@ def data_normalization(epigenomes):
     }
     logging.info("Data normalized")
     return epigenomes
-

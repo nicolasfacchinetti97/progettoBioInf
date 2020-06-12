@@ -1,19 +1,22 @@
-from epigenomic_dataset import load_epigenomes
-from ucsc_genomes_downloader import Genome
-import numpy as np
-import pandas as pd
-from keras_bed_sequence import BedSequence
 import logging
 import os
+
+import numpy as np
+import pandas as pd
+from epigenomic_dataset import load_epigenomes
+from keras_bed_sequence import BedSequence
+from ucsc_genomes_downloader import Genome
 
 logging.getLogger(__name__)
 
 logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
                     datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
+
 def to_bed(data: pd.DataFrame) -> pd.DataFrame:
     """Return bed coordinates from given dataset."""
     return data.reset_index()[data.index.names]
+
 
 def one_hot_encode(genome, data: pd.DataFrame, nucleotides: str = "actg") -> np.ndarray:
     return np.array(BedSequence(
@@ -23,8 +26,10 @@ def one_hot_encode(genome, data: pd.DataFrame, nucleotides: str = "actg") -> np.
         batch_size=1
     ))
 
+
 def flat_one_hot_encode(genome, data: pd.DataFrame, window_size: int, nucleotides: str = "actg") -> np.ndarray:
     return one_hot_encode(genome, data, nucleotides).reshape(-1, window_size * 4).astype(int)
+
 
 def to_dataframe(x: np.ndarray, window_size: int, nucleotides: str = "actg") -> pd.DataFrame:
     return pd.DataFrame(
@@ -35,6 +40,7 @@ def to_dataframe(x: np.ndarray, window_size: int, nucleotides: str = "actg") -> 
             for nucleotide in nucleotides
         ]
     )
+
 
 def retrieve_epigenomes_labels(cell_line, window_size):
     logging.info("Loading epigenomics data and labels...")
@@ -52,9 +58,10 @@ def retrieve_epigenomes_labels(cell_line, window_size):
         window_size=window_size
     )
 
-    promoters_epigenomes = promoters_epigenomes.droplevel(1, axis=1) 
-    enhancers_epigenomes = enhancers_epigenomes.droplevel(1, axis=1)
-    
+    # TODO se lo lascio ho questo errore: IndexError: Too many levels: Index has only 1 level, not 2
+    # promoters_epigenomes = promoters_epigenomes.droplevel(1, axis=1)
+    # enhancers_epigenomes = enhancers_epigenomes.droplevel(1, axis=1)
+
     ## Epigenomes Dictionary
     epigenomes = {
         "promoters": promoters_epigenomes,
@@ -67,6 +74,7 @@ def retrieve_epigenomes_labels(cell_line, window_size):
     }
 
     return epigenomes, labels
+
 
 def retrieve_sequences(epigenomes, assembly, window_size):
     logging.info("Loading sequences data...")
@@ -83,64 +91,75 @@ def retrieve_sequences(epigenomes, assembly, window_size):
     }
     return sequences
 
+
 def are_sequences_retrieved(cell_line):
     return (os.path.exists('csv/' + cell_line + '/sequence_promoters.csv') and
-        os.path.exists('csv/' + cell_line + '/sequence_enhancers.csv'))
+            os.path.exists('csv/' + cell_line + '/sequence_enhancers.csv'))
+
 
 def are_epigenomics_retrieved(cell_line):
     return (os.path.exists('csv/' + cell_line + '/intial_promoters.csv') and
-        os.path.exists('csv/' + cell_line + '/initial_enhancers.csv'))
+            os.path.exists('csv/' + cell_line + '/initial_enhancers.csv'))
+
 
 def are_labels_retrieved(cell_line):
-    return (os.path.exists('csv/' + cell_line + '/labels_promoters.csv') and 
-        os.path.exists('csv/' + cell_line + '/labels_enhancers.csv'))
+    return (os.path.exists('csv/' + cell_line + '/labels_promoters.csv') and
+            os.path.exists('csv/' + cell_line + '/labels_enhancers.csv'))
+
 
 def are_epigenomics_elaborated(cell_line):
-    return (os.path.exists('csv/' + cell_line + '/elaborated_promoters.csv') and 
-        os.path.exists('csv/' + cell_line + '/elaborated_enhancers.csv'))
+    return (os.path.exists('csv/' + cell_line + '/elaborated_promoters.csv') and
+            os.path.exists('csv/' + cell_line + '/elaborated_enhancers.csv'))
+
 
 def are_data_visualized(cell_line):
     return os.path.exists('img/' + cell_line + '/pca_decomposition.png')
 
+
 def are_data_retrieved(cell_line):
     return (are_sequences_retrieved(cell_line) and are_epigenomics_retrieved and are_labels_retrieved(cell_line))
+
 
 def is_done_features_correlation(cell_line, n, top_number):
     statement = True
     for region in ["promoters", "enhancers"]:
-        statement = (statement and os.path.exists('img/{}/scatter_plot_most_{}_uncorrelated_{}.png'.format(cell_line, n, region)) and
-        os.path.exists('img/{}/scatter_plot_most_{}_correlated_{}.png'.format(cell_line, n, region)) and
-        os.path.exists('img/{}/top_{}_different_features_{}.png'.format(cell_line, top_number, region)) and
-        os.path.exists('img/{}/top_{}_different_tuples_{}.png'.format(cell_line, top_number, region)))
+        statement = (statement and os.path.exists(
+            'img/{}/scatter_plot_most_{}_uncorrelated_{}.png'.format(cell_line, n, region)) and
+                     os.path.exists('img/{}/scatter_plot_most_{}_correlated_{}.png'.format(cell_line, n, region)) and
+                     os.path.exists('img/{}/top_{}_different_features_{}.png'.format(cell_line, top_number, region)) and
+                     os.path.exists('img/{}/top_{}_different_tuples_{}.png'.format(cell_line, top_number, region)))
     return statement
 
-def are_data_elaborated(cell_line, n, top_number):                     
+
+def are_data_elaborated(cell_line, n, top_number):
     return (are_epigenomics_elaborated(cell_line) and is_done_features_correlation(cell_line, n, top_number))
 
+
 def load_csv_retrieved_data(cell_line):
-    sequences_promoters = pd.read_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',', index_col = 0)
-    sequences_enhancers = pd.read_csv('csv/' + cell_line + '/sequence_enhancers.csv', sep=',', index_col = 0)
+    sequences_promoters = pd.read_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',', index_col=0)
+    sequences_enhancers = pd.read_csv('csv/' + cell_line + '/sequence_enhancers.csv', sep=',', index_col=0)
     sequences = {"promoters": sequences_promoters, "enhancers": sequences_enhancers}
 
     initial_promoters = pd.read_csv('csv/' + cell_line + '/initial_promoters.csv', sep=',')
-    initial_promoters.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
+    initial_promoters.set_index(["chrom", "chromStart", "chromEnd", "strand"], inplace=True, drop=True)
     initial_enhancers = pd.read_csv('csv/' + cell_line + '/initial_enhancers.csv', sep=',')
-    initial_enhancers.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
+    initial_enhancers.set_index(["chrom", "chromStart", "chromEnd", "strand"], inplace=True, drop=True)
     epigenomes = {"promoters": initial_promoters, "enhancers": initial_enhancers}
 
     labels_promoters = pd.read_csv('csv/' + cell_line + '/labels_promoters.csv', sep=',')
-    labels_promoters.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
+    labels_promoters.set_index(["chrom", "chromStart", "chromEnd", "strand"], inplace=True, drop=True)
     labels_enhancers = pd.read_csv('csv/' + cell_line + '/labels_enhancers.csv', sep=',')
-    labels_enhancers.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
+    labels_enhancers.set_index(["chrom", "chromStart", "chromEnd", "strand"], inplace=True, drop=True)
     labels = {"promoters": labels_promoters, "enhancers": labels_enhancers}
 
     return epigenomes, labels, sequences
 
+
 def load_csv_elaborated_data(cell_line):
     elaborated_promoters = pd.read_csv('csv/' + cell_line + '/elaborated_promoters.csv', sep=',')
-    elaborated_promoters.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
+    elaborated_promoters.set_index(["chrom", "chromStart", "chromEnd", "strand"], inplace=True, drop=True)
     elaborated_enhancers = pd.read_csv('csv/' + cell_line + '/elaborated_enhancers.csv', sep=',')
-    elaborated_enhancers.set_index(["chrom","chromStart","chromEnd","strand"], inplace=True, drop=True)
+    elaborated_enhancers.set_index(["chrom", "chromStart", "chromEnd", "strand"], inplace=True, drop=True)
     epigenomes = {"promoters": elaborated_promoters, "enhancers": elaborated_enhancers}
 
     return epigenomes

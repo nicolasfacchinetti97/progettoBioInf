@@ -1,10 +1,9 @@
 import logging
 
+from sklearn.model_selection import StratifiedShuffleSplit
 from tensorflow.keras.callbacks import EarlyStopping
 
 from classifier import *
-from sklearn.model_selection import StratifiedShuffleSplit
-
 
 logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
@@ -31,6 +30,7 @@ def setup_sequence_models(shape_value):
 
     holdouts, splits = __get_holdouts(3)
     return models, kwargs, holdouts, splits
+
 
 def setup_tabular_models(shape_value):
     models = []
@@ -93,7 +93,6 @@ def setup_tabular_models(shape_value):
         ]
     ))
 
-    
     # TODO scegli quante volte fare gli holdout (n_splits = ?)
     holdouts, splits = __get_holdouts(9)
     return models, kwargs, holdouts, splits

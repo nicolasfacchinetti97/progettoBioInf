@@ -1,20 +1,12 @@
-import logging
-import os
 from multiprocessing import cpu_count
 
-import numpy as np
-import pandas as pd
-
-from sklearn.ensemble import RandomForestClassifier
 from boruta import BorutaPy
-
 from scipy.stats import entropy
-from sklearn.decomposition import PCA
-from tqdm.auto import tqdm
+from sklearn.ensemble import RandomForestClassifier
 
 from first_elaboration import *
-from remove_uncorrellated_data import *
 from plot_data_image import *
+from remove_uncorrellated_data import *
 
 logging.getLogger(__name__)
 
@@ -69,8 +61,9 @@ def elaborate_epigenomics_data(epigenomes, labels, cell_line):
     for region, x in epigenomes.items():
         logging.info('Saving epigenomes elaborated csv (' + region + ')')
         epigenomes[region].to_csv('csv/' + cell_line + '/elaborated_' + region + '.csv', sep=',')
-    
+
     return epigenomes
+
 
 def do_features_correlations(epigenomes, labels, cell_line, number_tuples, top_number):
     # ====================== Features correlations ======================
@@ -103,6 +96,7 @@ def do_features_correlations(epigenomes, labels, cell_line, number_tuples, top_n
     logging.info("Getting top n different touples")
     get_top_n_different_tuples(epigenomes, top_number, cell_line)
 
+
 # Features correlations
 def check_features_correlations(epigenomes, p_value_threshold, correlation_threshold):
     extremely_correlated = {
@@ -128,6 +122,7 @@ def check_features_correlations(epigenomes, p_value_threshold, correlation_thres
                     else:
                         extremely_correlated[region].add(column)
     return extremely_correlated, scores
+
 
 # Feature Selection with Boruta
 def get_features_filter(X: pd.DataFrame, y: pd.DataFrame) -> BorutaPy:
