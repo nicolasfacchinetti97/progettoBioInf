@@ -105,7 +105,7 @@ def get_ffnn(shape_value):
 def get_cnn(shape_value):
     cnn = Sequential([
         Input(shape=shape_value),
-        Reshape(shape_value + (1,)),                                     # for the esoteric syntax of tuples
+        Reshape(shape_value + (1,)),
         Conv2D(64, kernel_size=(10, 2), activation="relu"),
         Conv2D(64, kernel_size=(10, 2), activation="relu"),
         Dropout(0.3),

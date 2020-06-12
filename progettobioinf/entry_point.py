@@ -6,6 +6,7 @@ import os
 # 3 = INFO, WARNING, and ERROR messages are not printed
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
+import logging
 from data_processing import *
 from results import *
 from setup_models import *
@@ -59,6 +60,8 @@ def main():
         # Step 4. Training the models
         logging.info("Step 4. Training the models")
 
+        # TODO aggiungere meta modelli per setup parametri
+
         for region, x in epigenomes.items():
             if os.path.exists('json/' + cell_line + '/results_' + region + ".json"):
                 logging.info("Results " + region + " ok!")
@@ -67,22 +70,21 @@ def main():
                 logging.info("Step 4.1 Training Tabular Data" + region)
             
                 labels = labels[region].to_numpy().ravel()
+
                 logging.info("labels shape: " + ''.join(str(labels.shape)))
-                epigenomes = cleanup_epigenomics_data(epigenomes, region)
+                converted_epigenomes = epigenomes[region].to_numpy()            # TODO serve???
+                logging.info("Shape of epigenomics data for {}: {}".format(region, converted_epigenomes.shape))
                 logging.info("Setup models for Tabular Data: " + region)
                 # list of models, args for training, indeces train/test, num splits
-                #models, kwargs, holdouts, splits = setup_models_ffnn(epigenomes.shape[1])
-                #training_the_models(holdouts, splits, models, kwargs, epigenomes, labels, cell_line, region)
+                # models, kwargs, holdouts, splits = setup_tabular_models(converted_epigenomes.shape[1])
+                # training_tabular_models(holdouts, splits, models, kwargs, epigenomes, labels, cell_line, region)
                
                 logging.info("Step 4.2 Training Sequence Data" + region)
-                
-                #TODO da modificare completamente! i dati di sequenza erano sbagliati!!!!
-                sequences = cleanup_sequences_data(sequences, region)
+                bed = epigenomes[region].reset_index()[epigenomes[region].index.names]          # TODO che cosa fa?
+                logging.info("Shape of epigenomics data for {}: {}".format(region, sequences[region].shape))
                 logging.info("Setup models for Sequence Data: " + region)
-
-                models, kwargs, holdouts, splits = setup_model_cnn(sequences.shape)
-                training_the_models(holdouts, splits, models, kwargs, sequences, labels, cell_line, region)
-
+                models, kwargs, holdouts, splits = setup_sequence_models(sequences[region].shape)
+                training_sequence_models(holdouts, splits, models, kwargs, bed, labels, genome, cell_line, region)
         
         # Step 5. Results and statistical tests
         #TODO

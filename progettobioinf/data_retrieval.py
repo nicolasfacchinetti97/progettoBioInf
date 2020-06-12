@@ -76,7 +76,7 @@ def retrieve_sequences(epigenomes, assembly, window_size):
     # Sequences Dictionary
     sequences = {
         region: to_dataframe(
-            flat_one_hot_encode(assembly, data, window_size),
+            flat_one_hot_encode(genome, data, window_size),
             window_size
         )
         for region, data in epigenomes.items()  # TODO check this line
@@ -118,8 +118,8 @@ def are_data_elaborated(cell_line, n, top_number):
     return (are_epigenomics_elaborated(cell_line) and is_done_features_correlation(cell_line, n, top_number))
 
 def load_csv_retrieved_data(cell_line):
-    sequences_promoters = pd.read_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',')
-    sequences_enhancers = pd.read_csv('csv/' + cell_line + '/sequence_enhancers.csv', sep=',')
+    sequences_promoters = pd.read_csv('csv/' + cell_line + '/sequence_promoters.csv', sep=',', index_col = 0)
+    sequences_enhancers = pd.read_csv('csv/' + cell_line + '/sequence_enhancers.csv', sep=',', index_col = 0)
     sequences = {"promoters": sequences_promoters, "enhancers": sequences_enhancers}
 
     initial_promoters = pd.read_csv('csv/' + cell_line + '/initial_promoters.csv', sep=',')

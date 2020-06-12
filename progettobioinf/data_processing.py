@@ -62,7 +62,7 @@ def dataElaboration(epigenomes, labels, cell_line, number_tuples, top_number):
     
 
     # ====================== Features selection ======================
-    #start_feature_selection(epigenomes, labels)         # TODO A COSA SERVE? NON RITORNA...
+    # start_feature_selection(epigenomes, labels)         # TODO A COSA SERVE? NON RITORNA...
 
     logging.info("Exiting data elaboration")
     return epigenomes
@@ -89,20 +89,3 @@ def data_visualization(epigenomes, labels, sequences, cell_line):
     visualization_PCA(xs, ys, titles, colors, cell_line)
 
     logging.info("Exiting Data Visualization")
-
-def cleanup_epigenomics_data(uncleaned_data, region):
-    #uncleaned_data[region].drop('chrom', axis=1, inplace=True)
-    #uncleaned_data[region].drop('chromStart', axis=1, inplace=True)
-    #uncleaned_data[region].drop('chromEnd', axis=1, inplace=True)
-    #uncleaned_data[region].drop('strand', axis=1, inplace=True)
-
-    cleaned_data = uncleaned_data[region].to_numpy()
-    logging.info("Shape of epigenomics data for " + region + ": " + ''.join(str(cleaned_data.shape)))
-
-    return cleaned_data
-
-def cleanup_sequences_data(uncleaned_data, region):
-    cleaned_data = uncleaned_data[region].to_numpy()
-    logging.info("Shape of sequences data for " + region + ": " + ''.join(str(cleaned_data.shape)))
-
-    return cleaned_data

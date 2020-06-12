@@ -1,17 +1,17 @@
 import logging
 
-from keras_tqdm import TQDMNotebookCallback as ktqdm
 from tensorflow.keras.callbacks import EarlyStopping
 
 from classifier import *
 from sklearn.model_selection import StratifiedShuffleSplit
+
 
 logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
                     datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
 
-def setup_model_cnn(shape_value):
+def setup_sequence_models(shape_value):
     models = []
     kwargs = []
 
@@ -26,21 +26,13 @@ def setup_model_cnn(shape_value):
         verbose=False,
         callbacks=[
             EarlyStopping(monitor="val_loss", mode="min", patience=50),
-            ktqdm(leave_outer=False)
         ]
-
-#epochs=1000,
-#        shuffle=True,
-#        verbose=False,
-#        callbacks=[
-#            EarlyStopping(monitor="val_loss", mode="min", patience=50),
-#        ]
     ))
 
-    holdouts, splits = __preparing_the_holdouts()
+    holdouts, splits = __get_holdouts(3)
     return models, kwargs, holdouts, splits
 
-def setup_models_ffnn(shape_value):
+def setup_tabular_models(shape_value):
     models = []
     kwargs = []
 
@@ -69,8 +61,7 @@ def setup_models_ffnn(shape_value):
         shuffle=True,
         verbose=False,
         callbacks=[
-            EarlyStopping(monitor="val_loss", mode="min", patience=50),
-            ktqdm(leave_outer=False)
+            EarlyStopping(monitor="val_loss", mode="min", patience=50)
         ]
     ))
 
@@ -84,8 +75,7 @@ def setup_models_ffnn(shape_value):
         shuffle=True,
         verbose=False,
         callbacks=[
-            EarlyStopping(monitor="val_loss", mode="min", patience=50),
-            ktqdm(leave_outer=False)
+            EarlyStopping(monitor="val_loss", mode="min", patience=50)
         ]
     ))
 
@@ -99,22 +89,17 @@ def setup_models_ffnn(shape_value):
         shuffle=True,
         verbose=False,
         callbacks=[
-            EarlyStopping(monitor="val_loss", mode="min", patience=50),
-            ktqdm(leave_outer=False)
+            EarlyStopping(monitor="val_loss", mode="min", patience=50)
         ]
     ))
 
-    #logging.info("Setup Convolutional Neural Network")
-    #cnn = get_cnn(shape_value)
-    #models.append(cnn)
-    #kwargs.append(dict)
-
-    holdouts, splits = __preparing_the_holdouts()
+    
+    # TODO scegli quante volte fare gli holdout (n_splits = ?)
+    holdouts, splits = __get_holdouts(9)
     return models, kwargs, holdouts, splits
 
 
-def __preparing_the_holdouts():
+def __get_holdouts(splits):
     # TODO scegli quante volte fare gli holdout (n_splits = ?)
-    splits = 9
     holdouts = StratifiedShuffleSplit(n_splits=splits, test_size=0.2, random_state=42)
     return holdouts, splits
