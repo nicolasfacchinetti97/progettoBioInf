@@ -59,8 +59,8 @@ def retrieve_epigenomes_labels(cell_line, window_size):
     )
 
     # TODO se lo lascio ho questo errore: IndexError: Too many levels: Index has only 1 level, not 2
-    # promoters_epigenomes = promoters_epigenomes.droplevel(1, axis=1)
-    # enhancers_epigenomes = enhancers_epigenomes.droplevel(1, axis=1)
+    promoters_epigenomes = promoters_epigenomes.droplevel(1, axis=1)
+    enhancers_epigenomes = enhancers_epigenomes.droplevel(1, axis=1)
 
     ## Epigenomes Dictionary
     epigenomes = {

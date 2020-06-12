@@ -1,16 +1,17 @@
+import os
+# to suppress the annoying logging of tensorlow         DEVE STARE IN CIMA!
+# 0 = all messages are logged (default behavior)
+# 1 = INFO messages are not printed
+# 2 = INFO and WARNING messages are not printed
+# 3 = INFO, WARNING, and ERROR messages are not printed
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
+
 from data_processing import *
 from setup_models import *
 from training_models import *
 
 from warnings import simplefilter
 simplefilter(action='ignore', category=FutureWarning)
-
-# to suppress the annoying logging of tensorlow
-# 0 = all messages are logged (default behavior)
-# 1 = INFO messages are not printed
-# 2 = INFO and WARNING messages are not printed
-# 3 = INFO, WARNING, and ERROR messages are not printed
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
 logging.getLogger(__name__)
 
@@ -69,15 +70,15 @@ def main():
             else:
                 logging.info("Step 4.1 Training Tabular Data " + region)
 
-                labels = labels[region].to_numpy().ravel()
+                converted_labels = labels[region].values.ravel()
 
-                logging.info("labels shape: " + ''.join(str(labels.shape)))
-                converted_epigenomes = epigenomes[region].to_numpy()  # TODO serve???
+                logging.info("labels shape: {}".format(converted_labels.shape))
+                converted_epigenomes = epigenomes[region].values
                 logging.info("Shape of epigenomics data for {}: {}".format(region, converted_epigenomes.shape))
                 logging.info("Setup models for Tabular Data: " + region)
                 # list of models, args for training, indeces train/test, num splits
                 models, kwargs, holdouts, splits = setup_tabular_models(converted_epigenomes.shape[1])
-                training_tabular_models(holdouts, splits, models, kwargs, epigenomes, labels, cell_line, region)
+                training_tabular_models(holdouts, splits, models, kwargs, converted_epigenomes, converted_labels, cell_line, region)
 
                 # TODO uncomment this
                 # logging.info("Step 4.2 Training Sequence Data" + region)
@@ -85,7 +86,7 @@ def main():
                 # logging.info("Shape of epigenomics data for {}: {}".format(region, sequences[region].shape))
                 # logging.info("Setup models for Sequence Data: " + region)
                 # models, kwargs, holdouts, splits = setup_sequence_models(sequences[region].shape)
-                # training_sequence_models(holdouts, splits, models, kwargs, bed, labels, genome, cell_line, region)
+                # training_sequence_models(holdouts, splits, models, kwargs, bed, converted_labels, genome, cell_line, region)
 
         # Step 5. Results and statistical tests
         # TODO

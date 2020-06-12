@@ -64,9 +64,9 @@ def __get_sequence_holdouts(train: np.ndarray, test: np.ndarray, bed: pd.DataFra
 def training_tabular_models(holdouts, splits, models, kwargs, X, y, cell_line, task):
     results = []
     for i, (train, test) in tqdm(enumerate(holdouts.split(X, y)), total=splits, desc="Computing holdouts",
-                                 dynamic_ncols=True):
+                                dynamic_ncols=True):
         for model, params in tqdm(zip(models, kwargs), total=len(models), desc="Training models", leave=False,
-                                  dynamic_ncols=True):
+                                    dynamic_ncols=True):
             model_name = (
                 model.__class__.__name__
                 if model.__class__.__name__ != "Sequential"
@@ -90,7 +90,7 @@ def training_tabular_models(holdouts, splits, models, kwargs, X, y, cell_line, t
                 **__report(y[test], model.predict(X[test]))
             })
 
-            logging.info("Add results {} to Json --> results_sequence_{}.json".format(model.name, task))
+            logging.info("Add results {} to Json --> results_tabular_{}.json".format(model_name, task))
             compress_json.local_dump(results, "json/" + cell_line + "/results_tabular_" + task + ".json")
     return results
 

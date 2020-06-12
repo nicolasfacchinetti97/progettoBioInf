@@ -41,6 +41,7 @@ def setup_tabular_models(shape_value):
     # models.append(knn_classifier)
     # kwargs.append({})
 
+    """
     logging.info("Setup Decision Tree Classifier")
     decision_tree_classifier = get_decision_tree_classifier()
     models.append(decision_tree_classifier)
@@ -55,8 +56,8 @@ def setup_tabular_models(shape_value):
     slp = get_slp(shape_value)
     models.append(slp)
     kwargs.append(dict(
-        epochs=800,
-        batch_size=1024,
+        epochs=600,
+        batch_size=512,
         validation_split=0.1,
         shuffle=True,
         verbose=False,
@@ -65,11 +66,13 @@ def setup_tabular_models(shape_value):
         ]
     ))
 
+    """
+
     logging.info("Setup Multi-Layer Perceptron")
     mlp = get_mlp(shape_value)
     models.append(mlp)
     kwargs.append(dict(
-        epochs=800,
+        epochs=200,
         batch_size=1024,
         validation_split=0.1,
         shuffle=True,
@@ -83,7 +86,7 @@ def setup_tabular_models(shape_value):
     ffnn = get_ffnn(shape_value)
     models.append(ffnn)
     kwargs.append(dict(
-        epochs=800,
+        epochs=200,
         batch_size=1024,
         validation_split=0.1,
         shuffle=True,
@@ -94,7 +97,7 @@ def setup_tabular_models(shape_value):
     ))
 
     # TODO scegli quante volte fare gli holdout (n_splits = ?)
-    holdouts, splits = __get_holdouts(9)
+    holdouts, splits = __get_holdouts(3)
     return models, kwargs, holdouts, splits
 
 
