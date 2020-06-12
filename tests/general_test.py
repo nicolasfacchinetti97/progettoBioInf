@@ -75,18 +75,18 @@ from glob import glob
 import pandas as pd
 from PIL import Image
 from barplots import barplots
-
-
-def test_result():
-    df = pd.read_csv("results.csv")
-    print(df)
-
-    barplots(
-        df,
-        groupby=["model", "run_type"],
-        orientation="horizontal",
-        show_legend=False
-    )
-
-    for x in glob("barplots/*.png"):
-        Image.open(x)
+#
+#
+# def test_result():
+#     df = pd.read_csv("results.csv")
+#     print(df)
+#
+#     barplots(
+#         df,
+#         groupby=["model", "run_type"],
+#         orientation="horizontal",
+#         show_legend=False
+#     )
+#
+#     for x in glob("barplots/*.png"):
+#         Image.open(x)
