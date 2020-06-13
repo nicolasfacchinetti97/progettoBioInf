@@ -1,14 +1,13 @@
-# from progettobioinf.initial_setup import *
-# import matplotlib.pyplot as plt
-# import pandas as pd
+from initial_setup import *
+import matplotlib.pyplot as plt
 
-# def test_create_folder():
-#     create_img_folder()
-#
-# def test_save_img_plot():
-#     plt.plot([0, 1, 2, 3, 4], [0, 4, 5, 8, 12])
-#     plt.savefig('img/test_plot.png')
-#
+def test_create_folder():
+    create_img_folder()
+
+def test_save_img_plot():
+    plt.plot([0, 1, 2, 3, 4], [0, 4, 5, 8, 12])
+    plt.savefig('img/test_plot.png')
+
 
 #
 #
@@ -70,11 +69,11 @@
 #     df_results = pd.read_csv('results.csv', sep=',')
 #     df_results.groupby('model').plot.bar()
 
-from glob import glob
-
-import pandas as pd
-from PIL import Image
-from barplots import barplots
+# from glob import glob
+#
+# import pandas as pd
+# from PIL import Image
+# from barplots import barplots
 #
 #
 # def test_result():
