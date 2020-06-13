@@ -77,8 +77,9 @@ def main():
                 logging.info("Setup models for Tabular Data: " + region)
                 # list of models, args for training, indeces train/test, num splits
                 models, kwargs, holdouts, splits = setup_tabular_models(converted_epigenomes.shape[1])
-                training_tabular_models(holdouts, splits, models, kwargs, converted_epigenomes, converted_labels,
-                                        cell_line, region)
+                results = training_tabular_models(holdouts, splits, models, kwargs, converted_epigenomes,
+                                                  converted_labels,
+                                                  cell_line, region)
 
                 # TODO uncomment this
                 # logging.info("Step 4.2 Training Sequence Data" + region)
@@ -89,18 +90,14 @@ def main():
                 # training_sequence_models(holdouts, splits, models, kwargs, bed, converted_labels, genome, cell_line, region)
 
         # Step 5. Results and statistical tests
-        # TODO
         logging.info("Step 5. Results and statistical tests")
-        # results = get_results(holdouts, splits, models, kwargs, X, y)
-        # results_df = convert_results_to_dataframe(results)
-        # save_results_df_to_csv(results_df)
-        # save_barplots_to_png()
-        # TODO aggiungi test statistici e plot dei risultati
-
         for region, x in epigenomes.items():
-            logging.info("Statistical test for " + region + " region")
+            logging.info("Results and statistical test for region: {}".format(region))
             if os.path.exists('json/' + cell_line + '/results_tabular_' + region + ".json"):
                 df = pd.read_json("json/" + cell_line + "/results_tabular_" + region + ".json")
+                path_barplots_cell_line = "img/" + cell_line + "/results_" + region + "_{feature}"
+                df = df.drop(columns=["holdout"])
+                generate_barplots(df, path_barplots_cell_line, region)
                 get_wilcoxon(df)
             else:
                 logging.error("Results for region " + region + " are not available.")

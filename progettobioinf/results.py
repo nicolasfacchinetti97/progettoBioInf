@@ -1,9 +1,6 @@
 import logging
 import os
-from glob import glob
 
-import pandas as pd
-from PIL import Image
 from barplots import barplots
 from scipy.stats import wilcoxon
 
@@ -20,32 +17,19 @@ def save_results_df_to_csv(df_results, cell_line):
         df_results.to_csv('csv/' + cell_line + '/results.csv', sep=',')
 
 
-def convert_results_to_dataframe(results):
-    df_results = pd.DataFrame(results)
-    df_results = df_results.drop(columns=["holdout"])
-    return df_results
-
-
-def setup_barplot(df_results):
+def generate_barplots(df, path, region):
+    logging.info("Generating barplots images for region {}".format(region))
     barplots(
-        df_results,
+        df,
         groupby=["model", "run_type"],
+        orientation="horizontal",
         show_legend=False,
-        height=5,
-        orientation="horizontal"
+        path=path
     )
 
 
-def save_barplots_to_png():
-    setup_barplot()
-
-    for x in glob("barplots/*.png"):
-        im = Image.open(x)
-        im.save("img/" + x)  # TODO controlla questo
-
-
 def get_wilcoxon(df):
-    # Here we will be doing a statistical test.
+    logging.info("Check statistical test - Wilcoxon")
     models = df[
         (df.run_type == "test")
     ]
@@ -67,7 +51,3 @@ def get_wilcoxon(df):
                 logging.info("The first model is better")
             else:
                 logging.info("The second model is better")
-
-# TODO
-# def check_statistical_tests():
-#     logging.info("check statistical test")
