@@ -1,4 +1,5 @@
 import os
+
 # to suppress the annoying logging of tensorlow         DEVE STARE IN CIMA!
 # 0 = all messages are logged (default behavior)
 # 1 = INFO messages are not printed
@@ -9,9 +10,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 from data_processing import *
 from setup_models import *
 from training_models import *
-
-from warnings import simplefilter
-simplefilter(action='ignore', category=FutureWarning)
+from results import *
 
 logging.getLogger(__name__)
 
@@ -64,7 +63,7 @@ def main():
         # TODO aggiungere meta modelli per setup parametri
 
         for region, x in epigenomes.items():
-            if os.path.exists('json/' + cell_line + '/results_' + region + ".json"):
+            if os.path.exists('json/' + cell_line + '/results_tabular_' + region + ".json"):
                 logging.info("Results " + region + " ok!")
 
             else:
@@ -78,7 +77,8 @@ def main():
                 logging.info("Setup models for Tabular Data: " + region)
                 # list of models, args for training, indeces train/test, num splits
                 models, kwargs, holdouts, splits = setup_tabular_models(converted_epigenomes.shape[1])
-                training_tabular_models(holdouts, splits, models, kwargs, converted_epigenomes, converted_labels, cell_line, region)
+                training_tabular_models(holdouts, splits, models, kwargs, converted_epigenomes, converted_labels,
+                                        cell_line, region)
 
                 # TODO uncomment this
                 # logging.info("Step 4.2 Training Sequence Data" + region)
@@ -90,13 +90,20 @@ def main():
 
         # Step 5. Results and statistical tests
         # TODO
-        logging.info("TODO!!! Step 5. Results and statistical tests")
+        logging.info("Step 5. Results and statistical tests")
         # results = get_results(holdouts, splits, models, kwargs, X, y)
         # results_df = convert_results_to_dataframe(results)
         # save_results_df_to_csv(results_df)
         # save_barplots_to_png()
-
         # TODO aggiungi test statistici e plot dei risultati
+
+        for region, x in epigenomes.items():
+            logging.info("Statistical test for " + region + " region")
+            if os.path.exists('json/' + cell_line + '/results_tabular_' + region + ".json"):
+                df = pd.read_json("json/" + cell_line + "/results_tabular_" + region + ".json")
+                get_wilcoxon(df)
+            else:
+                logging.error("Results for region " + region + " are not available.")
 
         logging.info('Exiting cell_line' + cell_line)
 
