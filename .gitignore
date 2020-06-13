@@ -12,7 +12,7 @@ coverage.xml
 progettobioinf/datasets/*
 progettobioinf/genomes/*
 progettobioinf/img/*
-tests/img/*
+progettobioinf/tests/img/*
 csv/
 genomes/
 img/
