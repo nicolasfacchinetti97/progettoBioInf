@@ -17,9 +17,10 @@ def setup_sequence_models(shape_value):
     logging.info("Setup Convolutional Neural Network")
     cnn = get_cnn(shape_value)
     models.append(cnn)
+    """
     kwargs.append(dict(
-        epochs=10,
-        batch_size=16,
+        epochs=200,
+        batch_size=32,
         validation_split=0.1,
         shuffle=True,
         verbose=False,
@@ -27,8 +28,8 @@ def setup_sequence_models(shape_value):
             EarlyStopping(monitor="val_loss", mode="min", patience=50),
         ]
     ))
-
-    holdouts, splits = __get_holdouts(3)
+    """
+    holdouts, splits = get_holdouts(2)
     return models, kwargs, holdouts, splits
 
 
@@ -97,11 +98,11 @@ def setup_tabular_models(shape_value):
     ))
 
     # TODO scegli quante volte fare gli holdout (n_splits = ?)
-    holdouts, splits = __get_holdouts(3)
+    holdouts, splits = get_holdouts(3)
     return models, kwargs, holdouts, splits
 
 
-def __get_holdouts(splits):
+def get_holdouts(splits):
     # TODO scegli quante volte fare gli holdout (n_splits = ?)
     holdouts = StratifiedShuffleSplit(n_splits=splits, test_size=0.2, random_state=42)
     return holdouts, splits

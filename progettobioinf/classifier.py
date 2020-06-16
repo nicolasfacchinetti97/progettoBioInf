@@ -104,21 +104,21 @@ def get_ffnn(shape_value):
 
 
 def get_cnn(shape_value):
-    cnn = Sequential([
-        Input(shape=shape_value),
-        Reshape(shape_value + (1,)),
-        Conv2D(64, kernel_size=(10, 2), activation="relu"),
-        Conv2D(64, kernel_size=(10, 2), activation="relu"),
-        Dropout(0.3),
-        Conv2D(32, kernel_size=(10, 2), strides=(2, 1), activation="relu"),
-        Conv2D(32, kernel_size=(10, 1), activation="relu"),
-        Conv2D(32, kernel_size=(10, 1), activation="relu"),
-        Dropout(0.3),
-        Flatten(),
-        Dense(32, activation="relu"),
-        Dense(16, activation="relu"),
-        Dense(1, activation="sigmoid")
-    ], "CNN")
+    shape_value = (shape_value, 4)
+
+    cnn = Sequential()
+    cnn.add(Input(shape=shape_value))
+    cnn.add(Reshape((*shape_value, 1)))
+    cnn.add(Dropout(0.3))
+    cnn.add(Conv2D(64, kernel_size=(10, 2), activation="relu"))
+    cnn.add(Dropout(0.4))
+    cnn.add(Conv2D(32, kernel_size=(10, 2), strides=(2, 1), activation="relu"))
+    cnn.add(Conv2D(32, kernel_size=(10, 1), activation="relu"))
+    cnn.add(Dropout(0.4))
+    cnn.add(Flatten())
+    cnn.add(Dense(8, activation="relu"))
+    cnn.add(Dense(1, activation="sigmoid"))
+    
     cnn.compile(
         optimizer="nadam",
         loss="binary_crossentropy",

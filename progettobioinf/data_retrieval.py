@@ -78,8 +78,6 @@ def retrieve_epigenomes_labels(cell_line, window_size):
 
 def retrieve_sequences(epigenomes, assembly, window_size):
     logging.info("Loading sequences data...")
-    # Genome from UCSC
-    genome = Genome(assembly)
 
     # Sequences Dictionary
     sequences = {

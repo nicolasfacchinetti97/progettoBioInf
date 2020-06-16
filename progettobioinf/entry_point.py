@@ -11,6 +11,7 @@ from data_processing import *
 from setup_models import *
 from training_models import *
 from results import *
+from ucsc_genomes_downloader import Genome
 
 logging.getLogger(__name__)
 
@@ -25,6 +26,9 @@ def main():
     assembly = "hg19"
     window_size = 200
 
+    logging.info("Loading the genome {} for further elaboration...".format(assembly))
+    genome = Genome(assembly)
+
     for cell_line in cell_lines:
         logging.info('Cell Line: ' + cell_line)
 
@@ -38,7 +42,7 @@ def main():
             logging.info('Data already retrieved! Load from .csv files...')
             epigenomes, labels, sequences = load_csv_retrieved_data(cell_line)
         else:
-            epigenomes, labels, sequences = dataRetrieval(cell_line, assembly, window_size)
+            epigenomes, labels, sequences = dataRetrieval(cell_line, genome, window_size)
 
         # Step 2. Data Elaboration
         logging.info('Step 2. Data Elaboration')
@@ -64,7 +68,7 @@ def main():
 
         for region, x in epigenomes.items():
             if os.path.exists('json/' + cell_line + '/results_tabular_' + region + ".json"):
-                logging.info("Results " + region + " ok!")
+                logging.info("Tabular results for " + region + " ok! Skip...")
 
             else:
                 logging.info("Step 4.1 Training Tabular Data " + region)
@@ -81,13 +85,21 @@ def main():
                                                   converted_labels,
                                                   cell_line, region)
 
-                # TODO uncomment this
-                # logging.info("Step 4.2 Training Sequence Data" + region)
-                # bed = epigenomes[region].reset_index()[epigenomes[region].index.names]  # TODO che cosa fa?
-                # logging.info("Shape of epigenomics data for {}: {}".format(region, sequences[region].shape))
-                # logging.info("Setup models for Sequence Data: " + region)
-                # models, kwargs, holdouts, splits = setup_sequence_models(sequences[region].shape)
-                # training_sequence_models(holdouts, splits, models, kwargs, bed, converted_labels, genome, cell_line, region)
+        for region, x in epigenomes.items():
+            if os.path.exists('json/' + cell_line + '/results_sequence_' + region + ".json"):
+                logging.info("Sequence results for " + region + " ok! Skip...")
+
+            else:
+                logging.info("Step 4.2 Training Sequence Data " + region)
+
+                converted_labels = labels[region].values.ravel()
+                data = epigenomes[region]
+
+                logging.info("labels shape: {}".format(converted_labels.shape))
+                bed = data.reset_index()[data.index.names]                  # get the bed data (index data frame)
+                logging.info("Shape of epigenomics data for {}: {}".format(region, bed.shape))
+                logging.info("Setup models for Sequence Data: " + region)
+                training_sequence_models(bed, converted_labels, cell_line, genome, region)
 
         # Step 5. Results and statistical tests
         logging.info("Step 5. Results and statistical tests")
