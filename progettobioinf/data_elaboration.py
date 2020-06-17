@@ -45,8 +45,8 @@ def elaborate_epigenomics_data(epigenomes, labels, cell_line):
 
     ## Pearson (LINEAR)
     logging.info("Executing Pearson Test")
-    uncorrelated_peason = execute_pearson(epigenomes, labels, p_value_threshold)
-    epigenomes = drop_features(epigenomes, uncorrelated_peason)
+    uncorrelated_pearson = execute_pearson(epigenomes, labels, p_value_threshold)
+    epigenomes = drop_features(epigenomes, uncorrelated_pearson)
 
     ## Spearman (MONOTONIC)
     logging.info("Executing Spearman Test")
