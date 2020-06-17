@@ -48,18 +48,19 @@ def __precomputed(results, model: str, holdout: int) -> bool:
 
 
 def get_sequence_holdout(train:np.ndarray, test:np.ndarray, bed:pd.DataFrame, labels:np.ndarray, genome, batch_size=1024)->Tuple[Sequence, Sequence]:
-    return (
-        MixedSequence(
+    logging.info("Computing train sequence data...")
+    train = MixedSequence(
             x=BedSequence(genome, bed.iloc[train], batch_size=batch_size),
             y=labels[train],
             batch_size=batch_size
-        ),
-        MixedSequence(
+        )
+    logging.info("Computing test sequence data...")
+    test = MixedSequence(
             x= BedSequence(genome, bed.iloc[test], batch_size=batch_size),
             y=labels[test],
             batch_size=batch_size
         )
-    )
+    return (train, test)
 
 
 def training_tabular_models(holdouts, splits, models, kwargs, X, y, cell_line, task):
@@ -106,9 +107,6 @@ def training_sequence_models(bed, labels, cell_line, genome, task):
         for model in tqdm(models, total=len(models), desc="Training models", leave=False, dynamic_ncols=True):
             if __precomputed(results, model.name, i):
                 continue
-            print(train)
-            print(test)
-            print(train.steps_per_epoch)
             history = model.fit(
                 train,
                 steps_per_epoch=train.steps_per_epoch,
