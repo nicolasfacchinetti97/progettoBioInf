@@ -19,3 +19,6 @@ genomes/
 img/
 progettobioinf/json/
 epigenomes.csv
+*.png
+*.json
+*.csv
