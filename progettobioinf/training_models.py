@@ -1,4 +1,3 @@
-import logging
 from typing import Tuple
 
 import compress_json
@@ -12,12 +11,10 @@ from sklearn.metrics import accuracy_score, balanced_accuracy_score, roc_auc_sco
 from tensorflow.keras.utils import Sequence
 from tqdm.auto import tqdm
 
+from initial_setup import *
 from setup_models import *
 
-logging.getLogger(__name__)
 
-logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
-                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
 
 def __report(y_true: np.ndarray, y_pred: np.ndarray) -> dict:
@@ -47,28 +44,29 @@ def __precomputed(results, model: str, holdout: int) -> bool:
     ).any()
 
 
-def get_sequence_holdout(train:np.ndarray, test:np.ndarray, bed:pd.DataFrame, labels:np.ndarray, genome, batch_size=1024)->Tuple[Sequence, Sequence]:
+def get_sequence_holdout(train: np.ndarray, test: np.ndarray, bed: pd.DataFrame, labels: np.ndarray, genome,
+                         batch_size=1024) -> Tuple[Sequence, Sequence]:
     logging.info("Computing train sequence data...")
     train = MixedSequence(
-            x=BedSequence(genome, bed.iloc[train], batch_size=batch_size),
-            y=labels[train],
-            batch_size=batch_size
-        )
+        x=BedSequence(genome, bed.iloc[train], batch_size=batch_size),
+        y=labels[train],
+        batch_size=batch_size
+    )
     logging.info("Computing test sequence data...")
     test = MixedSequence(
-            x= BedSequence(genome, bed.iloc[test], batch_size=batch_size),
-            y=labels[test],
-            batch_size=batch_size
-        )
+        x=BedSequence(genome, bed.iloc[test], batch_size=batch_size),
+        y=labels[test],
+        batch_size=batch_size
+    )
     return (train, test)
 
 
 def training_tabular_models(holdouts, splits, models, kwargs, X, y, cell_line, task):
     results = []
     for i, (train, test) in tqdm(enumerate(holdouts.split(X, y)), total=splits, desc="Computing holdouts",
-                                dynamic_ncols=True):
+                                 dynamic_ncols=True):
         for model, params in tqdm(zip(models, kwargs), total=len(models), desc="Training models", leave=False,
-                                    dynamic_ncols=True):
+                                  dynamic_ncols=True):
             model_name = (
                 model.__class__.__name__
                 if model.__class__.__name__ != "Sequential"
@@ -102,7 +100,8 @@ def training_sequence_models(bed, labels, cell_line, genome, task):
     models, _, _, _ = setup_sequence_models(200)
     results = []
 
-    for i, (train_index, test_index) in tqdm(enumerate(holdouts.split(bed, labels)), total=splits, desc="Computing holdouts", dynamic_ncols=True):
+    for i, (train_index, test_index) in tqdm(enumerate(holdouts.split(bed, labels)), total=splits,
+                                             desc="Computing holdouts", dynamic_ncols=True):
         train, test = get_sequence_holdout(train_index, test_index, bed, labels, genome)
         for model in tqdm(models, total=len(models), desc="Training models", leave=False, dynamic_ncols=True):
             if __precomputed(results, model.name, i):
@@ -121,21 +120,21 @@ def training_sequence_models(bed, labels, cell_line, genome, task):
             ).history
             scores = pd.DataFrame(history).iloc[-1].to_dict()
             results.append({
-                "model":model.name,
-                "run_type":"train",
-                "holdout":i,
+                "model": model.name,
+                "run_type": "train",
+                "holdout": i,
                 **{
-                    key:value
+                    key: value
                     for key, value in scores.items()
                     if not key.startswith("val_")
                 }
             })
             results.append({
-                "model":model.name,
-                "run_type":"test",
-                "holdout":i,
+                "model": model.name,
+                "run_type": "test",
+                "holdout": i,
                 **{
-                    key[4:]:value
+                    key[4:]: value
                     for key, value in scores.items()
                     if key.startswith("val_")
                 }

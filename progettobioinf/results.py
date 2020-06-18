@@ -1,13 +1,9 @@
-import logging
-import os
-
 from barplots import barplots
 from scipy.stats import wilcoxon
 
-logging.getLogger(__name__)
+from initial_setup import *
 
-logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
-                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
+
 
 
 def save_results_df_to_csv(df_results, cell_line):

@@ -2,10 +2,8 @@ from sklearn.decomposition import PCA
 
 from data_elaboration import *
 
-logging.getLogger(__name__)
 
-logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
-                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
+
 
 
 def prepare_data(epigenomes, labels, sequences):

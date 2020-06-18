@@ -6,11 +6,10 @@ import pandas as pd
 from epigenomic_dataset import load_epigenomes
 from keras_bed_sequence import BedSequence
 from ucsc_genomes_downloader import Genome
+from initial_setup import *
 
-logging.getLogger(__name__)
 
-logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
-                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
+
 
 
 def to_bed(data: pd.DataFrame) -> pd.DataFrame:
@@ -76,7 +75,7 @@ def retrieve_epigenomes_labels(cell_line, window_size):
     return epigenomes, labels
 
 
-def retrieve_sequences(epigenomes, assembly, window_size):
+def retrieve_sequences(epigenomes, genome, window_size):
     logging.info("Loading sequences data...")
 
     # Sequences Dictionary

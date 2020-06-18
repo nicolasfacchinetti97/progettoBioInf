@@ -1,13 +1,10 @@
-import logging
-
 from sklearn.model_selection import StratifiedShuffleSplit
 from tensorflow.keras.callbacks import EarlyStopping
 
 from classifier import *
+from initial_setup import *
 
-logging.getLogger(__name__)
-logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
-                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
+
 
 
 def setup_sequence_models(shape_value):

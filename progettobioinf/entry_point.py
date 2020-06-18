@@ -8,18 +8,14 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
 from data_processing import *
-from setup_models import *
 from training_models import *
 from results import *
 from ucsc_genomes_downloader import Genome
 
-logging.getLogger(__name__)
-
-logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
-                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
-
 
 def main():
+    create_log_folder()
+
     logging.info('Started')
 
     cell_lines = ["K562"]
@@ -96,7 +92,7 @@ def main():
                 data = epigenomes[region]
 
                 logging.info("labels shape: {}".format(converted_labels.shape))
-                bed = data.reset_index()[data.index.names]                  # get the bed data (index data frame)
+                bed = data.reset_index()[data.index.names]  # get the bed data (index data frame)
                 logging.info("Shape of epigenomics data for {}: {}".format(region, bed.shape))
                 logging.info("Setup models for Sequence Data: " + region)
                 training_sequence_models(bed, converted_labels, cell_line, genome, region)
