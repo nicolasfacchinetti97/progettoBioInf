@@ -104,11 +104,11 @@ def get_ffnn(shape_value):
 
 
 def get_cnn(shape_value):
-    shape_value = (shape_value, 4)
+    shape_v = (shape_value, 4)
 
     cnn = Sequential([
-        Input(shape=(shape_value)),
-        Reshape((*shape_value, 1)),
+        Input(shape=shape_v),
+        Reshape((*shape_v, 1)),
         Conv2D(64, kernel_size=(10, 2), activation="relu"),
         Dropout(0.3),
         Conv2D(32, kernel_size=(10, 2), strides=(2, 1), activation="relu"),

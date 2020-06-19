@@ -15,18 +15,14 @@ import keras
 sys.stderr = stderr
 
 from data_processing import *
-from setup_models import *
 from training_models import *
 from results import *
 from ucsc_genomes_downloader import Genome
 
-logging.getLogger(__name__)
-
-logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
-                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
-
 
 def main():
+    create_log_folder()
+
     logging.info('Started')
 
     cell_lines = ["K562"]
@@ -100,7 +96,11 @@ def main():
                 
                 converted_labels = labels[region].values.ravel()
                 logging.info("labels shape: {}".format(converted_labels.shape))
+<<<<<<< HEAD
                 bed = epigenomes[region].reset_index()[epigenomes[region].index.names]   # get the bed data (index data frame)
+=======
+                bed = data.reset_index()[data.index.names]  # get the bed data (index data frame)
+>>>>>>> 0226a802d901d949755a27e88bef59b23b9d7032
                 logging.info("Shape of epigenomics data for {}: {}".format(region, bed.shape))
                 logging.info("Setup models for Sequence Data: " + region)
                 

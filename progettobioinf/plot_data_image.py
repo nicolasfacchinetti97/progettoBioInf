@@ -5,11 +5,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.metrics.pairwise import euclidean_distances
-
-logging.getLogger(__name__)
-
-logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
-                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
+from initial_setup import *
 
 
 # Most "n" correlated touples

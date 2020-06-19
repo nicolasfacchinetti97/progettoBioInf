@@ -7,11 +7,9 @@ from sklearn.ensemble import RandomForestClassifier
 from first_elaboration import *
 from plot_data_image import *
 from remove_uncorrellated_data import *
+from initial_setup import *
 
-logging.getLogger(__name__)
 
-logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
-                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
 
 
 def elaborate_epigenomics_data(epigenomes, labels, cell_line):

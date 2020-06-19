@@ -1,14 +1,12 @@
 # Correlation with output
-import logging
 
 from minepy import MINE
 from scipy.stats import pearsonr, spearmanr
 from tqdm.auto import tqdm
 
-logging.getLogger(__name__)
+from initial_setup import *
 
-logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
-                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
+
 
 
 ## Linear Correlation (Pearson)
