@@ -21,8 +21,6 @@ from ucsc_genomes_downloader import Genome
 
 
 def main():
-    create_log_folder()
-
     logging.info('Started')
 
     cell_lines = ["K562"]
@@ -92,15 +90,12 @@ def main():
 
             else:
                 logging.info("Step 4.2 Training Sequence Data " + region)
+                # TODO scegliere quanti holdouts fare
                 n_holdouts = 2
                 
                 converted_labels = labels[region].values.ravel()
                 logging.info("labels shape: {}".format(converted_labels.shape))
-<<<<<<< HEAD
                 bed = epigenomes[region].reset_index()[epigenomes[region].index.names]   # get the bed data (index data frame)
-=======
-                bed = data.reset_index()[data.index.names]  # get the bed data (index data frame)
->>>>>>> 0226a802d901d949755a27e88bef59b23b9d7032
                 logging.info("Shape of epigenomics data for {}: {}".format(region, bed.shape))
                 logging.info("Setup models for Sequence Data: " + region)
                 

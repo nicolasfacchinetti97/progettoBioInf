@@ -2,23 +2,6 @@ import csv
 import logging
 import os
 
-# setup logging to file
-logging.basicConfig(filename='log/progettobioinf.log', format='%(asctime)s %(module)s %(levelname)s: %(message)s',
-                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
-
-# setup logging to console
-console = logging.StreamHandler()
-console.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s %(module)s %(levelname)s: %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
-
-console.setFormatter(formatter)
-
-logging.getLogger('').addHandler(console)
-logging.getLogger(__name__)
-
-logging.StreamHandler().setLevel(logging.INFO)
-
-
 def initial_setup(cell_line):
     create_initial_folders(cell_line)
 
@@ -86,9 +69,9 @@ def save_dictionary_as_csv(filename, dictionary):
         w.writerow([key, val])
 
 
-def create_log_folder():
-    if not os.path.exists('log'):
-        os.mkdir('log')
-        logging.info('log folder created')
-    else:
-        logging.info('log folder already exists')
+
+# setup logging
+logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s: %(message)s',
+                    datefmt='%d/%m/%Y %H:%M:%S', level=logging.INFO)
+
+

@@ -2,13 +2,8 @@ from sklearn.model_selection import StratifiedShuffleSplit
 from tensorflow.keras.callbacks import EarlyStopping
 
 from classifier import *
-<<<<<<< HEAD
 from data_retrieval import *
-=======
 from initial_setup import *
-
->>>>>>> 0226a802d901d949755a27e88bef59b23b9d7032
-
 
 
 def setup_sequence_models(shape_value, n_holdouts, bed, labels, genome):
