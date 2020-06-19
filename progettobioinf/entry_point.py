@@ -7,6 +7,13 @@ import os
 # 3 = INFO, WARNING, and ERROR messages are not printed
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
+import sys
+# to suppress the annoy log of keras "Using Tensorflow backend."
+stderr = sys.stderr
+sys.stderr = open(os.devnull, 'w')
+import keras
+sys.stderr = stderr
+
 from data_processing import *
 from setup_models import *
 from training_models import *
@@ -72,18 +79,16 @@ def main():
 
             else:
                 logging.info("Step 4.1 Training Tabular Data " + region)
+                n_holdouts = 2
 
                 converted_labels = labels[region].values.ravel()
-
                 logging.info("labels shape: {}".format(converted_labels.shape))
                 converted_epigenomes = epigenomes[region].values
                 logging.info("Shape of epigenomics data for {}: {}".format(region, converted_epigenomes.shape))
                 logging.info("Setup models for Tabular Data: " + region)
-                # list of models, args for training, indeces train/test, num splits
-                models, kwargs, holdouts, splits = setup_tabular_models(converted_epigenomes.shape[1])
-                results = training_tabular_models(holdouts, splits, models, kwargs, converted_epigenomes,
-                                                  converted_labels,
-                                                  cell_line, region)
+                data_shape = converted_epigenomes.shape[1]
+                models, kwargs, holdouts = setup_tabular_models(data_shape, n_holdouts, converted_epigenomes, converted_labels)
+                results = training_tabular_models(holdouts, models, kwargs, cell_line, region)
 
         for region, x in epigenomes.items():
             if os.path.exists('json/' + cell_line + '/results_sequence_' + region + ".json"):
@@ -91,15 +96,16 @@ def main():
 
             else:
                 logging.info("Step 4.2 Training Sequence Data " + region)
-
+                n_holdouts = 2
+                
                 converted_labels = labels[region].values.ravel()
-                data = epigenomes[region]
-
                 logging.info("labels shape: {}".format(converted_labels.shape))
-                bed = data.reset_index()[data.index.names]                  # get the bed data (index data frame)
+                bed = epigenomes[region].reset_index()[epigenomes[region].index.names]   # get the bed data (index data frame)
                 logging.info("Shape of epigenomics data for {}: {}".format(region, bed.shape))
                 logging.info("Setup models for Sequence Data: " + region)
-                training_sequence_models(bed, converted_labels, cell_line, genome, region)
+                
+                models, holdouts = setup_sequence_models(window_size, n_holdouts, bed, converted_labels, genome)
+                training_sequence_models(models, holdouts, cell_line, region)
 
         # Step 5. Results and statistical tests
         logging.info("Step 5. Results and statistical tests")

@@ -4,7 +4,10 @@ import os
 import numpy as np
 import pandas as pd
 from epigenomic_dataset import load_epigenomes
+from typing import Tuple
 from keras_bed_sequence import BedSequence
+from keras_mixed_sequence import MixedSequence
+from tensorflow.keras.utils import Sequence
 from ucsc_genomes_downloader import Genome
 
 logging.getLogger(__name__)
@@ -89,6 +92,20 @@ def retrieve_sequences(epigenomes, assembly, window_size):
     }
     return sequences
 
+def get_sequence_holdout(train:np.ndarray, test:np.ndarray, bed:pd.DataFrame, labels:np.ndarray, genome, batch_size=32)->Tuple[Sequence, Sequence]:
+    logging.info("Computing train sequence data...")
+    train = MixedSequence(
+            x=BedSequence(genome, bed.iloc[train], batch_size=batch_size),
+            y=labels[train],
+            batch_size=batch_size
+        )
+    logging.info("Computing test sequence data...")
+    test = MixedSequence(
+            x= BedSequence(genome, bed.iloc[test], batch_size=batch_size),
+            y=labels[test],
+            batch_size=batch_size
+        )
+    return (train, test)
 
 def are_sequences_retrieved(cell_line):
     return (os.path.exists('csv/' + cell_line + '/sequence_promoters.csv') and
