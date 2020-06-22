@@ -8,10 +8,11 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
 import sys
+
 # to suppress the annoy log of keras "Using Tensorflow backend."
 stderr = sys.stderr
 sys.stderr = open(os.devnull, 'w')
-import keras
+
 sys.stderr = stderr
 
 from data_processing import *
@@ -23,7 +24,7 @@ from ucsc_genomes_downloader import Genome
 def main():
     logging.info('Started')
 
-    cell_lines = ["K562"]
+    cell_lines = ["K562", "MCF-7"]
     assembly = "hg19"
     window_size = 200
 
@@ -31,11 +32,16 @@ def main():
     genome = Genome(assembly)
 
     for cell_line in cell_lines:
+
         logging.info('Cell Line: ' + cell_line)
 
         # Step 0. Initial Setup
         logging.info('Step 0. Initial Setup')
         initial_setup(cell_line)
+
+        f = open("log/info.txt", "a+")
+        f.write("***** Start Cell Line: " + cell_line + " ***** \n")
+        f.close()
 
         # Step 1. Data Retrieval
         logging.info('Step 1. Data Retrieval')
@@ -81,7 +87,8 @@ def main():
                 logging.info("Shape of epigenomics data for {}: {}".format(region, converted_epigenomes.shape))
                 logging.info("Setup models for Tabular Data: " + region)
                 data_shape = converted_epigenomes.shape[1]
-                models, kwargs, holdouts = setup_tabular_models(data_shape, n_holdouts, converted_epigenomes, converted_labels)
+                models, kwargs, holdouts = setup_tabular_models(data_shape, n_holdouts, converted_epigenomes,
+                                                                converted_labels)
                 results = training_tabular_models(holdouts, models, kwargs, cell_line, region)
 
         for region, x in epigenomes.items():
@@ -95,10 +102,11 @@ def main():
                 
                 converted_labels = labels[region].values.ravel()
                 logging.info("labels shape: {}".format(converted_labels.shape))
-                bed = epigenomes[region].reset_index()[epigenomes[region].index.names]   # get the bed data (index data frame)
+                bed = epigenomes[region].reset_index()[
+                    epigenomes[region].index.names]  # get the bed data (index data frame)
                 logging.info("Shape of epigenomics data for {}: {}".format(region, bed.shape))
                 logging.info("Setup models for Sequence Data: " + region)
-                
+
                 models, holdouts = setup_sequence_models(window_size, n_holdouts, bed, converted_labels, genome)
                 training_sequence_models(models, holdouts, cell_line, region)
 
@@ -115,7 +123,11 @@ def main():
             else:
                 logging.error("Results for region " + region + " are not available.")
 
-        logging.info('Exiting cell_line' + cell_line)
+        logging.info('Exiting cell_line ' + cell_line)
+
+        f = open("log/info.txt", "a+")
+        f.write("***** End Cell Line: " + cell_line + " ***** \n")
+        f.close()
 
 
 if __name__ == '__main__':

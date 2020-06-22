@@ -7,8 +7,6 @@ from tqdm.auto import tqdm
 from initial_setup import *
 
 
-
-
 ## Linear Correlation (Pearson)
 def execute_pearson(epigenomes, labels, p_value_threshold):
     uncorrelated = {
@@ -20,6 +18,9 @@ def execute_pearson(epigenomes, labels, p_value_threshold):
             correlation, p_value = pearsonr(x[column].values.ravel(), labels[region].values.ravel())
             if p_value > p_value_threshold:
                 logging.info("Pearson test: remove column {}".format(column))
+                f = open("log/info.txt", "a+")
+                f.write("Pearson test: remove column " + str(column) + " \n")
+                f.close()
                 uncorrelated[region].add(column)
     return uncorrelated
 
@@ -35,6 +36,9 @@ def execute_spearman(epigenomes, labels, p_value_threshold):
             correlation, p_value = spearmanr(x[column].values.ravel(), labels[region].values.ravel())
             if p_value > p_value_threshold:
                 logging.info("Sperman test: remove column {}".format(column))
+                f = open("log/info.txt", "a+")
+                f.write("Spearman test: remove column " + str(column) + " \n")
+                f.close()
                 uncorrelated[region].add(column)
     return uncorrelated
 
@@ -53,6 +57,9 @@ def execute_mic(epigenomes, labels, correlation_threshold):
             score = mine.mic()
             if score >= correlation_threshold:
                 logging.info("Non-Linear test: remove column {}".format(column))
+                f = open("log/info.txt", "a+")
+                f.write("Non-Linear test: remove column " + str(column) + " \n")
+                f.close()
                 uncorrelated[region].remove(column)
     return uncorrelated
 

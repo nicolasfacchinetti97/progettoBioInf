@@ -1,15 +1,8 @@
-from multiprocessing import cpu_count
-
-from boruta import BorutaPy
 from scipy.stats import entropy
-from sklearn.ensemble import RandomForestClassifier
 
 from first_elaboration import *
 from plot_data_image import *
 from remove_uncorrellated_data import *
-from initial_setup import *
-
-
 
 
 def elaborate_epigenomics_data(epigenomes, labels, cell_line):
@@ -116,35 +109,46 @@ def check_features_correlations(epigenomes, p_value_threshold, correlation_thres
                 if p_value < p_value_threshold and correlation > correlation_threshold:
                     if entropy(x[column]) > entropy(x[feature]):
                         extremely_correlated[region].add(feature)
+                        logging.info(
+                            f"Adding feature '{feature}' to extremely_correlated [{region}]."
+                        )
+                        f = open("log/info.txt", "a+")
+                        f.write("Adding feature " + str(feature) + " to extremely_correlated (" + str(region + "). \n"))
+                        f.close()
                     else:
                         extremely_correlated[region].add(column)
+                        logging.info(
+                            f"Adding feature '{column}' to extremely_correlated [{region}]."
+                        )
+                        f = open("log/info.txt", "a+")
+                        f.write("Adding feature " + str(column) + " to extremely_correlated (" + str(region + "). \n"))
+                        f.close()
     return extremely_correlated, scores
 
+# Feature Selection with Boruta (Feature Selection Automatica)
+# def get_features_filter(X: pd.DataFrame, y: pd.DataFrame) -> BorutaPy:
+#     boruta_selector = BorutaPy(
+#         RandomForestClassifier(n_jobs=cpu_count(), class_weight='balanced', max_depth=5),
+#         n_estimators='auto',
+#         verbose=2,
+#         alpha=0.05,  # p_value
+#         max_iter=10,  # In practice one would run at least 100-200 times
+#         random_state=42
+#     )
+#     boruta_selector.fit(X.values, y.values.ravel())
+#     return boruta_selector
 
-# Feature Selection with Boruta
-def get_features_filter(X: pd.DataFrame, y: pd.DataFrame) -> BorutaPy:
-    boruta_selector = BorutaPy(
-        RandomForestClassifier(n_jobs=cpu_count(), class_weight='balanced', max_depth=5),
-        n_estimators='auto',
-        verbose=2,
-        alpha=0.05,  # p_value
-        max_iter=10,  # In practice one would run at least 100-200 times
-        random_state=42
-    )
-    boruta_selector.fit(X.values, y.values.ravel())
-    return boruta_selector
 
-
-def start_feature_selection(epigenomes, labels):
-    filtered_epigenomes = {
-        region: get_features_filter(
-            X=x,
-            y=labels[region]
-        ).transform(x.values)
-
-        for region, x in tqdm(
-            epigenomes.items(),
-            desc="Running Boruta Feature estimation"
-        )
-    }
-    return filtered_epigenomes
+# def start_feature_selection(epigenomes, labels):
+#     filtered_epigenomes = {
+#         region: get_features_filter(
+#             X=x,
+#             y=labels[region]
+#         ).transform(x.values)
+#
+#         for region, x in tqdm(
+#             epigenomes.items(),
+#             desc="Running Boruta Feature estimation"
+#         )
+#     }
+#     return filtered_epigenomes

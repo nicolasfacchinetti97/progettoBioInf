@@ -4,8 +4,6 @@ from scipy.stats import wilcoxon
 from initial_setup import *
 
 
-
-
 def save_results_df_to_csv(df_results, cell_line):
     if os.path.exists('csv/' + cell_line + '/results.csv'):
         logging.info('results already exists')

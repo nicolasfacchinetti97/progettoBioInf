@@ -1,10 +1,9 @@
-import logging
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.metrics.pairwise import euclidean_distances
+
 from initial_setup import *
 
 

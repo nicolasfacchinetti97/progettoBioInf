@@ -1,15 +1,10 @@
 import compress_json
-import numpy as np
-import pandas as pd
 from keras.callbacks import EarlyStopping
 from sanitize_ml_labels import sanitize_ml_labels
 from sklearn.metrics import accuracy_score, balanced_accuracy_score, roc_auc_score, average_precision_score
 from tqdm.auto import tqdm
 
-from initial_setup import *
 from setup_models import *
-
-
 
 
 def __report(y_true: np.ndarray, y_pred: np.ndarray) -> dict:
@@ -53,7 +48,7 @@ def training_tabular_models(holdouts, models, kwargs, cell_line, task):
             if __precomputed(results, model_name, i):
                 continue
             logging.info("Training model {} holdout {}".format(model_name, i))
-            
+
             model.fit(train["epigenomes"], train["labels"], **params)
 
             results.append({
@@ -73,7 +68,8 @@ def training_tabular_models(holdouts, models, kwargs, cell_line, task):
             compress_json.local_dump(results, "json/" + cell_line + "/results_tabular_" + task + ".json")
     return results
 
-def training_sequence_models(models, holdouts, cell_line, task):    
+
+def training_sequence_models(models, holdouts, cell_line, task):
     results = []
     logging.info("Number of holdouts: {}".format(len(holdouts)))
     for i, (train, test) in enumerate(holdouts):
