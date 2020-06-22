@@ -91,7 +91,7 @@ def main():
             else:
                 logging.info("Step 4.2 Training Sequence Data " + region)
                 # TODO scegliere quanti holdouts fare
-                n_holdouts = 2
+                n_holdouts = 1
                 
                 converted_labels = labels[region].values.ravel()
                 logging.info("labels shape: {}".format(converted_labels.shape))

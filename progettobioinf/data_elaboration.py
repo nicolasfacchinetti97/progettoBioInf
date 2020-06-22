@@ -41,20 +41,19 @@ def elaborate_epigenomics_data(epigenomes, labels, cell_line):
     p_value_threshold = 0.01
     correlation_threshold = 0.05
 
+    uncorellated = set()
     ## Pearson (LINEAR)
     logging.info("Executing Pearson Test")
-    uncorrelated_pearson = execute_pearson(epigenomes, labels, p_value_threshold)
-    epigenomes = drop_features(epigenomes, uncorrelated_pearson)
+    uncorellated |= execute_pearson(epigenomes, labels, p_value_threshold)
 
     ## Spearman (MONOTONIC)
     logging.info("Executing Spearman Test")
-    uncorrelated_spearman = execute_spearman(epigenomes, labels, p_value_threshold)
-    epigenomes = drop_features(epigenomes, uncorrelated_spearman)
+    uncorellated |= execute_spearman(epigenomes, labels, p_value_threshold))
 
     ## MIC (NON-LINEAR)
     logging.info("Executing Mic Test")
-    uncorrelated_mic = execute_mic(epigenomes, labels, correlation_threshold)
-    epigenomes = drop_features(epigenomes, uncorrelated_mic)
+    uncorellated |= execute_mic(epigenomes, labels, correlation_threshold)
+    epigenomes = drop_features(epigenomes, uncorrelated)
 
     for region, x in epigenomes.items():
         logging.info('Saving epigenomes elaborated csv (' + region + ')')

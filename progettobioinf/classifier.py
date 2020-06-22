@@ -79,7 +79,7 @@ def get_ffnn(shape_value):
     ffnn = Sequential([
         Input(shape=(shape_value,)),
         Dense(256, activation="relu"),
-        Dense(128),
+        Dense(128, activation="relu"),
         BatchNormalization(),
         Activation("relu"),
         Dense(64, activation="relu"),

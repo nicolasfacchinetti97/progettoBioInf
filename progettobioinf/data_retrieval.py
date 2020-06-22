@@ -91,7 +91,7 @@ def retrieve_sequences(epigenomes, genome, window_size):
     }
     return sequences
 
-def get_sequence_holdout(train:np.ndarray, test:np.ndarray, bed:pd.DataFrame, labels:np.ndarray, genome, batch_size=32)->Tuple[Sequence, Sequence]:
+def get_sequence_holdout(train:np.ndarray, test:np.ndarray, bed:pd.DataFrame, labels:np.ndarray, genome, batch_size=1024)->Tuple[Sequence, Sequence]:
     logging.info("Computing train sequence data...")
     train = MixedSequence(
             x=BedSequence(genome, bed.iloc[train], batch_size=batch_size),
