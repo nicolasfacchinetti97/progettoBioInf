@@ -6,15 +6,26 @@ from sklearn.preprocessing import RobustScaler
 from initial_setup import *
 
 
-
-
 # Rate between features and samples
 def rate_features_samples(epigenomes):
     for region, x in epigenomes.items():
+        logging.info("Rate = shape[0] / shape[1]")
+        logging.info("x.shape[0]: " + str(x.shape[0]))
+        logging.info("x.shape[1]: " + str(x.shape[1]))
         logging.info(
             f"The rate between features and samples for {region} data is: {x.shape[0] / x.shape[1]}"
         )
         logging.info("=" * 80)
+        f = open("log/info.txt", "a+")
+        f.write("Rate = Rate = shape[0] / shape[1] \n")
+        f.write("x.shape[0]: " + str(x.shape[0]) + " \n")
+        f.write("x.shape[1]: " + str(x.shape[1]) + " \n")
+
+        f.write(
+            "The rate between features and samples for " + region + " data is: " + str(x.shape[0] / x.shape[1]) + "\n")
+        f.write("=" * 80)
+        f.write("\n")
+        f.close()
 
 
 # NaN Detection
@@ -27,6 +38,19 @@ def nan_detection(epigenomes):
             f"The feature (column) with most values has {x.isna().sum().max()} NaN values out of {x.shape[0]} values."
         )))
         logging.info("=" * 80)
+        f = open("log/info.txt", "a+")
+        f.write("NaN values report for " + region + " data: " + "\n")
+        f.write("In the document there are " + str(x.isna().values.sum()) + " NaN values out of " + str(
+            x.values.size) + " values. \n")
+        f.write(
+            "The sample (row) with most values has " + str(x.isna().sum(axis=0).max()) + " Nan values out of " + str(
+                x.shape[1]) + " values. \n")
+        f.write("The feature (column) with most values has " + str(x.isna().sum().max()) + " NaN values out of " + str(
+            x.shape[0]) + " values. \n")
+
+        f.write("=" * 80)
+        f.write("\n")
+        f.close()
 
 
 # KNN imputer

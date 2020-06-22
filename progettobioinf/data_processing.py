@@ -3,15 +3,12 @@ from data_visualization import *
 from initial_setup import *
 
 
-
-
 # Data Retrieval
 def dataRetrieval(cell_line, genome, window_size):
     # retrieve epigenomic, labels and sequences data
     epigenomes, labels = retrieve_epigenomes_labels(cell_line, window_size)
     sequences = retrieve_sequences(epigenomes, genome, window_size)
 
-    # TODO aggiungi questo codice in una funzione sotto, refactorizza questa parte e aggiungi le loggate quando crea i vari csv
     if os.path.exists('csv/' + cell_line + '/sequence_promoters.csv'):
         logging.info('sequence_promoters already exists')
     else:
@@ -56,10 +53,15 @@ def dataElaboration(epigenomes, labels, cell_line, number_tuples, top_number):
     if is_done_features_correlation(cell_line, number_tuples, top_number):
         logging.info("Feature correlations image alredy done... skip step")
     else:
+        f = open("log/info.txt", "a+")
+        f.write("=" * 80)
+        f.write("\n")
+        f.write("Checking Features Correlations... \n")
+        f.close()
         do_features_correlations(epigenomes, labels, cell_line, number_tuples, top_number)
 
     # ====================== Features selection automatica ======================
-    # start_feature_selection(epigenomes, labels)         # TODO A COSA SERVE? NON RITORNA...
+    # start_feature_selection(epigenomes, labels)
 
     logging.info("Exiting data elaboration")
     return epigenomes

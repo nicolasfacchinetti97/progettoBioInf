@@ -3,9 +3,6 @@ from sklearn.decomposition import PCA
 from data_elaboration import *
 
 
-
-
-
 def prepare_data(epigenomes, labels, sequences):
     logging.info("Preparing data")
     tasks = {
@@ -84,4 +81,3 @@ def visualization_PCA(xs, ys, titles, colors, cell_line):
 
 def pca(x: np.ndarray, n_components: int = 2) -> np.ndarray:
     return PCA(n_components=n_components, random_state=42).fit_transform(x)
-
