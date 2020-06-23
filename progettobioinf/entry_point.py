@@ -24,7 +24,7 @@ from ucsc_genomes_downloader import Genome
 def main():
     logging.info('Started')
 
-    cell_lines = ["K562", "MCF-7"]
+    cell_lines = ["MCF-7"]
     assembly = "hg19"
     window_size = 200
 
@@ -79,7 +79,7 @@ def main():
 
             else:
                 logging.info("Step 4.1 Training Tabular Data " + region)
-                n_holdouts = 2
+                n_holdouts = 30
 
                 converted_labels = labels[region].values.ravel()
                 logging.info("labels shape: {}".format(converted_labels.shape))
@@ -90,7 +90,7 @@ def main():
                 models, kwargs, holdouts = setup_tabular_models(data_shape, n_holdouts, converted_epigenomes,
                                                                 converted_labels)
                 results = training_tabular_models(holdouts, models, kwargs, cell_line, region)
-
+        """
         for region, x in epigenomes.items():
             if os.path.exists('json/' + cell_line + '/results_sequence_' + region + ".json"):
                 logging.info("Sequence results for " + region + " ok! Skip...")
@@ -109,7 +109,7 @@ def main():
 
                 models, holdouts = setup_sequence_models(window_size, n_holdouts, bed, converted_labels, genome)
                 training_sequence_models(models, holdouts, cell_line, region)
-
+        """
         # Step 5. Results and statistical tests
         logging.info("Step 5. Results and statistical tests")
         for region, x in epigenomes.items():
@@ -119,7 +119,7 @@ def main():
                 path_barplots_cell_line = "img/" + cell_line + "/results_" + region + "_{feature}"
                 df = df.drop(columns=["holdout"])
                 generate_barplots(df, path_barplots_cell_line, region)
-                get_wilcoxon(df)
+                #get_wilcoxon(df)
             else:
                 logging.error("Results for region " + region + " are not available.")
 

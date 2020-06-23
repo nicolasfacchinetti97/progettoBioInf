@@ -53,14 +53,35 @@ def get_slp(shape_value):
     return slp
 
 
-def get_mlp(shape_value):
+def get_mlp_epi(shape_value):
     mlp = Sequential([
         Input(shape=(shape_value,)),
         Dense(128, activation="relu"),
         Dense(64, activation="relu"),
         Dense(32, activation="relu"),
         Dense(1, activation="sigmoid")
-    ], "MLP")
+    ], "MLP1")
+
+    mlp.compile(
+        optimizer="nadam",
+        loss="binary_crossentropy",
+        metrics=[
+            "accuracy",
+            AUC(curve="ROC", name="auroc"),
+            AUC(curve="PR", name="auprc")
+        ]
+    )
+
+    return mlp
+
+def get_mlp_epi2(shape_value):
+    mlp = Sequential([
+        Input(shape=(shape_value,)),
+        Dense(256, activation="relu"),
+        Dense(128, activation="relu"),
+        Dense(16, activation="relu"),
+        Dense(1, activation="sigmoid")
+    ], "MLP2")
 
     mlp.compile(
         optimizer="nadam",

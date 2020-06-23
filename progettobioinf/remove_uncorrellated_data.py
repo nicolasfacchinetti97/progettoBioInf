@@ -17,9 +17,9 @@ def execute_pearson(epigenomes, labels, p_value_threshold):
         for column in tqdm(x.columns, desc=f"Running Pearson test for {region}", dynamic_ncols=True, leave=False):
             correlation, p_value = pearsonr(x[column].values.ravel(), labels[region].values.ravel())
             if p_value > p_value_threshold:
-                logging.info("Pearson test: remove column {}".format(column))
+                logging.info("Pearson test: remove column {} in {}".format(column, region))
                 f = open("log/info.txt", "a+")
-                f.write("Pearson test: remove column " + str(column) + " \n")
+                f.write("Pearson test: remove column {} in {}\n".format(column, region))
                 f.close()
                 uncorrelated[region].add(column)
     return uncorrelated
@@ -35,9 +35,9 @@ def execute_spearman(epigenomes, labels, p_value_threshold):
         for column in tqdm(x.columns, desc=f"Running Spearman test for {region}", dynamic_ncols=True, leave=False):
             correlation, p_value = spearmanr(x[column].values.ravel(), labels[region].values.ravel())
             if p_value > p_value_threshold:
-                logging.info("Sperman test: remove column {}".format(column))
+                logging.info("Sperman test: remove column {} in {}".format(column, region))
                 f = open("log/info.txt", "a+")
-                f.write("Spearman test: remove column " + str(column) + " \n")
+                f.write("Spearman test: remove column {} in {}\n".format(column, region))
                 f.close()
                 uncorrelated[region].add(column)
     return uncorrelated
@@ -56,9 +56,9 @@ def execute_mic(epigenomes, labels, correlation_threshold):
             mine.compute_score(x[column].values.ravel(), labels[region].values.ravel())
             score = mine.mic()
             if score >= correlation_threshold:
-                logging.info("Non-Linear test: remove column {}".format(column))
+                logging.info("Non-Linear test: remove column {} in {}".format(column, region))
                 f = open("log/info.txt", "a+")
-                f.write("Non-Linear test: remove column " + str(column) + " \n")
+                f.write("Non-Linear test: remove column {} in {}\n".format(column, region))
                 f.close()
                 uncorrelated[region].remove(column)
     return uncorrelated

@@ -76,7 +76,9 @@ def training_sequence_models(models, holdouts, cell_line, task):
         for model in tqdm(models, total=len(models), desc="Training models", leave=False, dynamic_ncols=True):
             if __precomputed(results, model.name, i):
                 continue
+
             logging.info("Training model {} holdout {}".format(model.name, i))
+            print("steps per epoch {}\nvalidation steps {}".format(train.steps_per_epoch, test.steps_per_epoch))
             history = model.fit(
                 train,
                 steps_per_epoch=train.steps_per_epoch,

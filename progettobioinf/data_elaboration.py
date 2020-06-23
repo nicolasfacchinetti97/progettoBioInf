@@ -3,49 +3,58 @@ from scipy.stats import entropy
 from first_elaboration import *
 from plot_data_image import *
 from remove_uncorrellated_data import *
-
+from boruta import BorutaPy
+from sklearn.ensemble import RandomForestClassifier
+from multiprocessing import cpu_count
 
 def elaborate_epigenomics_data(epigenomes, labels, cell_line):
     ## Rate between features and samples, check if the datasets have a rate of features and samples greater than one
     logging.info("Rate features samples")
     rate_features_samples(epigenomes)
+    logging.info("=" * 80)
 
     ## NaN detection, drop feature if more than 10% of NaN values
     logging.info("NaN Detection")
     nan_detection(epigenomes)
+    logging.info("=" * 80)
 
     ## KNN imputation, remova NaN values
     logging.info("KNN imputation")
     epigenomes = knn_imputation(epigenomes)
+    logging.info("=" * 80)
 
     ## Class Balance
     logging.info("Checking class balance")
     check_class_balance(labels, cell_line)
+    logging.info("=" * 80)
 
     ## Drop constant features, these do not add any additional value therefore drop it.
     logging.info("Dropping constant features")
     epigenomes = drop_constant_features(epigenomes)
+    logging.info("=" * 80)
 
     ## Z-Scoring (robust scaler)
     logging.info("Data normalization")
     epigenomes = data_normalization(epigenomes)
+    logging.info("=" * 80)
 
     # ====================== CORRELATION WITH OUPUT ======================
     p_value_threshold = 0.01
     correlation_threshold = 0.05
 
-    uncorellated = set()
     ## Pearson (LINEAR)
     logging.info("Executing Pearson Test")
-    uncorellated |= execute_pearson(epigenomes, labels, p_value_threshold)
+    uncorrelated = execute_pearson(epigenomes, labels, p_value_threshold)
+    epigenomes = drop_features(epigenomes, uncorrelated)
 
     ## Spearman (MONOTONIC)
     logging.info("Executing Spearman Test")
-    uncorellated |= execute_spearman(epigenomes, labels, p_value_threshold))
+    uncorrelated = execute_spearman(epigenomes, labels, p_value_threshold)
+    epigenomes = drop_features(epigenomes, uncorrelated)
 
     ## MIC (NON-LINEAR)
     logging.info("Executing Mic Test")
-    uncorellated |= execute_mic(epigenomes, labels, correlation_threshold)
+    uncorrelated = execute_mic(epigenomes, labels, correlation_threshold)
     epigenomes = drop_features(epigenomes, uncorrelated)
 
     for region, x in epigenomes.items():
@@ -125,30 +134,30 @@ def check_features_correlations(epigenomes, p_value_threshold, correlation_thres
                         f.close()
     return extremely_correlated, scores
 
+
 # Feature Selection with Boruta (Feature Selection Automatica)
-# def get_features_filter(X: pd.DataFrame, y: pd.DataFrame) -> BorutaPy:
-#     boruta_selector = BorutaPy(
-#         RandomForestClassifier(n_jobs=cpu_count(), class_weight='balanced', max_depth=5),
-#         n_estimators='auto',
-#         verbose=2,
-#         alpha=0.05,  # p_value
-#         max_iter=10,  # In practice one would run at least 100-200 times
-#         random_state=42
-#     )
-#     boruta_selector.fit(X.values, y.values.ravel())
-#     return boruta_selector
+def get_features_filter(X: pd.DataFrame, y: pd.DataFrame) -> BorutaPy:
+    boruta_selector = BorutaPy(
+        RandomForestClassifier(n_jobs=cpu_count(), class_weight='balanced', max_depth=5),
+        n_estimators='auto',
+        verbose=2,
+        alpha=0.05,  # p_value
+        max_iter=10,  # In practice one would run at least 100-200 times
+        random_state=42
+    )
+    boruta_selector.fit(X.values, y.values.ravel())
+    return boruta_selector
 
+def start_feature_selection(epigenomes, labels):
+    filtered_epigenomes = {
+        region: get_features_filter(
+            X=x,
+            y=labels[region]
+        ).transform(x.values)
 
-# def start_feature_selection(epigenomes, labels):
-#     filtered_epigenomes = {
-#         region: get_features_filter(
-#             X=x,
-#             y=labels[region]
-#         ).transform(x.values)
-#
-#         for region, x in tqdm(
-#             epigenomes.items(),
-#             desc="Running Boruta Feature estimation"
-#         )
-#     }
-#     return filtered_epigenomes
+        for region, x in tqdm(
+            epigenomes.items(),
+            desc="Running Boruta Feature estimation"
+        )
+    }
+    return filtered_epigenomes

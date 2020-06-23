@@ -15,7 +15,6 @@ def rate_features_samples(epigenomes):
         logging.info(
             f"The rate between features and samples for {region} data is: {x.shape[0] / x.shape[1]}"
         )
-        logging.info("=" * 80)
         f = open("log/info.txt", "a+")
         f.write("Rate = Rate = shape[0] / shape[1] \n")
         f.write("x.shape[0]: " + str(x.shape[0]) + " \n")
@@ -37,7 +36,6 @@ def nan_detection(epigenomes):
             f"The sample (row) with most values has {x.isna().sum(axis=0).max()} NaN values out of {x.shape[1]} values.",
             f"The feature (column) with most values has {x.isna().sum().max()} NaN values out of {x.shape[0]} values."
         )))
-        logging.info("=" * 80)
         f = open("log/info.txt", "a+")
         f.write("NaN values report for " + region + " data: " + "\n")
         f.write("In the document there are " + str(x.isna().values.sum()) + " NaN values out of " + str(
@@ -76,7 +74,7 @@ def check_class_balance(labels, cell_line):
         y.hist(ax=axis, bins=3)
         axis.set_title(f"Classes count in {region}")
     fig.savefig('img/' + cell_line + '/class_balance.png')
-    logging.info('class balance img saved')
+    logging.info(f'class balance img saved')
 
 
 # Constant Features

@@ -49,7 +49,7 @@ def dataElaboration(epigenomes, labels, cell_line, number_tuples, top_number):
     else:
         epigenomes = elaborate_epigenomics_data(epigenomes, labels, cell_line)
 
-    # ====================== Features selection manuale ======================
+    # ====================== Features correalations ======================
     if is_done_features_correlation(cell_line, number_tuples, top_number):
         logging.info("Feature correlations image alredy done... skip step")
     else:
@@ -61,7 +61,7 @@ def dataElaboration(epigenomes, labels, cell_line, number_tuples, top_number):
         do_features_correlations(epigenomes, labels, cell_line, number_tuples, top_number)
 
     # ====================== Features selection automatica ======================
-    # start_feature_selection(epigenomes, labels)
+    # result_boruta = start_feature_selection(epigenomes, labels)
 
     logging.info("Exiting data elaboration")
     return epigenomes

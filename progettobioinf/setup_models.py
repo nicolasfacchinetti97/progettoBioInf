@@ -59,11 +59,25 @@ def setup_tabular_models(shape_value, n_holdouts, epigenomes, labels):
 
     """
 
-    logging.info("Setup Multi-Layer Perceptron")
-    mlp = get_mlp(shape_value)
+    logging.info("Setup Multi-Layer Perceptron 1")
+    mlp = get_mlp_epi(shape_value)
     models.append(mlp)
     kwargs.append(dict(
-        epochs=200,
+        epochs=600,
+        batch_size=1024,
+        validation_split=0.1,
+        shuffle=True,
+        verbose=False,
+        callbacks=[
+            EarlyStopping(monitor="val_loss", mode="min", patience=50)
+        ]
+    ))
+
+    logging.info("Setup Multi-Layer Perceptron 2")
+    mlp2 = get_mlp_epi2(shape_value)
+    models.append(mlp2)
+    kwargs.append(dict(
+        epochs=600,
         batch_size=1024,
         validation_split=0.1,
         shuffle=True,
@@ -77,7 +91,7 @@ def setup_tabular_models(shape_value, n_holdouts, epigenomes, labels):
     ffnn = get_ffnn(shape_value)
     models.append(ffnn)
     kwargs.append(dict(
-        epochs=200,
+        epochs=600,
         batch_size=1024,
         validation_split=0.1,
         shuffle=True,

@@ -17,6 +17,7 @@ def generate_barplots(df, path, region):
         df,
         groupby=["model", "run_type"],
         orientation="horizontal",
+        height=5,
         show_legend=False,
         path=path
     )
