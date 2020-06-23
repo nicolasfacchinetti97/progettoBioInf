@@ -40,9 +40,17 @@ def get_wilcoxon(df):
         stats, p_value = wilcoxon(a, b)
         if p_value > alpha:
             logging.info("The two models performance are statistically identical: {}".format(p_value))
+            f = open("log/info.txt", "a+")
+            f.write("The two models performance are statistically identical: " + str(p_value))
+            f.close()
         else:
             logging.info("The two models performance are different: {}".format(p_value))
+            f = open("log/info.txt", "a+")
+            f.write("The two models performance are different: " + str(p_value))
             if a.mean() > b.mean():
                 logging.info("The first model is better")
+                f.write("The first model is better")
             else:
                 logging.info("The second model is better")
+                f.write("The second model is better")
+            f.close()
