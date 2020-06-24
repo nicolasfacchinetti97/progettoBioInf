@@ -78,17 +78,16 @@ def training_sequence_models(models, holdouts, cell_line, task):
                 continue
 
             logging.info("Training model {} holdout {}".format(model.name, i))
-            print("steps per epoch {}\nvalidation steps {}".format(train.steps_per_epoch, test.steps_per_epoch))
             history = model.fit(
                 train,
                 steps_per_epoch=train.steps_per_epoch,
                 validation_data=test,
                 validation_steps=test.steps_per_epoch,
-                epochs=200,
+                epochs=600,
                 shuffle=True,
                 verbose=False,
                 callbacks=[
-                    EarlyStopping(monitor="val_loss", mode="min", patience=50),
+                    EarlyStopping(monitor="val_loss", mode="min", patience=10),
                 ]
             ).history
             scores = pd.DataFrame(history).iloc[-1].to_dict()

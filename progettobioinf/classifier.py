@@ -7,11 +7,6 @@ from tensorflow.keras.metrics import AUC
 from tensorflow.keras.models import Sequential
 
 
-# def get_knn_classifier():
-#     knn = KNeighborsClassifier(n_neighbors=5)
-#     return knn
-
-
 def get_decision_tree_classifier():
     decision_tree_classifier = DecisionTreeClassifier(
         criterion="gini",
@@ -24,7 +19,7 @@ def get_decision_tree_classifier():
 
 def get_random_forest_classifier():
     random_forest_classifier = RandomForestClassifier(
-        n_estimators=500,
+        n_estimators=400,               # numero di tree
         criterion="gini",
         max_depth=30,
         random_state=42,
@@ -32,25 +27,6 @@ def get_random_forest_classifier():
         n_jobs=cpu_count()
     )
     return random_forest_classifier
-
-
-def get_slp(shape_value):
-    slp = Sequential([
-        Input(shape=(shape_value,)),
-        Dense(1, activation="sigmoid")
-    ], "Perceptron")
-
-    slp.compile(
-        optimizer="nadam",
-        loss="binary_crossentropy",
-        metrics=[
-            "accuracy",
-            AUC(curve="ROC", name="auroc"),
-            AUC(curve="PR", name="auprc")
-        ]
-    )
-
-    return slp
 
 
 def get_mlp_epi(shape_value):
@@ -79,7 +55,7 @@ def get_mlp_epi2(shape_value):
         Input(shape=(shape_value,)),
         Dense(256, activation="relu"),
         Dense(128, activation="relu"),
-        Dense(16, activation="relu"),
+        Dense(32, activation="relu"),
         Dense(1, activation="sigmoid")
     ], "MLP2")
 
@@ -123,6 +99,53 @@ def get_ffnn(shape_value):
 
     return ffnn
 
+
+def get_mpl_seq(shape_value):
+    mlp = Sequential([
+        Input(shape=(200, 4)),
+        Flatten(),
+        Dense(256, activation="relu"),
+        Dense(128, activation="relu"),
+        Dense(32, activation= "relu"),
+        Dense(1, activation="sigmoid")
+    ], "MLP")
+
+    mlp.compile(
+        optimizer="nadam",
+        loss="binary_crossentropy",
+        metrics=[
+            "accuracy",
+            AUC(curve="ROC", name="auroc"),
+            AUC(curve="PR", name="auprc")
+        ]
+    )
+
+    return mlp
+
+def get_ffnn_seq(shape_value):
+    ffnn = Sequential([
+        Input(shape=(200, 4)),
+        Flatten(),
+        Dense(256, activation="relu"),
+        Dense(128, activation="relu"),
+        Dropout(0.3),
+        Dense(64, activation="relu"),
+        Dropout(0.3),
+        Dense(32, activation="relu"),
+        Dense(16, activation="relu"),
+        Dense(1, activation="sigmoid")
+    ], "FFNN")
+
+    ffnn.compile(
+        optimizer="nadam",
+        loss="binary_crossentropy",
+        metrics=[
+            "accuracy",
+            AUC(curve="ROC", name="auroc"),
+            AUC(curve="PR", name="auprc")
+        ]
+    )
+    return ffnn    
 
 def get_cnn(shape_value):
     shape_v = (shape_value, 4)

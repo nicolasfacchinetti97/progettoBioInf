@@ -10,9 +10,18 @@ def setup_sequence_models(shape_value, n_holdouts, bed, labels, genome):
     models = []
     kwargs = []
 
+    logging.info("Setup MLP")
+    mlp = get_mpl_seq(shape_value)
+    models.append(mlp)
+
+    logging.info("Setup FFNN Network")
+    ffnn = get_ffnn_seq(shape_value)
+    models.append(ffnn)
+
     logging.info("Setup Convolutional Neural Network")
     cnn = get_cnn(shape_value)
     models.append(cnn)
+
 
     # computing the sequence data for the holdouts
     logging.info("Computing the holdouts...")
@@ -27,25 +36,13 @@ def setup_tabular_models(shape_value, n_holdouts, epigenomes, labels):
     models = []
     kwargs = []
 
-    # logging.info("Setup KNN Classifier")
-    # knn_classifier = get_knn_classifier()
-    # models.append(knn_classifier)
-    # kwargs.append({})
-
-    """
-    logging.info("Setup Decision Tree Classifier")
-    decision_tree_classifier = get_decision_tree_classifier()
-    models.append(decision_tree_classifier)
+    rand = get_random_forest_classifier()
+    models.append(rand)
     kwargs.append({})
 
-    logging.info("Setup Random Forest Classifier")
-    random_forest_classifier = get_random_forest_classifier()
-    models.append(random_forest_classifier)
-    kwargs.append({})
-
-    logging.info("Setup Single-Layer Perceptron")
-    slp = get_slp(shape_value)
-    models.append(slp)
+    logging.info("Setup Multi-Layer Perceptron 2")
+    mlp2 = get_mlp_epi2(shape_value)
+    models.append(mlp2)
     kwargs.append(dict(
         epochs=600,
         batch_size=512,
@@ -53,37 +50,7 @@ def setup_tabular_models(shape_value, n_holdouts, epigenomes, labels):
         shuffle=True,
         verbose=False,
         callbacks=[
-            EarlyStopping(monitor="val_loss", mode="min", patience=50)
-        ]
-    ))
-
-    """
-
-    logging.info("Setup Multi-Layer Perceptron 1")
-    mlp = get_mlp_epi(shape_value)
-    models.append(mlp)
-    kwargs.append(dict(
-        epochs=600,
-        batch_size=1024,
-        validation_split=0.1,
-        shuffle=True,
-        verbose=False,
-        callbacks=[
-            EarlyStopping(monitor="val_loss", mode="min", patience=50)
-        ]
-    ))
-
-    logging.info("Setup Multi-Layer Perceptron 2")
-    mlp2 = get_mlp_epi2(shape_value)
-    models.append(mlp2)
-    kwargs.append(dict(
-        epochs=600,
-        batch_size=1024,
-        validation_split=0.1,
-        shuffle=True,
-        verbose=False,
-        callbacks=[
-            EarlyStopping(monitor="val_loss", mode="min", patience=50)
+            EarlyStopping(monitor="val_loss", mode="min", patience=30)
         ]
     ))
 
@@ -92,12 +59,12 @@ def setup_tabular_models(shape_value, n_holdouts, epigenomes, labels):
     models.append(ffnn)
     kwargs.append(dict(
         epochs=600,
-        batch_size=1024,
+        batch_size=512,
         validation_split=0.1,
         shuffle=True,
         verbose=False,
         callbacks=[
-            EarlyStopping(monitor="val_loss", mode="min", patience=50)
+            EarlyStopping(monitor="val_loss", mode="min", patience=30)
         ]
     ))
 
