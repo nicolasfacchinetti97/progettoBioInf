@@ -36,6 +36,7 @@ def setup_tabular_models(shape_value, n_holdouts, epigenomes, labels):
     models = []
     kwargs = []
 
+    logging.info("Setup Random Forest Classifier")
     rand = get_random_forest_classifier()
     models.append(rand)
     kwargs.append({})

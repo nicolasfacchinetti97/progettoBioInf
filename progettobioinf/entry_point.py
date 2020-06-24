@@ -116,8 +116,10 @@ def main():
                 df = pd.read_json("json/" + cell_line + "/results_tabular_" + region + ".json")
                 path_barplots_cell_line = "img/" + cell_line + "/results_tabular_" + region + "_{feature}"
                 # TODO uncomment this line when models are ready
-                #generate_barplots(df, path_barplots_cell_line, region)
-                #get_wilcoxon(df, "FFNN", "MLP1")
+                generate_barplots(df, path_barplots_cell_line, region)
+                logging.info("Wilcoxon test [FFNN-MLP]")
+                get_wilcoxon(df, "FFNN", "MLP2")
+                # TODO aggiungere wilcoxon test tra FFNN e RANDOMFOREST, tra MLP2 e RANDOMFOREST
             else:
                 logging.error("Tabular results for region " + region + " are not available.")
 
@@ -125,9 +127,10 @@ def main():
             if os.path.exists('json/' + cell_line + '/results_sequence_' + region + ".json"):
                 df = pd.read_json("json/" + cell_line + "/results_sequence_" + region + ".json")
                 path_barplots_cell_line = "img/" + cell_line + "/results_sequence_" + region + "_{feature}"
-                # TODO uncomment this line when models are ready
-                #generate_barplots(df, path_barplots_cell_line, region)
-                #get_wilcoxon(df)
+                generate_barplots(df, path_barplots_cell_line, region)
+                get_wilcoxon(df, "FFNN", "CNN")
+                # TODO aggiungere wilcoxon test tra FFNN e MLP, tra MLP e CNN
+
             else:
                 logging.error("Sequence results for region " + region + " are not available.")
 
