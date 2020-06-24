@@ -24,7 +24,7 @@ from ucsc_genomes_downloader import Genome
 def main():
     logging.info('Started')
 
-    cell_lines = ["MCF-7"]
+    cell_lines = ["K562"]
     assembly = "hg19"
     window_size = 200
 
@@ -89,8 +89,8 @@ def main():
                 data_shape = converted_epigenomes.shape[1]
                 models, kwargs, holdouts = setup_tabular_models(data_shape, n_holdouts, converted_epigenomes,
                                                                 converted_labels)
-                results = training_tabular_models(holdouts, models, kwargs, cell_line, region)
-        
+                training_tabular_models(holdouts, models, kwargs, cell_line, region)
+
         for region, x in epigenomes.items():
             if os.path.exists('json/' + cell_line + '/results_sequence_' + region + ".json"):
                 logging.info("Sequence results for " + region + " ok! Skip...")
@@ -99,7 +99,6 @@ def main():
                 logging.info("Step 4.2 Training Sequence Data " + region)
                 # TODO scegliere quanti holdouts fare
                 n_holdouts = 30
-                
                 converted_labels = labels[region].values.ravel()
                 logging.info("labels shape: {}".format(converted_labels.shape))
                 bed = epigenomes[region].reset_index()[
@@ -109,19 +108,28 @@ def main():
 
                 models, holdouts = setup_sequence_models(window_size, n_holdouts, bed, converted_labels, genome)
                 training_sequence_models(models, holdouts, cell_line, region)
-        
         # Step 5. Results and statistical tests
         logging.info("Step 5. Results and statistical tests")
         for region, x in epigenomes.items():
-            logging.info("Results and statistical test for region: {}".format(region))
+            logging.info("Tabular results and statistical test for region: {}".format(region))
             if os.path.exists('json/' + cell_line + '/results_tabular_' + region + ".json"):
                 df = pd.read_json("json/" + cell_line + "/results_tabular_" + region + ".json")
-                path_barplots_cell_line = "img/" + cell_line + "/results_" + region + "_{feature}"
-                df = df.drop(columns=["holdout"])
-                generate_barplots(df, path_barplots_cell_line, region)
-                get_wilcoxon(df)
+                path_barplots_cell_line = "img/" + cell_line + "/results_tabular_" + region + "_{feature}"
+                # TODO uncomment this line when models are ready
+                #generate_barplots(df, path_barplots_cell_line, region)
+                #get_wilcoxon(df, "FFNN", "MLP1")
             else:
-                logging.error("Results for region " + region + " are not available.")
+                logging.error("Tabular results for region " + region + " are not available.")
+
+            logging.info("Sequence results and statistical test for region")
+            if os.path.exists('json/' + cell_line + '/results_sequence_' + region + ".json"):
+                df = pd.read_json("json/" + cell_line + "/results_sequence_" + region + ".json")
+                path_barplots_cell_line = "img/" + cell_line + "/results_sequence_" + region + "_{feature}"
+                # TODO uncomment this line when models are ready
+                #generate_barplots(df, path_barplots_cell_line, region)
+                #get_wilcoxon(df)
+            else:
+                logging.error("Sequence results for region " + region + " are not available.")
 
         logging.info('Exiting cell_line ' + cell_line)
 

@@ -23,20 +23,24 @@ def generate_barplots(df, path, region):
     )
 
 
-def get_wilcoxon(df):
+def get_wilcoxon(df, model_a, model_b):
     logging.info("Check statistical test - Wilcoxon")
     models = df[
         (df.run_type == "test")
     ]
 
-    ffnn_scores = models[models.model == "FFNN"]
-    mlp_scores = models[models.model == "MLP"]
+    ffnn_scores = models[models.model == model_a]
+    mlp_scores = models[models.model == model_b]
 
     alpha = 0.01
 
     for metric in ffnn_scores.columns[-4:]:
         logging.info(metric)
         a, b = ffnn_scores[metric], mlp_scores[metric]
+
+        logging.info("Log len:")
+        logging.info(str(len(a)))
+        logging.info(str(len(b)))
         stats, p_value = wilcoxon(a, b)
         if p_value > alpha:
             logging.info("The two models performance are statistically identical: {}".format(p_value))
