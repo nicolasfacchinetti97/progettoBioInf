@@ -24,7 +24,10 @@ def generate_barplots(df, path, region):
 
 
 def get_wilcoxon(df, model_a, model_b):
-    logging.info("Check statistical test - Wilcoxon")
+    logging.info("Check statistical test - Wilcoxon [{}, {}]".format(model_a, model_b))
+    f = open("log/info.txt", "a+")
+    f.write("Check statistical test - Wilcoxon [" + str(model_a) + ", " + str(model_b) + "] \n")
+    f.close()
     models = df[
         (df.run_type == "test")
     ]
@@ -38,23 +41,20 @@ def get_wilcoxon(df, model_a, model_b):
         logging.info(metric)
         a, b = ffnn_scores[metric], mlp_scores[metric]
 
-        logging.info("Log len:")
-        logging.info(str(len(a)))
-        logging.info(str(len(b)))
         stats, p_value = wilcoxon(a, b)
         if p_value > alpha:
             logging.info("The two models performance are statistically identical: {}".format(p_value))
             f = open("log/info.txt", "a+")
-            f.write("The two models performance are statistically identical: " + str(p_value))
+            f.write("The two models performance are statistically identical: " + str(p_value) + "\n")
             f.close()
         else:
             logging.info("The two models performance are different: {}".format(p_value))
             f = open("log/info.txt", "a+")
-            f.write("The two models performance are different: " + str(p_value))
+            f.write("The two models performance are different: " + str(p_value) + "\n")
             if a.mean() > b.mean():
                 logging.info("The first model is better")
-                f.write("The first model is better")
+                f.write("The first model is better" + "\n")
             else:
                 logging.info("The second model is better")
-                f.write("The second model is better")
+                f.write("The second model is better" + "\n")
             f.close()
