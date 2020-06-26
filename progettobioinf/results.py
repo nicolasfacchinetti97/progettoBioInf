@@ -39,6 +39,9 @@ def get_wilcoxon(df, model_a, model_b):
 
     for metric in ffnn_scores.columns[-4:]:
         logging.info(metric)
+        f = open("log/info.txt", "a+")
+        f.write("Metric: " + str(metric) + " \n")
+        f.close()
         a, b = ffnn_scores[metric], mlp_scores[metric]
 
         stats, p_value = wilcoxon(a, b)

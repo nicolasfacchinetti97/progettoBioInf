@@ -116,7 +116,10 @@ def main():
                 df = pd.read_json("json/" + cell_line + "/results_tabular_" + region + ".json")
                 path_barplots_cell_line = "img/" + cell_line + "/results_tabular_" + region + "_{feature}"
                 generate_barplots(df, path_barplots_cell_line, region)
-                logging.info("Wilcoxon test [FFNN-MLP]")
+                logging.info("Wilcoxon test epigenomic - {}".format(region))
+                f = open("log/info.txt", "a+")
+                f.write("Wilcoxon test epigenomic - " + region + " \n")
+                f.close()
                 get_wilcoxon(df, "FFNN", "MLP2")
                 get_wilcoxon(df, "FFNN", "RandomForestClassifier")
                 get_wilcoxon(df, "MLP2", "RandomForestClassifier")
@@ -128,6 +131,10 @@ def main():
                 df = pd.read_json("json/" + cell_line + "/results_sequence_" + region + ".json")
                 path_barplots_cell_line = "img/" + cell_line + "/results_sequence_" + region + "_{feature}"
                 generate_barplots(df, path_barplots_cell_line, region)
+                logging.info("Wilcoxon test sequence - {}".format(region))
+                f = open("log/info.txt", "a+")
+                f.write("Wilcoxon test sequence - " + region + " \n")
+                f.close()
                 get_wilcoxon(df, "FFNN", "CNN")
                 get_wilcoxon(df, "FFNN", "MLP")
                 get_wilcoxon(df, "MLP", "CNN")
