@@ -118,7 +118,7 @@ def main():
                 # generate_barplots(df, path_barplots_cell_line, region)
                 logging.info("Wilcoxon test [FFNN-MLP]")
                 f = open("log/info.txt", "a+")
-                f.write("{} {} {}\n".format("="*40, region, "="*40))
+                f.write("{} Epigenomic: {} {}\n".format("="*40, region, "="*40))
                 f.close()
                 for run_type in ["train", "test"]:
                     run_wilcoxon(df, "FFNN", "MLP2", run_type)
@@ -133,7 +133,7 @@ def main():
                 path_barplots_cell_line = "img/" + cell_line + "/results_sequence_" + region + "_{feature}"
                 # generate_barplots(df, path_barplots_cell_line, region)
                 f = open("log/info.txt", "a+")
-                f.write("{} {} {}\n".format("="*40, region, "="*40))
+                f.write("{} Sequence: {} {}\n".format("="*40, region, "="*40))
                 f.close()
                 for run_type in ["train", "test"]:
                     run_wilcoxon(df, "FFNN", "CNN", run_type)

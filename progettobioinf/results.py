@@ -41,6 +41,9 @@ def run_wilcoxon(df, model_a, model_b, run_type):
         if metric == "Accuracy" or metric == "Balanced Accuracy" or metric == "accuracy" or metric == "loss":
             continue
         logging.info(metric)
+        f = open("log/info.txt", "a+")
+        f.write("Metric: " + str(metric) + " \n")
+        f.close()
         a, b = ffnn_scores[metric], mlp_scores[metric]
 
         stats, p_value = wilcoxon(a, b)
