@@ -29,7 +29,7 @@ def main():
     window_size = 200
 
     logging.info("Loading the genome {} for further elaboration...".format(assembly))
-    genome = Genome(assembly)
+    # genome = Genome(assembly)
 
     for cell_line in cell_lines:
 
@@ -97,12 +97,11 @@ def main():
 
             else:
                 logging.info("Step 4.2 Training Sequence Data " + region)
-                # TODO scegliere quanti holdouts fare
                 n_holdouts = 30
                 converted_labels = labels[region].values.ravel()
                 logging.info("labels shape: {}".format(converted_labels.shape))
                 bed = epigenomes[region].reset_index()[
-                epigenomes[region].index.names]  # get the bed data (index data frame)
+                    epigenomes[region].index.names]  # get the bed data (index data frame)
                 logging.info("Shape of epigenomics data for {}: {}".format(region, bed.shape))
                 logging.info("Setup models for Sequence Data: " + region)
 
@@ -116,11 +115,15 @@ def main():
             if os.path.exists('json/' + cell_line + '/results_tabular_' + region + ".json"):
                 df = pd.read_json("json/" + cell_line + "/results_tabular_" + region + ".json")
                 path_barplots_cell_line = "img/" + cell_line + "/results_tabular_" + region + "_{feature}"
-                # TODO uncomment this line when models are ready
-                generate_barplots(df, path_barplots_cell_line, region)
+                # generate_barplots(df, path_barplots_cell_line, region)
                 logging.info("Wilcoxon test [FFNN-MLP]")
-                get_wilcoxon(df, "FFNN", "MLP2")
-                # TODO aggiungere wilcoxon test tra FFNN e RANDOMFOREST, tra MLP2 e RANDOMFOREST
+                f = open("log/info.txt", "a+")
+                f.write("{} {} {}\n".format("="*40, region, "="*40))
+                f.close()
+                for run_type in ["train", "test"]:
+                    run_wilcoxon(df, "FFNN", "MLP2", run_type)
+                    run_wilcoxon(df, "FFNN", "RandomForestClassifier", run_type)
+                    run_wilcoxon(df, "MLP2", "RandomForestClassifier", run_type)
             else:
                 logging.error("Tabular results for region " + region + " are not available.")
 
@@ -128,9 +131,14 @@ def main():
             if os.path.exists('json/' + cell_line + '/results_sequence_' + region + ".json"):
                 df = pd.read_json("json/" + cell_line + "/results_sequence_" + region + ".json")
                 path_barplots_cell_line = "img/" + cell_line + "/results_sequence_" + region + "_{feature}"
-                generate_barplots(df, path_barplots_cell_line, region)
-                get_wilcoxon(df, "FFNN", "CNN")
-                # TODO aggiungere wilcoxon test tra FFNN e MLP, tra MLP e CNN
+                # generate_barplots(df, path_barplots_cell_line, region)
+                f = open("log/info.txt", "a+")
+                f.write("{} {} {}\n".format("="*40, region, "="*40))
+                f.close()
+                for run_type in ["train", "test"]:
+                    run_wilcoxon(df, "FFNN", "CNN", run_type)
+                    run_wilcoxon(df, "FFNN", "MLP", run_type)
+                    run_wilcoxon(df, "MLP", "CNN", run_type)
 
             else:
                 logging.error("Sequence results for region " + region + " are not available.")
