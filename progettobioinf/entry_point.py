@@ -24,7 +24,7 @@ from ucsc_genomes_downloader import Genome
 def main():
     logging.info('Started')
 
-    cell_lines = ["K562"]
+    cell_lines = ["MCF-7"]
     assembly = "hg19"
     window_size = 200
 
@@ -42,7 +42,7 @@ def main():
         f = open("log/info.txt", "a+")
         f.write("***** Start Cell Line: " + cell_line + " ***** \n")
         f.close()
-
+        """
         # Step 1. Data Retrieval
         logging.info('Step 1. Data Retrieval')
         if are_data_retrieved(cell_line):
@@ -108,9 +108,10 @@ def main():
 
                 models, holdouts = setup_sequence_models(window_size, n_holdouts, bed, converted_labels, genome)
                 training_sequence_models(models, holdouts, cell_line, region)
+        """
         # Step 5. Results and statistical tests
         logging.info("Step 5. Results and statistical tests")
-        for region, x in epigenomes.items():
+        for region in ["promoters", "enhancers"]:
             logging.info("Tabular results and statistical test for region: {}".format(region))
             if os.path.exists('json/' + cell_line + '/results_tabular_' + region + ".json"):
                 df = pd.read_json("json/" + cell_line + "/results_tabular_" + region + ".json")
