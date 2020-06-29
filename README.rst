@@ -16,6 +16,13 @@ As usual, just download it using pip:
 
     pip install progettobioinf
 
+How do I run this project?
+----------------------------------------------
+Docker: build image and run container (docker_run.sh):
+.. code:: shell
+
+    docker build -t image-progettobioinf-app . && docker run --name container-progettobioinf image-progettobioinf-app
+
 Tests Coverage
 ----------------------------------------------
 Since some software handling coverages sometimes
