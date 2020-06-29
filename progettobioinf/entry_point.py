@@ -71,8 +71,6 @@ def main():
         # Step 4. Training the models
         logging.info("Step 4. Training the models")
 
-        # TODO aggiungere meta modelli per setup parametri
-
         for region, x in epigenomes.items():
             if os.path.exists('json/' + cell_line + '/results_tabular_' + region + ".json"):
                 logging.info("Tabular results for " + region + " ok! Skip...")

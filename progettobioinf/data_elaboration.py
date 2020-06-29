@@ -70,7 +70,6 @@ def do_features_correlations(epigenomes, labels, cell_line, number_tuples, top_n
 
     p_value_threshold = 0.01
     correlation_threshold = 0.95
-    # TODO COSA FARE CON LE TUPLE CHE TORNA? VANNO TOLTE???? QUESTA FUNZIONE VA MESSA SOPRA????
     extremely_correlated, scores = check_features_correlations(epigenomes, p_value_threshold, correlation_threshold)
 
     # Sort the obtained scores

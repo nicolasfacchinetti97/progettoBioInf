@@ -85,6 +85,5 @@ def setup_tabular_models(shape_value, n_holdouts, epigenomes, labels):
 
 
 def get_holdouts(splits):
-    # TODO scegli quante volte fare gli holdout (n_splits = ?)
     holdouts = StratifiedShuffleSplit(n_splits=splits, test_size=0.2, random_state=42)
     return holdouts
