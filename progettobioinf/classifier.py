@@ -19,7 +19,7 @@ def get_decision_tree_classifier():
 
 def get_random_forest_classifier():
     random_forest_classifier = RandomForestClassifier(
-        n_estimators=400,               # numero di tree
+        n_estimators=400,  # numero di tree
         criterion="gini",
         max_depth=30,
         random_state=42,
@@ -49,6 +49,7 @@ def get_mlp_epi(shape_value):
     )
 
     return mlp
+
 
 def get_mlp_epi2(shape_value):
     mlp = Sequential([
@@ -106,7 +107,7 @@ def get_mpl_seq(shape_value):
         Flatten(),
         Dense(256, activation="relu"),
         Dense(128, activation="relu"),
-        Dense(32, activation= "relu"),
+        Dense(32, activation="relu"),
         Dense(1, activation="sigmoid")
     ], "MLP")
 
@@ -121,6 +122,7 @@ def get_mpl_seq(shape_value):
     )
 
     return mlp
+
 
 def get_ffnn_seq(shape_value):
     ffnn = Sequential([
@@ -145,7 +147,8 @@ def get_ffnn_seq(shape_value):
             AUC(curve="PR", name="auprc")
         ]
     )
-    return ffnn    
+    return ffnn
+
 
 def get_cnn(shape_value):
     shape_v = (shape_value, 4)

@@ -24,12 +24,12 @@ from ucsc_genomes_downloader import Genome
 def main():
     logging.info('Started')
 
-    cell_lines = ["MCF-7"]
+    cell_lines = ["K562", "MCF-7"]
     assembly = "hg19"
     window_size = 200
 
     logging.info("Loading the genome {} for further elaboration...".format(assembly))
-    # genome = Genome(assembly)
+    genome = Genome(assembly)
 
     for cell_line in cell_lines:
 
@@ -42,7 +42,7 @@ def main():
         f = open("log/info.txt", "a+")
         f.write("***** Start Cell Line: " + cell_line + " ***** \n")
         f.close()
-        """
+
         # Step 1. Data Retrieval
         logging.info('Step 1. Data Retrieval')
         if are_data_retrieved(cell_line):
@@ -107,7 +107,7 @@ def main():
 
                 models, holdouts = setup_sequence_models(window_size, n_holdouts, bed, converted_labels, genome)
                 training_sequence_models(models, holdouts, cell_line, region)
-        """
+
         # Step 5. Results and statistical tests
         logging.info("Step 5. Results and statistical tests")
         for region in ["promoters", "enhancers"]:
@@ -118,7 +118,7 @@ def main():
                 # generate_barplots(df, path_barplots_cell_line, region)
                 logging.info("Wilcoxon test [FFNN-MLP]")
                 f = open("log/info.txt", "a+")
-                f.write("{} Epigenomic: {} {}\n".format("="*40, region, "="*40))
+                f.write("{} Epigenomic: {} {}\n".format("=" * 40, region, "=" * 40))
                 f.close()
                 for run_type in ["train", "test"]:
                     run_wilcoxon(df, "FFNN", "MLP2", run_type)
@@ -133,7 +133,7 @@ def main():
                 path_barplots_cell_line = "img/" + cell_line + "/results_sequence_" + region + "_{feature}"
                 # generate_barplots(df, path_barplots_cell_line, region)
                 f = open("log/info.txt", "a+")
-                f.write("{} Sequence: {} {}\n".format("="*40, region, "="*40))
+                f.write("{} Sequence: {} {}\n".format("=" * 40, region, "=" * 40))
                 f.close()
                 for run_type in ["train", "test"]:
                     run_wilcoxon(df, "FFNN", "CNN", run_type)

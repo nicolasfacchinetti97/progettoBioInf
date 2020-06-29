@@ -22,7 +22,6 @@ def setup_sequence_models(shape_value, n_holdouts, bed, labels, genome):
     cnn = get_cnn(shape_value)
     models.append(cnn)
 
-
     # computing the sequence data for the holdouts
     logging.info("Computing the holdouts...")
     holdouts = get_holdouts(n_holdouts)
