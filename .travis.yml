@@ -10,8 +10,13 @@ language: python
 python:
 - '3.6'
 before_install:
+  - pip install -U pip
+  - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
+  - python setup.py install
   - pip install --upgrade pytest
 install:
+- pip install -r requirements.txt
+- pip install -e .
 - pip install .[test]
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter

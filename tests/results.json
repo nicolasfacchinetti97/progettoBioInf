@@ -1,0 +1,56 @@
+[
+  {
+    "model": "KNeighborsClassifier",
+    "run_type": "train",
+    "holdout": 0,
+    "Accuracy": 0.9132458368261038,
+    "Balanced Accuracy": 0.6740672175790735,
+    "AUROC": 0.6740672175790735,
+    "AUPRC": 0.32374693722600234
+  },
+  {
+    "model": "KNeighborsClassifier",
+    "run_type": "test",
+    "holdout": 0,
+    "Accuracy": 0.8793414072665399,
+    "Balanced Accuracy": 0.5824932770276045,
+    "AUROC": 0.5824932770276043,
+    "AUPRC": 0.1672666235120317
+  },
+  {
+    "model": "DecisionTreeClassifier",
+    "run_type": "train",
+    "holdout": 0,
+    "Accuracy": 0.9688590839140716,
+    "Balanced Accuracy": 0.9825237673954866,
+    "AUROC": 0.9825237673954866,
+    "AUPRC": 0.7778670236501561
+  },
+  {
+    "model": "DecisionTreeClassifier",
+    "run_type": "test",
+    "holdout": 0,
+    "Accuracy": 0.868681813632269,
+    "Balanced Accuracy": 0.7053929966323335,
+    "AUROC": 0.7053929966323335,
+    "AUPRC": 0.26083111303074874
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 0,
+    "Accuracy": 0.975465111914622,
+    "Balanced Accuracy": 0.9862310598081757,
+    "AUROC": 0.9862310598081757,
+    "AUPRC": 0.8163341762667415
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 0,
+    "Accuracy": 0.889200280252227,
+    "Balanced Accuracy": 0.715901020337905,
+    "AUROC": 0.715901020337905,
+    "AUPRC": 0.2983299486068551
+  }
+]
