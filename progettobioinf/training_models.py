@@ -4,7 +4,7 @@ from sanitize_ml_labels import sanitize_ml_labels
 from sklearn.metrics import accuracy_score, balanced_accuracy_score, roc_auc_score, average_precision_score
 from tqdm.auto import tqdm
 
-from setup_models import *
+from progettobioinf.setup_models import *
 
 
 def __report(y_true: np.ndarray, y_pred: np.ndarray) -> dict:

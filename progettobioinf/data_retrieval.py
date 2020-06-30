@@ -6,9 +6,13 @@ from epigenomic_dataset import load_epigenomes
 from keras_bed_sequence import BedSequence
 from keras_mixed_sequence import MixedSequence
 from tensorflow.keras.utils import Sequence
+from ucsc_genomes_downloader import Genome
 
-from initial_setup import *
+from progettobioinf.initial_setup import *
 
+
+def get_genome(assebly):
+    return Genome(assembly)
 
 def to_bed(data: pd.DataFrame) -> pd.DataFrame:
     """Return bed coordinates from given dataset."""

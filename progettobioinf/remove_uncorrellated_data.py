@@ -4,7 +4,7 @@ from minepy import MINE
 from scipy.stats import pearsonr, spearmanr
 from tqdm.auto import tqdm
 
-from initial_setup import *
+from progettobioinf.initial_setup import *
 
 
 ## Linear Correlation (Pearson)

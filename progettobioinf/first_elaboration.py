@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.impute import KNNImputer
 from sklearn.preprocessing import RobustScaler
 
-from initial_setup import *
+from progettobioinf.initial_setup import *
 
 
 # Rate between features and samples

@@ -15,10 +15,9 @@ sys.stderr = open(os.devnull, 'w')
 
 sys.stderr = stderr
 
-from data_processing import *
-from training_models import *
-from results import *
-from ucsc_genomes_downloader import Genome
+from progettobioinf.data_processing import *
+from progettobioinf.training_models import *
+from progettobioinf.results import *
 
 
 def main():
@@ -29,7 +28,7 @@ def main():
     window_size = 200
 
     logging.info("Loading the genome {} for further elaboration...".format(assembly))
-    genome = Genome(assembly)
+    genome = get_genome(assembly)
 
     for cell_line in cell_lines:
 

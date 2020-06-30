@@ -1,6 +1,6 @@
-from data_retrieval import *
-from data_visualization import *
-from initial_setup import *
+from progettobioinf.data_retrieval import *
+from progettobioinf.data_visualization import *
+from progettobioinf.initial_setup import *
 
 
 # Data Retrieval

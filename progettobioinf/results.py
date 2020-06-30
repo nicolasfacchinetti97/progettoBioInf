@@ -1,7 +1,7 @@
 from barplots import barplots
 from scipy.stats import wilcoxon
 
-from initial_setup import *
+from progettobioinf.initial_setup import *
 
 
 def save_results_df_to_csv(df_results, cell_line):
