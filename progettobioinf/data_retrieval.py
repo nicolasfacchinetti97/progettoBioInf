@@ -11,7 +11,7 @@ from ucsc_genomes_downloader import Genome
 from progettobioinf.initial_setup import *
 
 
-def get_genome(assebly):
+def get_genome(assembly):
     return Genome(assembly)
 
 def to_bed(data: pd.DataFrame) -> pd.DataFrame:

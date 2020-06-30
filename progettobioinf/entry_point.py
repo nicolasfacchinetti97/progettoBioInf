@@ -98,7 +98,7 @@ def main():
                 converted_labels = labels[region].values.ravel()
                 logging.info("labels shape: {}".format(converted_labels.shape))
                 bed = epigenomes[region].reset_index()[
-                    epigenomes[region].index.names]  # get the bed data (index data frame)
+                epigenomes[region].index.names]  # get the bed data (index data frame)
                 logging.info("Shape of epigenomics data for {}: {}".format(region, bed.shape))
                 logging.info("Setup models for Sequence Data: " + region)
 
