@@ -1,4 +1,4 @@
-dist: trusty
+dist: xenial
 git:
   depth: false
 addons:
@@ -8,7 +8,7 @@ addons:
       secure: bZuHBvaC3gCnruHt+ZoMLHF6zXbZr5vLCnd+rn0eJx1tvSE8KWRSZmMystZaiIdWItWiJLVQNTJtDWemkMhunowhp2ihZhXShfCZv9JCOhGKYroIUo1cjMRE341g1DUjDOuTlVtBTat8+OyZ9/QxJw+JrbR/34XlJ5sZXD035w7BYVf0jIl9izuwXYBJdkZ08t4Drz/WEBIINuAsHDeFigGQ/ECdZQDT3MnKd8iucuqPY+wdw/fkGFSkuA53LpE8ayoPsachvJ3wwvep0qBFzsw3UMoo6quKs+0Sae/6wWZokCXS8Zc5i/NixHZJQxQBojNqoeDyik+2wZ/qiBER3oIpXZ/0OLQ/AS1LdYFtC6GOuYNzX0PIGP3dY6SRi4T7M5qNJ3SUiF6+ADaESV6ehCJ+O8POhq/4cmB9vLM3JvhNsvR9yfd6Z23ATzWxkSYTnH/TRKcy7OcFpYXFd9iDb4KmUHt9s6nP6pG3XymoEwjMSnBMMK8bZI75P98iTTEt3Z8d77SbN3Qm9ITvH0m85fGNbVIZJHf0YdI0aoBBMu8FLjldpY0D8SgWFazxJxqaco2o6gWbJifqBmP6djc/fl9xl25XaJhRiFjax+wsz14WN1PICnFWJ+PWk3y7SmagxQc0owHwW79XuIRAXVol/sORFg51jMQUJ4BI4yXtVlI=
 language: python
 python:
-- '3.7'
+- '3.7.7'
 before_install:
   - pip install -U pip
   - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
