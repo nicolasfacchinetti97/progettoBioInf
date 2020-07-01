@@ -1,4 +1,6 @@
-from progettobioinf.data_processing import *
+from progettobioinf.data_retrieval import *
+from progettobioinf.first_elaboration import *
+from progettobioinf.remove_uncorrellated_data import *
 
 
 def test_execute():

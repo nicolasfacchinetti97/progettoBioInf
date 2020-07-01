@@ -1,4 +1,5 @@
-from progettobioinf.entry_point import *
+from progettobioinf.results import *
+import pandas as pd
 
 
 def test_wilcoxon():

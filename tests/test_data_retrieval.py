@@ -1,5 +1,5 @@
+from progettobioinf.data_retrieval import *
 from progettobioinf.data_processing import *
-
 
 def test_retrieve():
     genome = get_genome("hg19")
