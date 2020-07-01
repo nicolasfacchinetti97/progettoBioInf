@@ -1,7 +1,7 @@
 Progetto di Bioinformatica 2019/2020
 =========================================================================================
 |travis| |sonar_quality| |sonar_maintainability| |codacy|
-|code_climate_maintainability| |pip| |downloads|
+|code_climate_maintainability|
 
 Introduzione
 ----------------------------------------------
