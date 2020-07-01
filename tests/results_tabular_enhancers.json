@@ -1,0 +1,2702 @@
+[
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 0,
+    "Accuracy": 0.9991210974817533,
+    "Balanced Accuracy": 0.9994745739480057,
+    "AUROC": 0.9994745739480057,
+    "AUPRC": 0.99465737514518
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 0,
+    "Accuracy": 0.8658005349636989,
+    "Balanced Accuracy": 0.6293594616796545,
+    "AUROC": 0.6293594616796546,
+    "AUPRC": 0.32356046004602923
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 0,
+    "Accuracy": 0.9806259314456036,
+    "Balanced Accuracy": 0.9626358488774676,
+    "AUROC": 0.9804835506317138,
+    "AUPRC": 0.9529110207873568
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 0,
+    "Accuracy": 0.8394344669468857,
+    "Balanced Accuracy": 0.6686370390400725,
+    "AUROC": 0.7785960704199001,
+    "AUPRC": 0.47333424141176034
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 0,
+    "Accuracy": 0.9687798540257556,
+    "Balanced Accuracy": 0.9556949043628129,
+    "AUROC": 0.9808740310273137,
+    "AUPRC": 0.9451673018368238
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 0,
+    "Accuracy": 0.8215513947267864,
+    "Balanced Accuracy": 0.6851842960536558,
+    "AUROC": 0.7702228200600365,
+    "AUPRC": 0.43488664320675746
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 1,
+    "Accuracy": 0.9991593106347205,
+    "Balanced Accuracy": 0.999497418558962,
+    "AUROC": 0.999497418558962,
+    "AUPRC": 0.9948884758364313
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 1,
+    "Accuracy": 0.8675582728314865,
+    "Balanced Accuracy": 0.6313495087555413,
+    "AUROC": 0.6313495087555412,
+    "AUPRC": 0.3300736471116181
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 1,
+    "Accuracy": 0.9880201765447667,
+    "Balanced Accuracy": 0.9757441821412676,
+    "AUROC": 0.9922876497381022,
+    "AUPRC": 0.9794776421521995
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 1,
+    "Accuracy": 0.8993504012227742,
+    "Balanced Accuracy": 0.7893633180920541,
+    "AUROC": 0.902695045867237,
+    "AUPRC": 0.7292710919376417
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 1,
+    "Accuracy": 0.981371087928465,
+    "Balanced Accuracy": 0.9628934722820606,
+    "AUROC": 0.9919748127440792,
+    "AUPRC": 0.9749480907643265
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 1,
+    "Accuracy": 0.8882690103171571,
+    "Balanced Accuracy": 0.7784181658704601,
+    "AUROC": 0.8990586401733355,
+    "AUPRC": 0.6917375098603338
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 2,
+    "Accuracy": 0.9990446711758187,
+    "Balanced Accuracy": 0.999428884726093,
+    "AUROC": 0.999428884726093,
+    "AUPRC": 0.9941954957046668
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 2,
+    "Accuracy": 0.865571264807031,
+    "Balanced Accuracy": 0.6269682171185789,
+    "AUROC": 0.6269682171185789,
+    "AUPRC": 0.32155800730485884
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 2,
+    "Accuracy": 0.9886889067216936,
+    "Balanced Accuracy": 0.9751108070332037,
+    "AUROC": 0.9956263080033582,
+    "AUPRC": 0.9866581318331916
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 2,
+    "Accuracy": 0.9234237676729079,
+    "Balanced Accuracy": 0.8296778717724953,
+    "AUROC": 0.9473905710972902,
+    "AUPRC": 0.8319381628671118
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 2,
+    "Accuracy": 0.9871794871794872,
+    "Balanced Accuracy": 0.9760399483637101,
+    "AUROC": 0.9956668129070324,
+    "AUPRC": 0.9858772435035346
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 2,
+    "Accuracy": 0.9121895299961789,
+    "Balanced Accuracy": 0.8295365638768024,
+    "AUROC": 0.9415940452485723,
+    "AUPRC": 0.7936401597950975
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 3,
+    "Accuracy": 0.9992548435171386,
+    "Balanced Accuracy": 0.9995545300863526,
+    "AUROC": 0.9995545300863526,
+    "AUPRC": 0.9954666976636057
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 3,
+    "Accuracy": 0.8658005349636989,
+    "Balanced Accuracy": 0.6295473102761184,
+    "AUROC": 0.6295473102761185,
+    "AUPRC": 0.323664287341031
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 3,
+    "Accuracy": 0.994287133631396,
+    "Balanced Accuracy": 0.9886951772817567,
+    "AUROC": 0.9982609419871297,
+    "AUPRC": 0.994902022724339
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 3,
+    "Accuracy": 0.9491784486052732,
+    "Balanced Accuracy": 0.8907216450407117,
+    "AUROC": 0.9753011211080794,
+    "AUPRC": 0.9135883820365417
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 3,
+    "Accuracy": 0.9871030608735527,
+    "Balanced Accuracy": 0.9656627011438119,
+    "AUROC": 0.9965256478399829,
+    "AUPRC": 0.9898805310864979
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 3,
+    "Accuracy": 0.9374092472296522,
+    "Balanced Accuracy": 0.8528786565071795,
+    "AUROC": 0.9635789034951149,
+    "AUPRC": 0.8716759079264463
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 4,
+    "Accuracy": 0.9993694829760403,
+    "Balanced Accuracy": 0.9996230639192214,
+    "AUROC": 0.9996230639192214,
+    "AUPRC": 0.9961614516691869
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 4,
+    "Accuracy": 0.865341994650363,
+    "Balanced Accuracy": 0.6307759762408122,
+    "AUROC": 0.6307759762408122,
+    "AUPRC": 0.32300573811919875
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 4,
+    "Accuracy": 0.994745691467003,
+    "Balanced Accuracy": 0.9890632358677592,
+    "AUROC": 0.9989879295840529,
+    "AUPRC": 0.9964745748574144
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 4,
+    "Accuracy": 0.9568207871608713,
+    "Balanced Accuracy": 0.9035556967354164,
+    "AUROC": 0.9820685785868221,
+    "AUPRC": 0.933172181585479
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 4,
+    "Accuracy": 0.9929496732775421,
+    "Balanced Accuracy": 0.9851248798897364,
+    "AUROC": 0.9986503033595748,
+    "AUPRC": 0.9945552243753513
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 4,
+    "Accuracy": 0.9508597630875048,
+    "Balanced Accuracy": 0.8909753676139204,
+    "AUROC": 0.9770835595283945,
+    "AUPRC": 0.917634556465579
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 5,
+    "Accuracy": 0.9991210974817533,
+    "Balanced Accuracy": 0.9994745739480057,
+    "AUROC": 0.9994745739480057,
+    "AUPRC": 0.99465737514518
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 5,
+    "Accuracy": 0.8634314100114635,
+    "Balanced Accuracy": 0.6258768259489609,
+    "AUROC": 0.6258768259489609,
+    "AUPRC": 0.3146884158822234
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 5,
+    "Accuracy": 0.9965226030799801,
+    "Balanced Accuracy": 0.9924735916404046,
+    "AUROC": 0.99949690772956,
+    "AUPRC": 0.9981893283475158
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 5,
+    "Accuracy": 0.965303782957585,
+    "Balanced Accuracy": 0.9264725853293128,
+    "AUROC": 0.9888097035461922,
+    "AUPRC": 0.9567816017293883
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 5,
+    "Accuracy": 0.9917459589590737,
+    "Balanced Accuracy": 0.9807422677180551,
+    "AUROC": 0.9986445081800672,
+    "AUPRC": 0.9951993355607509
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 5,
+    "Accuracy": 0.9531524646541841,
+    "Balanced Accuracy": 0.8936609218242555,
+    "AUROC": 0.9828233018811235,
+    "AUPRC": 0.9326663179029968
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 6,
+    "Accuracy": 0.9992739500936222,
+    "Balanced Accuracy": 0.9995659523918308,
+    "AUROC": 0.9995659523918308,
+    "AUPRC": 0.9955824226923972
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 6,
+    "Accuracy": 0.8691631639281621,
+    "Balanced Accuracy": 0.6430163085785459,
+    "AUROC": 0.6430163085785459,
+    "AUPRC": 0.3412212640206782
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 6,
+    "Accuracy": 0.9948985440788719,
+    "Balanced Accuracy": 0.9872291875937779,
+    "AUROC": 0.9991968801495736,
+    "AUPRC": 0.9976885642941522
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 6,
+    "Accuracy": 0.9675200611387085,
+    "Balanced Accuracy": 0.9195321739854853,
+    "AUROC": 0.9911569681053014,
+    "AUPRC": 0.9663086930258877
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 6,
+    "Accuracy": 0.9942680270549124,
+    "Balanced Accuracy": 0.9875097142946894,
+    "AUROC": 0.9990118105251538,
+    "AUPRC": 0.996462751884395
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 6,
+    "Accuracy": 0.9659915934275889,
+    "Balanced Accuracy": 0.9263202237504473,
+    "AUROC": 0.9905225336373396,
+    "AUPRC": 0.9602104411907545
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 7,
+    "Accuracy": 0.9991975237876877,
+    "Balanced Accuracy": 0.9995202631699183,
+    "AUROC": 0.9995202631699182,
+    "AUPRC": 0.9951196839414362
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 7,
+    "Accuracy": 0.8645013374092473,
+    "Balanced Accuracy": 0.6287706289895687,
+    "AUROC": 0.6287706289895688,
+    "AUPRC": 0.319422742846893
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 7,
+    "Accuracy": 0.9972677595628415,
+    "Balanced Accuracy": 0.9961594138352384,
+    "AUROC": 0.9997087032013846,
+    "AUPRC": 0.9984893870558318
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 7,
+    "Accuracy": 0.9782193351165457,
+    "Balanced Accuracy": 0.9572990884253683,
+    "AUROC": 0.9946151278232557,
+    "AUPRC": 0.9795336685133579
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 7,
+    "Accuracy": 0.9954908479498643,
+    "Balanced Accuracy": 0.9926551348080659,
+    "AUROC": 0.9994690882004075,
+    "AUPRC": 0.997724000576881
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 7,
+    "Accuracy": 0.9701948796331678,
+    "Balanced Accuracy": 0.9461150870227881,
+    "AUROC": 0.9923995472001662,
+    "AUPRC": 0.9682935980420667
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 8,
+    "Accuracy": 0.9991975237876877,
+    "Balanced Accuracy": 0.9995202631699183,
+    "AUROC": 0.9995202631699182,
+    "AUPRC": 0.9951196839414362
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 8,
+    "Accuracy": 0.8673290026748185,
+    "Balanced Accuracy": 0.6377871482282695,
+    "AUROC": 0.6377871482282695,
+    "AUPRC": 0.3328218154544812
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 8,
+    "Accuracy": 0.9965608162329473,
+    "Balanced Accuracy": 0.9922146664877795,
+    "AUROC": 0.9995984680837098,
+    "AUPRC": 0.9986457867445457
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 8,
+    "Accuracy": 0.9771494077187619,
+    "Balanced Accuracy": 0.9497090704731626,
+    "AUROC": 0.9948284980511376,
+    "AUPRC": 0.9791229252059374
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 8,
+    "Accuracy": 0.9967136688448164,
+    "Balanced Accuracy": 0.9933392007314031,
+    "AUROC": 0.9996372004226968,
+    "AUPRC": 0.9980426850225876
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 8,
+    "Accuracy": 0.973098968284295,
+    "Balanced Accuracy": 0.9424035888364457,
+    "AUROC": 0.9933467923662496,
+    "AUPRC": 0.9738961327251077
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 9,
+    "Accuracy": 0.9991784172112042,
+    "Balanced Accuracy": 0.9995088408644401,
+    "AUROC": 0.9995088408644401,
+    "AUPRC": 0.9950040664575346
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 9,
+    "Accuracy": 0.8654948414214749,
+    "Balanced Accuracy": 0.6361271112108077,
+    "AUROC": 0.6361271112108077,
+    "AUPRC": 0.3266021092019316
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 9,
+    "Accuracy": 0.9980893423516375,
+    "Balanced Accuracy": 0.9957583020527905,
+    "AUROC": 0.9997916029441443,
+    "AUPRC": 0.9994814335005734
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 9,
+    "Accuracy": 0.9857852502865877,
+    "Balanced Accuracy": 0.967833269828003,
+    "AUROC": 0.9971300541365871,
+    "AUPRC": 0.9893056220522948
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 9,
+    "Accuracy": 0.9956819137147006,
+    "Balanced Accuracy": 0.9892472358180794,
+    "AUROC": 0.9994828885968089,
+    "AUPRC": 0.998192846076539
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 9,
+    "Accuracy": 0.9739396255254108,
+    "Balanced Accuracy": 0.9417790557371944,
+    "AUROC": 0.9937716976545364,
+    "AUPRC": 0.9755210214817173
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 10,
+    "Accuracy": 0.9990446711758187,
+    "Balanced Accuracy": 0.999428884726093,
+    "AUROC": 0.999428884726093,
+    "AUPRC": 0.9941954957046668
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 10,
+    "Accuracy": 0.8632785632403516,
+    "Balanced Accuracy": 0.623531268522388,
+    "AUROC": 0.6235312685223879,
+    "AUPRC": 0.3128607025450447
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 10,
+    "Accuracy": 0.9988727119874661,
+    "Balanced Accuracy": 0.997447618886247,
+    "AUROC": 0.9999355261271821,
+    "AUPRC": 0.9997247930054082
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 10,
+    "Accuracy": 0.9875429881543752,
+    "Balanced Accuracy": 0.9724531972543846,
+    "AUROC": 0.9980759762749548,
+    "AUPRC": 0.9924880331373644
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 10,
+    "Accuracy": 0.9974015055982269,
+    "Balanced Accuracy": 0.9947835595284147,
+    "AUROC": 0.9997653399108456,
+    "AUPRC": 0.9990905210659751
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 10,
+    "Accuracy": 0.9802827665265571,
+    "Balanced Accuracy": 0.9602232784251225,
+    "AUROC": 0.9963676060675587,
+    "AUPRC": 0.9842593217009041
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 11,
+    "Accuracy": 0.9993503763995567,
+    "Balanced Accuracy": 0.9996116416137433,
+    "AUROC": 0.9996116416137434,
+    "AUPRC": 0.9960455919981391
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 11,
+    "Accuracy": 0.8633549866259075,
+    "Balanced Accuracy": 0.630151656533128,
+    "AUROC": 0.630151656533128,
+    "AUPRC": 0.3171080530921197
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 11,
+    "Accuracy": 0.9976689976689976,
+    "Balanced Accuracy": 0.9956478962140622,
+    "AUROC": 0.9998284600190606,
+    "AUPRC": 0.9992146429141892
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 11,
+    "Accuracy": 0.9827283148643485,
+    "Balanced Accuracy": 0.9690113619913087,
+    "AUROC": 0.9975296511850231,
+    "AUPRC": 0.9887661819195454
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 11,
+    "Accuracy": 0.997802743704383,
+    "Balanced Accuracy": 0.9958217756069363,
+    "AUROC": 0.9998158693413733,
+    "AUPRC": 0.9993632245729502
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 11,
+    "Accuracy": 0.9833397019487964,
+    "Balanced Accuracy": 0.9646806441557342,
+    "AUROC": 0.9970863088653441,
+    "AUPRC": 0.9872758900063935
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 12,
+    "Accuracy": 0.9991593106347205,
+    "Balanced Accuracy": 0.999497418558962,
+    "AUROC": 0.999497418558962,
+    "AUPRC": 0.9948884758364313
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 12,
+    "Accuracy": 0.8639663737103553,
+    "Balanced Accuracy": 0.6301414564162235,
+    "AUROC": 0.6301414564162235,
+    "AUPRC": 0.3187524354722584
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 12,
+    "Accuracy": 0.9990446711758187,
+    "Balanced Accuracy": 0.9975973812628138,
+    "AUROC": 0.999866096008783,
+    "AUPRC": 0.9995203565770044
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 12,
+    "Accuracy": 0.9915934275888422,
+    "Balanced Accuracy": 0.9801343760840292,
+    "AUROC": 0.9992050737344685,
+    "AUPRC": 0.9956792921309764
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 12,
+    "Accuracy": 0.9960258320914058,
+    "Balanced Accuracy": 0.9928340744796631,
+    "AUROC": 0.9997123496963843,
+    "AUPRC": 0.9986901026130719
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 12,
+    "Accuracy": 0.9837218188765763,
+    "Balanced Accuracy": 0.9677268087752076,
+    "AUROC": 0.9970229102307769,
+    "AUPRC": 0.9877972540679126
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 13,
+    "Accuracy": 0.9990255645993351,
+    "Balanced Accuracy": 0.9994174624206149,
+    "AUROC": 0.9994174624206149,
+    "AUPRC": 0.9940800928612884
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 13,
+    "Accuracy": 0.8628964463125717,
+    "Balanced Accuracy": 0.6244299244286569,
+    "AUROC": 0.6244299244286569,
+    "AUPRC": 0.3123312130438365
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 13,
+    "Accuracy": 0.9985287936107609,
+    "Balanced Accuracy": 0.9964906313514235,
+    "AUROC": 0.999827114257007,
+    "AUPRC": 0.9994777466974539
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 13,
+    "Accuracy": 0.9880015284677112,
+    "Balanced Accuracy": 0.9704731369038352,
+    "AUROC": 0.9985936215382767,
+    "AUPRC": 0.9939742331333238
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 13,
+    "Accuracy": 0.9971340135274561,
+    "Balanced Accuracy": 0.9939661844700307,
+    "AUROC": 0.9998380990897857,
+    "AUPRC": 0.9992882435602141
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 13,
+    "Accuracy": 0.9817348108521208,
+    "Balanced Accuracy": 0.9607156367877502,
+    "AUROC": 0.9966438627902465,
+    "AUPRC": 0.9861669420854594
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 14,
+    "Accuracy": 0.9992930566701058,
+    "Balanced Accuracy": 0.9995773746973089,
+    "AUROC": 0.9995773746973089,
+    "AUPRC": 0.9956981746308569
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 14,
+    "Accuracy": 0.8678639663737103,
+    "Balanced Accuracy": 0.6356649264157592,
+    "AUROC": 0.6356649264157591,
+    "AUPRC": 0.3332775979945678
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 14,
+    "Accuracy": 0.9987962856815316,
+    "Balanced Accuracy": 0.997448891291598,
+    "AUROC": 0.9998996280244328,
+    "AUPRC": 0.9995826140728679
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 14,
+    "Accuracy": 0.9907527703477264,
+    "Balanced Accuracy": 0.9811346063762083,
+    "AUROC": 0.9990362596657844,
+    "AUPRC": 0.9953456791625552
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 14,
+    "Accuracy": 0.9985479001872445,
+    "Balanced Accuracy": 0.9973004013203822,
+    "AUROC": 0.9999201412260039,
+    "AUPRC": 0.9996648951987057
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 14,
+    "Accuracy": 0.9873137179977073,
+    "Balanced Accuracy": 0.9755095619907623,
+    "AUROC": 0.9981816264397955,
+    "AUPRC": 0.9926991831739529
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 15,
+    "Accuracy": 0.9990637777523024,
+    "Balanced Accuracy": 0.9994403070315713,
+    "AUROC": 0.9994403070315713,
+    "AUPRC": 0.9943109253454081
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 15,
+    "Accuracy": 0.861673672143676,
+    "Balanced Accuracy": 0.6265166592235688,
+    "AUROC": 0.6265166592235688,
+    "AUPRC": 0.3104030646038329
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 15,
+    "Accuracy": 0.9991210974817533,
+    "Balanced Accuracy": 0.9978778786210443,
+    "AUROC": 0.9999633616614335,
+    "AUPRC": 0.9998565118516459
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 15,
+    "Accuracy": 0.9913641574321742,
+    "Balanced Accuracy": 0.980748709066376,
+    "AUROC": 0.9991233874426062,
+    "AUPRC": 0.9961028707905082
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 15,
+    "Accuracy": 0.9983186212694409,
+    "Balanced Accuracy": 0.996693717382009,
+    "AUROC": 0.999805503372413,
+    "AUPRC": 0.9995510560386732
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 15,
+    "Accuracy": 0.9900649598777226,
+    "Balanced Accuracy": 0.9780935418151873,
+    "AUROC": 0.9985799644779861,
+    "AUPRC": 0.9937416192678502
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 16,
+    "Accuracy": 0.9993503763995567,
+    "Balanced Accuracy": 0.9996116416137433,
+    "AUROC": 0.9996116416137434,
+    "AUPRC": 0.9960455919981391
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 16,
+    "Accuracy": 0.8659533817348108,
+    "Balanced Accuracy": 0.6330199592814747,
+    "AUROC": 0.6330199592814748,
+    "AUPRC": 0.32607315048494245
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 16,
+    "Accuracy": 0.999082884328786,
+    "Balanced Accuracy": 0.997855034010088,
+    "AUROC": 0.9999553377719242,
+    "AUPRC": 0.999844066400947
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 16,
+    "Accuracy": 0.992434084829958,
+    "Balanced Accuracy": 0.9817640261423448,
+    "AUROC": 0.9993645199133596,
+    "AUPRC": 0.9972053667833509
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 16,
+    "Accuracy": 0.9985670067637281,
+    "Balanced Accuracy": 0.9970770154895425,
+    "AUROC": 0.9999091897371807,
+    "AUPRC": 0.9994275716830072
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 16,
+    "Accuracy": 0.9889950324799388,
+    "Balanced Accuracy": 0.9759511331604349,
+    "AUROC": 0.9987294666098534,
+    "AUPRC": 0.994312584762287
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 17,
+    "Accuracy": 0.9990637777523024,
+    "Balanced Accuracy": 0.9994403070315713,
+    "AUROC": 0.9994403070315713,
+    "AUPRC": 0.9943109253454081
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 17,
+    "Accuracy": 0.8640427970959114,
+    "Balanced Accuracy": 0.6264301716214481,
+    "AUROC": 0.6264301716214482,
+    "AUPRC": 0.3167409402273974
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 17,
+    "Accuracy": 0.9995987618938439,
+    "Balanced Accuracy": 0.9988678606669512,
+    "AUROC": 0.999998820957725,
+    "AUPRC": 0.9999940300645134
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 17,
+    "Accuracy": 0.996025983951089,
+    "Balanced Accuracy": 0.9902981737437553,
+    "AUROC": 0.9994934084198508,
+    "AUPRC": 0.9986808716773345
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 17,
+    "Accuracy": 0.9984332607283427,
+    "Balanced Accuracy": 0.9970909826057227,
+    "AUROC": 0.9999436087020533,
+    "AUPRC": 0.9997071858496823
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 17,
+    "Accuracy": 0.988307222009935,
+    "Balanced Accuracy": 0.9774184349145478,
+    "AUROC": 0.9982234085086217,
+    "AUPRC": 0.9928489685866704
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 18,
+    "Accuracy": 0.9994076961290076,
+    "Balanced Accuracy": 0.9996459085301777,
+    "AUROC": 0.9996459085301777,
+    "AUPRC": 0.9963932518906341
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 18,
+    "Accuracy": 0.865341994650363,
+    "Balanced Accuracy": 0.63547219115241,
+    "AUROC": 0.63547219115241,
+    "AUPRC": 0.3257826712142272
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 18,
+    "Accuracy": 0.9983568344224082,
+    "Balanced Accuracy": 0.9967635236202288,
+    "AUROC": 0.9999205106770334,
+    "AUPRC": 0.9995995379120164
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 18,
+    "Accuracy": 0.9875429881543752,
+    "Balanced Accuracy": 0.9726410458508485,
+    "AUROC": 0.9981478678938901,
+    "AUPRC": 0.9905735149186919
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 18,
+    "Accuracy": 0.9983568344224082,
+    "Balanced Accuracy": 0.996622638738438,
+    "AUROC": 0.9998484517211638,
+    "AUPRC": 0.9989641660180392
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 18,
+    "Accuracy": 0.9890714558654948,
+    "Balanced Accuracy": 0.9752454259090821,
+    "AUROC": 0.9987670875431222,
+    "AUPRC": 0.9932743336525145
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 19,
+    "Accuracy": 0.9991975237876877,
+    "Balanced Accuracy": 0.9995202631699183,
+    "AUROC": 0.9995202631699182,
+    "AUPRC": 0.9951196839414362
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 19,
+    "Accuracy": 0.8625143293847918,
+    "Balanced Accuracy": 0.6281463092818844,
+    "AUROC": 0.6281463092818844,
+    "AUPRC": 0.31362255633721015
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 19,
+    "Accuracy": 0.9991975237876877,
+    "Balanced Accuracy": 0.9979705294702204,
+    "AUROC": 0.9999918213945362,
+    "AUPRC": 0.9999606834845589
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 19,
+    "Accuracy": 0.9936568589988537,
+    "Balanced Accuracy": 0.9856884464342781,
+    "AUROC": 0.9994813304571565,
+    "AUPRC": 0.9979200944560439
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 19,
+    "Accuracy": 0.9989491382934006,
+    "Balanced Accuracy": 0.997775077871741,
+    "AUROC": 0.9999231581871191,
+    "AUPRC": 0.9997252023102752
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 19,
+    "Accuracy": 0.9903706534199465,
+    "Balanced Accuracy": 0.9784641389496629,
+    "AUROC": 0.9988354155228879,
+    "AUPRC": 0.9952228646678571
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 20,
+    "Accuracy": 0.9991019909052696,
+    "Balanced Accuracy": 0.9994631516425275,
+    "AUROC": 0.9994631516425275,
+    "AUPRC": 0.9945418650563234
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 20,
+    "Accuracy": 0.8664883454337027,
+    "Balanced Accuracy": 0.6312734346618922,
+    "AUROC": 0.6312734346618921,
+    "AUPRC": 0.32669112166766145
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 20,
+    "Accuracy": 0.9994268027054912,
+    "Balanced Accuracy": 0.9987650599176481,
+    "AUROC": 0.9999547602546108,
+    "AUPRC": 0.9998682261098552
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 20,
+    "Accuracy": 0.9940389759266336,
+    "Balanced Accuracy": 0.9857290335103288,
+    "AUROC": 0.9995373030651906,
+    "AUPRC": 0.9978771412750479
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 20,
+    "Accuracy": 0.9982230883870228,
+    "Balanced Accuracy": 0.9962609128365096,
+    "AUROC": 0.9999389978998536,
+    "AUPRC": 0.999701292803851
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 20,
+    "Accuracy": 0.9914405808177302,
+    "Balanced Accuracy": 0.9822971849725903,
+    "AUROC": 0.9989977851662473,
+    "AUPRC": 0.9959133474808382
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 21,
+    "Accuracy": 0.9990637777523024,
+    "Balanced Accuracy": 0.9994403070315713,
+    "AUROC": 0.9994403070315713,
+    "AUPRC": 0.9943109253454081
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 21,
+    "Accuracy": 0.8638135269392434,
+    "Balanced Accuracy": 0.6285472933755063,
+    "AUROC": 0.6285472933755064,
+    "AUPRC": 0.31736114762935486
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 21,
+    "Accuracy": 0.9996560816232948,
+    "Balanced Accuracy": 0.9990430124651763,
+    "AUROC": 0.999998100728281,
+    "AUPRC": 0.9999906202796184
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 21,
+    "Accuracy": 0.9977837218188765,
+    "Balanced Accuracy": 0.994542403977209,
+    "AUROC": 0.9998874999658574,
+    "AUPRC": 0.9994767151809014
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 21,
+    "Accuracy": 0.9986816462226298,
+    "Balanced Accuracy": 0.9973803574587292,
+    "AUROC": 0.9999568929340198,
+    "AUPRC": 0.9998088588453901
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 21,
+    "Accuracy": 0.9919755445166221,
+    "Balanced Accuracy": 0.9828048435105747,
+    "AUROC": 0.9991093035991816,
+    "AUPRC": 0.9963151925906019
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 22,
+    "Accuracy": 0.9991019909052696,
+    "Balanced Accuracy": 0.9994631516425275,
+    "AUROC": 0.9994631516425275,
+    "AUPRC": 0.9945418650563234
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 22,
+    "Accuracy": 0.8643484906381352,
+    "Balanced Accuracy": 0.6345025612109443,
+    "AUROC": 0.6345025612109442,
+    "AUPRC": 0.3224835381174792
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 22,
+    "Accuracy": 0.9992548435171386,
+    "Balanced Accuracy": 0.9982396045229727,
+    "AUROC": 0.9999080026923564,
+    "AUPRC": 0.9998462785887923
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 22,
+    "Accuracy": 0.9925869316010699,
+    "Balanced Accuracy": 0.9839217349724537,
+    "AUROC": 0.9992380000532626,
+    "AUPRC": 0.9965683470012482
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 22,
+    "Accuracy": 0.9991019909052696,
+    "Balanced Accuracy": 0.9978194946883026,
+    "AUROC": 0.9999104167947519,
+    "AUPRC": 0.9996417963921517
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 22,
+    "Accuracy": 0.992434084829958,
+    "Balanced Accuracy": 0.9830789663175923,
+    "AUROC": 0.9989956512505769,
+    "AUPRC": 0.9966118921656018
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 23,
+    "Accuracy": 0.9994076961290076,
+    "Balanced Accuracy": 0.9996459085301777,
+    "AUROC": 0.9996459085301777,
+    "AUPRC": 0.9963932518906341
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 23,
+    "Accuracy": 0.8664883454337027,
+    "Balanced Accuracy": 0.6325883748371396,
+    "AUROC": 0.6325883748371395,
+    "AUPRC": 0.3274125458836884
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 23,
+    "Accuracy": 0.9974779319041615,
+    "Balanced Accuracy": 0.9940309010868464,
+    "AUROC": 0.9998697211636509,
+    "AUPRC": 0.9994733470354835
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 23,
+    "Accuracy": 0.9861673672143676,
+    "Balanced Accuracy": 0.9663710681323423,
+    "AUROC": 0.9981458833523167,
+    "AUPRC": 0.9923645147783312
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 23,
+    "Accuracy": 0.9992166303641713,
+    "Balanced Accuracy": 0.9981228366574892,
+    "AUROC": 0.9999687727185709,
+    "AUPRC": 0.9998334329505384
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 23,
+    "Accuracy": 0.9951089033244173,
+    "Balanced Accuracy": 0.9886228365509366,
+    "AUROC": 0.9995896053382717,
+    "AUPRC": 0.9983060900648433
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 24,
+    "Accuracy": 0.9992739500936222,
+    "Balanced Accuracy": 0.9995659523918308,
+    "AUROC": 0.9995659523918308,
+    "AUPRC": 0.9955824226923972
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 24,
+    "Accuracy": 0.865571264807031,
+    "Balanced Accuracy": 0.6327915236089601,
+    "AUROC": 0.6327915236089601,
+    "AUPRC": 0.32483571170987774
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 24,
+    "Accuracy": 0.9989682448698842,
+    "Balanced Accuracy": 0.9976456152954284,
+    "AUROC": 0.9999620705834671,
+    "AUPRC": 0.999841212195965
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 24,
+    "Accuracy": 0.9930454719144058,
+    "Balanced Accuracy": 0.9860743437441104,
+    "AUROC": 0.9993700254157891,
+    "AUPRC": 0.996686537171573
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 24,
+    "Accuracy": 0.998719859375597,
+    "Balanced Accuracy": 0.9975910485787398,
+    "AUROC": 0.99996511955478,
+    "AUPRC": 0.999827068353968
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 24,
+    "Accuracy": 0.9931983186855178,
+    "Balanced Accuracy": 0.9880442039777554,
+    "AUROC": 0.9995548225128443,
+    "AUPRC": 0.9979149855260967
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 25,
+    "Accuracy": 0.999082884328786,
+    "Balanced Accuracy": 0.9994517293370494,
+    "AUROC": 0.9994517293370494,
+    "AUPRC": 0.9944263817928471
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 25,
+    "Accuracy": 0.8645013374092473,
+    "Balanced Accuracy": 0.6287706289895687,
+    "AUROC": 0.6287706289895688,
+    "AUPRC": 0.319422742846893
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 25,
+    "Accuracy": 0.9994268027054912,
+    "Balanced Accuracy": 0.9983893668995394,
+    "AUROC": 0.9999880895390099,
+    "AUPRC": 0.9999441334347133
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 25,
+    "Accuracy": 0.9951089033244173,
+    "Balanced Accuracy": 0.9889985337438645,
+    "AUROC": 0.9995876421358549,
+    "AUPRC": 0.9972326631311356
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 25,
+    "Accuracy": 0.9992166303641713,
+    "Balanced Accuracy": 0.9987802994391792,
+    "AUROC": 0.9999806845133192,
+    "AUPRC": 0.9999129234165173
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 25,
+    "Accuracy": 0.9935804356132977,
+    "Balanced Accuracy": 0.9893997312290534,
+    "AUROC": 0.9995062972704999,
+    "AUPRC": 0.9977339470856635
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 26,
+    "Accuracy": 0.9991210974817533,
+    "Balanced Accuracy": 0.9994745739480057,
+    "AUROC": 0.9994745739480057,
+    "AUPRC": 0.99465737514518
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 26,
+    "Accuracy": 0.8650363011081391,
+    "Balanced Accuracy": 0.629653984720481,
+    "AUROC": 0.6296539847204808,
+    "AUPRC": 0.3214726948083236
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 26,
+    "Accuracy": 0.9995223355879094,
+    "Balanced Accuracy": 0.9989630563268295,
+    "AUROC": 0.999994143467614,
+    "AUPRC": 0.9999691932471175
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 26,
+    "Accuracy": 0.9967902178066488,
+    "Balanced Accuracy": 0.9926335310534237,
+    "AUROC": 0.9998840003441579,
+    "AUPRC": 0.999453886509864
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 26,
+    "Accuracy": 0.9993694829760403,
+    "Balanced Accuracy": 0.9986368697466864,
+    "AUROC": 0.9999751774255893,
+    "AUPRC": 0.9998587527764636
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 26,
+    "Accuracy": 0.9953381734810852,
+    "Balanced Accuracy": 0.9919533240943321,
+    "AUROC": 0.9997852427269325,
+    "AUPRC": 0.9989845973112549
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 27,
+    "Accuracy": 0.9991019909052696,
+    "Balanced Accuracy": 0.9994631516425275,
+    "AUROC": 0.9994631516425275,
+    "AUPRC": 0.9945418650563234
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 27,
+    "Accuracy": 0.8626671761559037,
+    "Balanced Accuracy": 0.6239171658322202,
+    "AUROC": 0.6239171658322202,
+    "AUPRC": 0.3113886149229644
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 27,
+    "Accuracy": 0.999541442164393,
+    "Balanced Accuracy": 0.9988805553777804,
+    "AUROC": 0.9999980340403697,
+    "AUPRC": 0.9999901885881621
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 27,
+    "Accuracy": 0.9967137944210929,
+    "Balanced Accuracy": 0.9931513897083124,
+    "AUROC": 0.9998779827019675,
+    "AUPRC": 0.9994143870863751
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 27,
+    "Accuracy": 0.9990255645993351,
+    "Balanced Accuracy": 0.9978207670936535,
+    "AUROC": 0.9999887750907398,
+    "AUPRC": 0.9999432512051516
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 27,
+    "Accuracy": 0.992357661444402,
+    "Balanced Accuracy": 0.9820940362007697,
+    "AUROC": 0.9994614850414217,
+    "AUPRC": 0.9976970263687522
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 28,
+    "Accuracy": 0.9993312698230731,
+    "Balanced Accuracy": 0.9996002193082651,
+    "AUROC": 0.9996002193082653,
+    "AUPRC": 0.9959297592743342
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 28,
+    "Accuracy": 0.8677875429881544,
+    "Balanced Accuracy": 0.6331772075272254,
+    "AUROC": 0.6331772075272253,
+    "AUPRC": 0.33173729442073757
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 28,
+    "Accuracy": 0.9944399862432649,
+    "Balanced Accuracy": 0.9893500952527448,
+    "AUROC": 0.9995437853300552,
+    "AUPRC": 0.9982157441427398
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 28,
+    "Accuracy": 0.9895299961788308,
+    "Balanced Accuracy": 0.9779615804701307,
+    "AUROC": 0.9989898043216402,
+    "AUPRC": 0.9950172951768719
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 28,
+    "Accuracy": 0.9988727119874661,
+    "Balanced Accuracy": 0.9980111584134098,
+    "AUROC": 0.999981131322326,
+    "AUPRC": 0.9999036039830819
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 28,
+    "Accuracy": 0.9950324799388612,
+    "Balanced Accuracy": 0.9915827269598565,
+    "AUROC": 0.9997808895389649,
+    "AUPRC": 0.9989194737493001
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 29,
+    "Accuracy": 0.9993121632465894,
+    "Balanced Accuracy": 0.999588797002787,
+    "AUROC": 0.999588797002787,
+    "AUPRC": 0.9958139534883721
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 29,
+    "Accuracy": 0.8664883454337027,
+    "Balanced Accuracy": 0.6325883748371396,
+    "AUROC": 0.6325883748371395,
+    "AUPRC": 0.3274125458836884
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 29,
+    "Accuracy": 0.9994268027054912,
+    "Balanced Accuracy": 0.999093791308493,
+    "AUROC": 0.9999646900846301,
+    "AUPRC": 0.9998335420462546
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 29,
+    "Accuracy": 0.996102407336645,
+    "Balanced Accuracy": 0.9924101954393614,
+    "AUROC": 0.9998312712879427,
+    "AUPRC": 0.9987988266706397
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 29,
+    "Accuracy": 0.9987962856815316,
+    "Balanced Accuracy": 0.9983411622096059,
+    "AUROC": 0.9999431805656617,
+    "AUPRC": 0.9997964601384557
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 29,
+    "Accuracy": 0.9935040122277417,
+    "Balanced Accuracy": 0.9887904983051587,
+    "AUROC": 0.9995576179423727,
+    "AUPRC": 0.9978336426282929
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 30,
+    "Accuracy": 0.9991975237876877,
+    "Balanced Accuracy": 0.9995202631699183,
+    "AUROC": 0.9995202631699182,
+    "AUPRC": 0.9951196839414362
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 30,
+    "Accuracy": 0.865418418035919,
+    "Balanced Accuracy": 0.6368328184621603,
+    "AUROC": 0.6368328184621604,
+    "AUPRC": 0.3268204890580776
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 30,
+    "Accuracy": 0.9996178684703275,
+    "Balanced Accuracy": 0.9991140911087473,
+    "AUROC": 0.9999919574378757,
+    "AUPRC": 0.9999664042274983
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 30,
+    "Accuracy": 0.9964081008788689,
+    "Balanced Accuracy": 0.992405095380909,
+    "AUROC": 0.9993444184277446,
+    "AUPRC": 0.9983887260126552
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 30,
+    "Accuracy": 0.9992548435171386,
+    "Balanced Accuracy": 0.9987561824228719,
+    "AUROC": 0.9999830039188805,
+    "AUPRC": 0.9999127783895043
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 30,
+    "Accuracy": 0.996331677493313,
+    "Balanced Accuracy": 0.9940500456145813,
+    "AUROC": 0.9998538267765786,
+    "AUPRC": 0.9993242899625868
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 31,
+    "Accuracy": 0.9990637777523024,
+    "Balanced Accuracy": 0.9994403070315713,
+    "AUROC": 0.9994403070315713,
+    "AUPRC": 0.9943109253454081
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 31,
+    "Accuracy": 0.8676346962170424,
+    "Balanced Accuracy": 0.6323344388723638,
+    "AUROC": 0.6323344388723638,
+    "AUPRC": 0.3308193187836156
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 31,
+    "Accuracy": 0.9997325079292292,
+    "Balanced Accuracy": 0.9995583179597246,
+    "AUROC": 0.9999962054578369,
+    "AUPRC": 0.9999790068583455
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 31,
+    "Accuracy": 0.9980129919755445,
+    "Balanced Accuracy": 0.9958065569595014,
+    "AUROC": 0.999957492399846,
+    "AUPRC": 0.9997900249425153
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 31,
+    "Accuracy": 0.999694294776262,
+    "Balanced Accuracy": 0.9994885117215048,
+    "AUROC": 0.9999958840221036,
+    "AUPRC": 0.9999789872286782
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 31,
+    "Accuracy": 0.9952617500955292,
+    "Balanced Accuracy": 0.9904048481881178,
+    "AUROC": 0.999808417051113,
+    "AUPRC": 0.9990766121757799
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 32,
+    "Accuracy": 0.9992357369406549,
+    "Balanced Accuracy": 0.9995431077808745,
+    "AUROC": 0.9995431077808745,
+    "AUPRC": 0.9953509995351
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 32,
+    "Accuracy": 0.8657241115781429,
+    "Balanced Accuracy": 0.6298773203345434,
+    "AUROC": 0.6298773203345435,
+    "AUPRC": 0.32361909557954016
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 32,
+    "Accuracy": 0.999694294776262,
+    "Balanced Accuracy": 0.9991597803306598,
+    "AUROC": 0.9999994718317411,
+    "AUPRC": 0.9999973047838051
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 32,
+    "Accuracy": 0.9977072984333206,
+    "Balanced Accuracy": 0.9944967168427061,
+    "AUROC": 0.9997584620852692,
+    "AUPRC": 0.9991435862813355
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 32,
+    "Accuracy": 0.9994841224349421,
+    "Balanced Accuracy": 0.9991280582249275,
+    "AUROC": 0.9999938940548251,
+    "AUPRC": 0.9999697066206744
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 32,
+    "Accuracy": 0.9951853267099733,
+    "Balanced Accuracy": 0.9897956152642231,
+    "AUROC": 0.9997576298581577,
+    "AUPRC": 0.9988527626370377
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 33,
+    "Accuracy": 0.9993121632465894,
+    "Balanced Accuracy": 0.999588797002787,
+    "AUROC": 0.999588797002787,
+    "AUPRC": 0.9958139534883721
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 33,
+    "Accuracy": 0.8647306075659151,
+    "Balanced Accuracy": 0.6311618735506446,
+    "AUROC": 0.6311618735506445,
+    "AUPRC": 0.32148782509193335
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 33,
+    "Accuracy": 0.9996369750468111,
+    "Balanced Accuracy": 0.9990785517869618,
+    "AUROC": 0.9999970070465328,
+    "AUPRC": 0.9999854087148098
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 33,
+    "Accuracy": 0.9964845242644249,
+    "Balanced Accuracy": 0.9918872367260203,
+    "AUROC": 0.9996662555891519,
+    "AUPRC": 0.999025610543749
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 33,
+    "Accuracy": 0.9990637777523024,
+    "Balanced Accuracy": 0.9982193047227184,
+    "AUROC": 0.9999870412050416,
+    "AUPRC": 0.9999356273410849
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 33,
+    "Accuracy": 0.9966373710355368,
+    "Balanced Accuracy": 0.9923543081879539,
+    "AUROC": 0.9997910042992426,
+    "AUPRC": 0.9991352541764666
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 34,
+    "Accuracy": 0.9993312698230731,
+    "Balanced Accuracy": 0.9996002193082651,
+    "AUROC": 0.9996002193082653,
+    "AUPRC": 0.9959297592743342
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 34,
+    "Accuracy": 0.8683989300726023,
+    "Balanced Accuracy": 0.6403052540759496,
+    "AUROC": 0.6403052540759496,
+    "AUPRC": 0.33742169816827616
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 34,
+    "Accuracy": 0.9992357369406549,
+    "Balanced Accuracy": 0.9988386833719209,
+    "AUROC": 0.9999904742987242,
+    "AUPRC": 0.9999532214797997
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 34,
+    "Accuracy": 0.9943446694688575,
+    "Balanced Accuracy": 0.9906079969599384,
+    "AUROC": 0.9995898614081522,
+    "AUPRC": 0.9978225922562549
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 34,
+    "Accuracy": 0.9996751881997784,
+    "Balanced Accuracy": 0.9992892429069724,
+    "AUROC": 0.9999865370444305,
+    "AUPRC": 0.9999274148895605
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 34,
+    "Accuracy": 0.9969430645777608,
+    "Balanced Accuracy": 0.9923492081295017,
+    "AUROC": 0.9998750378983423,
+    "AUPRC": 0.9994193367376054
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 35,
+    "Accuracy": 0.9992357369406549,
+    "Balanced Accuracy": 0.9995431077808745,
+    "AUROC": 0.9995431077808745,
+    "AUPRC": 0.9953509995351
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 35,
+    "Accuracy": 0.8642720672525793,
+    "Balanced Accuracy": 0.6305120535506992,
+    "AUROC": 0.6305120535506991,
+    "AUPRC": 0.3198192892660628
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 35,
+    "Accuracy": 0.9998089342351637,
+    "Balanced Accuracy": 0.99951008392711,
+    "AUROC": 0.9999998692916935,
+    "AUPRC": 0.9999993324904607
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 35,
+    "Accuracy": 0.9991593427588842,
+    "Balanced Accuracy": 0.9983703499416843,
+    "AUROC": 0.9999928300433475,
+    "AUPRC": 0.9999636579551009
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 35,
+    "Accuracy": 0.9987771791050479,
+    "Balanced Accuracy": 0.9989402410585542,
+    "AUROC": 0.9999680178114128,
+    "AUPRC": 0.9998318631251154
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 35,
+    "Accuracy": 0.9954145968666412,
+    "Balanced Accuracy": 0.9931261028076185,
+    "AUROC": 0.9997314040345688,
+    "AUPRC": 0.9986529876352206
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 36,
+    "Accuracy": 0.9991402040582369,
+    "Balanced Accuracy": 0.9994859962534838,
+    "AUROC": 0.9994859962534838,
+    "AUPRC": 0.9947729120687653
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 36,
+    "Accuracy": 0.8671761559037066,
+    "Balanced Accuracy": 0.6360051365910885,
+    "AUROC": 0.6360051365910885,
+    "AUPRC": 0.3313692927412453
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 36,
+    "Accuracy": 0.9996751881997784,
+    "Balanced Accuracy": 0.9992892429069724,
+    "AUROC": 0.9999993998087967,
+    "AUPRC": 0.9999969305313516
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 36,
+    "Accuracy": 0.9977072984333206,
+    "Balanced Accuracy": 0.9952481112285618,
+    "AUROC": 0.9999262091961181,
+    "AUPRC": 0.999641802078346
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 36,
+    "Accuracy": 0.9995605487408766,
+    "Balanced Accuracy": 0.9987980544287314,
+    "AUROC": 0.9999820236065817,
+    "AUPRC": 0.9999305194491211
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 36,
+    "Accuracy": 0.9959495605655331,
+    "Balanced Accuracy": 0.9921309725738916,
+    "AUROC": 0.9997550478201965,
+    "AUPRC": 0.9987510626405015
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 37,
+    "Accuracy": 0.9990637777523024,
+    "Balanced Accuracy": 0.9994403070315713,
+    "AUROC": 0.9994403070315713,
+    "AUPRC": 0.9943109253454081
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 37,
+    "Accuracy": 0.865647688192587,
+    "Balanced Accuracy": 0.6285166930247931,
+    "AUROC": 0.6285166930247931,
+    "AUPRC": 0.3226354557415017
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 37,
+    "Accuracy": 0.999694294776262,
+    "Balanced Accuracy": 0.9993945884669777,
+    "AUROC": 0.9999874066547962,
+    "AUPRC": 0.9999502366138434
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 37,
+    "Accuracy": 0.9973251815055407,
+    "Balanced Accuracy": 0.9931411895914081,
+    "AUROC": 0.9999162438099374,
+    "AUPRC": 0.9995580559495794
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 37,
+    "Accuracy": 0.9988536054109824,
+    "Balanced Accuracy": 0.9971074651899239,
+    "AUROC": 0.9999521154120414,
+    "AUPRC": 0.999807806718717
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 37,
+    "Accuracy": 0.9943446694688575,
+    "Balanced Accuracy": 0.9879781166094437,
+    "AUROC": 0.9996846072639172,
+    "AUPRC": 0.9983058613381814
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 38,
+    "Accuracy": 0.9990637777523024,
+    "Balanced Accuracy": 0.9994403070315713,
+    "AUROC": 0.9994403070315713,
+    "AUPRC": 0.9943109253454081
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 38,
+    "Accuracy": 0.8632785632403516,
+    "Balanced Accuracy": 0.6246583601011715,
+    "AUROC": 0.6246583601011715,
+    "AUPRC": 0.3135307246198305
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 38,
+    "Accuracy": 0.9998853605410982,
+    "Balanced Accuracy": 0.9996496964035497,
+    "AUROC": 0.9999999733248355,
+    "AUPRC": 0.9999998636781169
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 38,
+    "Accuracy": 0.9990064959877722,
+    "Balanced Accuracy": 0.9977154298832868,
+    "AUROC": 0.9999093939406355,
+    "AUPRC": 0.999751117028384
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 38,
+    "Accuracy": 0.9996178684703275,
+    "Balanced Accuracy": 0.9992080143632744,
+    "AUROC": 0.9999728606875444,
+    "AUPRC": 0.9998900600235043
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 38,
+    "Accuracy": 0.9973251815055407,
+    "Balanced Accuracy": 0.9946439783631194,
+    "AUROC": 0.999907985556293,
+    "AUPRC": 0.9995453194925012
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 39,
+    "Accuracy": 0.9992548435171386,
+    "Balanced Accuracy": 0.9995545300863526,
+    "AUROC": 0.9995545300863526,
+    "AUPRC": 0.9954666976636057
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 39,
+    "Accuracy": 0.8633549866259075,
+    "Balanced Accuracy": 0.6200078323240766,
+    "AUROC": 0.6200078323240765,
+    "AUPRC": 0.31104779536312954
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 39,
+    "Accuracy": 0.9993694829760403,
+    "Balanced Accuracy": 0.9987307930012136,
+    "AUROC": 0.9999860849003906,
+    "AUPRC": 0.9999335100836567
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 39,
+    "Accuracy": 0.9944975162399694,
+    "Balanced Accuracy": 0.9873180964925938,
+    "AUROC": 0.999657890639724,
+    "AUPRC": 0.9979278194547063
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 39,
+    "Accuracy": 0.9991593106347205,
+    "Balanced Accuracy": 0.9985112243864269,
+    "AUROC": 0.999984093599354,
+    "AUPRC": 0.9999310091169854
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 39,
+    "Accuracy": 0.9956438670233091,
+    "Balanced Accuracy": 0.991760375439416,
+    "AUROC": 0.9998354751018134,
+    "AUPRC": 0.9991977562609096
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 40,
+    "Accuracy": 0.9991210974817533,
+    "Balanced Accuracy": 0.9994745739480057,
+    "AUROC": 0.9994745739480057,
+    "AUPRC": 0.99465737514518
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 40,
+    "Accuracy": 0.8650363011081391,
+    "Balanced Accuracy": 0.6349137454214706,
+    "AUROC": 0.6349137454214705,
+    "AUPRC": 0.3246007244558996
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 40,
+    "Accuracy": 0.9997707210821964,
+    "Balanced Accuracy": 0.9995342009434174,
+    "AUROC": 0.9999997919337161,
+    "AUPRC": 0.9999989365917464
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 40,
+    "Accuracy": 0.9992357661444402,
+    "Balanced Accuracy": 0.9982281884797233,
+    "AUROC": 0.9999923605819,
+    "AUPRC": 0.9999614384185616
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 40,
+    "Accuracy": 0.9984905804577936,
+    "Balanced Accuracy": 0.9971252495221571,
+    "AUROC": 0.999830850113808,
+    "AUPRC": 0.9996231379699558
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 40,
+    "Accuracy": 0.9947267863966374,
+    "Balanced Accuracy": 0.9917756756147726,
+    "AUROC": 0.9996384720071235,
+    "AUPRC": 0.9983503451515798
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 41,
+    "Accuracy": 0.9989873514463679,
+    "Balanced Accuracy": 0.9993946178096587,
+    "AUROC": 0.9993946178096588,
+    "AUPRC": 0.9938493675293025
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 41,
+    "Accuracy": 0.8673290026748185,
+    "Balanced Accuracy": 0.6357208136671665,
+    "AUROC": 0.6357208136671666,
+    "AUPRC": 0.3316714260211466
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 41,
+    "Accuracy": 0.9998089342351637,
+    "Balanced Accuracy": 0.99951008392711,
+    "AUROC": 0.9999997292470795,
+    "AUPRC": 0.9999985957045495
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 41,
+    "Accuracy": 0.9977837218188765,
+    "Balanced Accuracy": 0.9954816469595287,
+    "AUROC": 0.9999471215696879,
+    "AUPRC": 0.9997291424695319
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 41,
+    "Accuracy": 0.9992739500936222,
+    "Balanced Accuracy": 0.9986736814738228,
+    "AUROC": 0.9999928990711857,
+    "AUPRC": 0.9999636917333828
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 41,
+    "Accuracy": 0.996102407336645,
+    "Balanced Accuracy": 0.9941008328075365,
+    "AUROC": 0.9996672158512037,
+    "AUPRC": 0.9980325643733092
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 42,
+    "Accuracy": 0.9989682448698842,
+    "Balanced Accuracy": 0.9993831955041805,
+    "AUROC": 0.9993831955041806,
+    "AUPRC": 0.9937340450220469
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 42,
+    "Accuracy": 0.8632021398547955,
+    "Balanced Accuracy": 0.6255519159489882,
+    "AUROC": 0.6255519159489881,
+    "AUPRC": 0.3138559195123829
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 42,
+    "Accuracy": 0.9996560816232948,
+    "Balanced Accuracy": 0.9992308589742307,
+    "AUROC": 0.9999952304805712,
+    "AUPRC": 0.9999760165621887
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 42,
+    "Accuracy": 0.996178830722201,
+    "Balanced Accuracy": 0.9911409423986168,
+    "AUROC": 0.9998055362649578,
+    "AUPRC": 0.999136733674114
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 42,
+    "Accuracy": 0.9994076961290076,
+    "Balanced Accuracy": 0.9989884457484877,
+    "AUROC": 0.999994411553018,
+    "AUPRC": 0.9999718758305064
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 42,
+    "Accuracy": 0.9959495605655331,
+    "Balanced Accuracy": 0.9926945183632833,
+    "AUROC": 0.9998452270964271,
+    "AUPRC": 0.9991979617511244
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 43,
+    "Accuracy": 0.9991019909052696,
+    "Balanced Accuracy": 0.9994631516425275,
+    "AUROC": 0.9994631516425275,
+    "AUPRC": 0.9945418650563234
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 43,
+    "Accuracy": 0.865341994650363,
+    "Balanced Accuracy": 0.6362235855382657,
+    "AUROC": 0.6362235855382657,
+    "AUPRC": 0.3262390212366172
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 43,
+    "Accuracy": 0.9995796553173603,
+    "Balanced Accuracy": 0.999091246497791,
+    "AUROC": 0.9999964655406917,
+    "AUPRC": 0.9999811454594654
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 43,
+    "Accuracy": 0.9968666411922048,
+    "Balanced Accuracy": 0.9926792181879266,
+    "AUROC": 0.9999016905050654,
+    "AUPRC": 0.9995564483925685
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 43,
+    "Accuracy": 0.9996560816232948,
+    "Balanced Accuracy": 0.999512628737812,
+    "AUROC": 0.9999962481381002,
+    "AUPRC": 0.9999805112785056
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 43,
+    "Accuracy": 0.9976308750477646,
+    "Balanced Accuracy": 0.9959538184799146,
+    "AUROC": 0.9998633013621552,
+    "AUPRC": 0.9994250433732662
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 44,
+    "Accuracy": 0.9991975237876877,
+    "Balanced Accuracy": 0.9995202631699183,
+    "AUROC": 0.9995202631699182,
+    "AUPRC": 0.9951196839414362
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 44,
+    "Accuracy": 0.8674054260603745,
+    "Balanced Accuracy": 0.6350151064158138,
+    "AUROC": 0.6350151064158138,
+    "AUPRC": 0.33151847059048395
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 44,
+    "Accuracy": 0.9998089342351637,
+    "Balanced Accuracy": 0.99951008392711,
+    "AUROC": 0.9999997519209693,
+    "AUPRC": 0.9999987351266288
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 44,
+    "Accuracy": 0.9990064959877722,
+    "Balanced Accuracy": 0.9973397326903589,
+    "AUROC": 0.9999754599697905,
+    "AUPRC": 0.9998817657870339
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 44,
+    "Accuracy": 0.9996178684703275,
+    "Balanced Accuracy": 0.9992080143632744,
+    "AUROC": 0.999998431500322,
+    "AUPRC": 0.9999920037944734
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 44,
+    "Accuracy": 0.9969430645777608,
+    "Balanced Accuracy": 0.993664148304749,
+    "AUROC": 0.9999075587731588,
+    "AUPRC": 0.9995204264705184
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 45,
+    "Accuracy": 0.9991210974817533,
+    "Balanced Accuracy": 0.9994745739480057,
+    "AUROC": 0.9994745739480057,
+    "AUPRC": 0.99465737514518
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 45,
+    "Accuracy": 0.8648070309514712,
+    "Balanced Accuracy": 0.6287655289311165,
+    "AUROC": 0.6287655289311166,
+    "AUPRC": 0.320295999437601
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 45,
+    "Accuracy": 0.9996751881997784,
+    "Balanced Accuracy": 0.9992892429069724,
+    "AUROC": 0.9999960760832886,
+    "AUPRC": 0.9999816371035527
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 45,
+    "Accuracy": 0.9970194879633167,
+    "Balanced Accuracy": 0.9922070466675408,
+    "AUROC": 0.9997260905845493,
+    "AUPRC": 0.9989045528284516
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 45,
+    "Accuracy": 0.9993312698230731,
+    "Balanced Accuracy": 0.9988018716447844,
+    "AUROC": 0.9999905289828116,
+    "AUPRC": 0.9999510053406792
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 45,
+    "Accuracy": 0.996255254107757,
+    "Balanced Accuracy": 0.9940043584800784,
+    "AUROC": 0.9998166112872872,
+    "AUPRC": 0.9990589720622538
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 46,
+    "Accuracy": 0.9991019909052696,
+    "Balanced Accuracy": 0.9994631516425275,
+    "AUROC": 0.9994631516425275,
+    "AUPRC": 0.9945418650563234
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 46,
+    "Accuracy": 0.8623614826136797,
+    "Balanced Accuracy": 0.6241101144871364,
+    "AUROC": 0.6241101144871365,
+    "AUPRC": 0.31067659266400943
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 46,
+    "Accuracy": 0.9997898276586801,
+    "Balanced Accuracy": 0.9994516999943683,
+    "AUROC": 0.9999961907864963,
+    "AUPRC": 0.9999831414446735
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 46,
+    "Accuracy": 0.9981658387466564,
+    "Balanced Accuracy": 0.9960857798249712,
+    "AUROC": 0.999975289256537,
+    "AUPRC": 0.9998767781607354
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 46,
+    "Accuracy": 0.9996369750468111,
+    "Balanced Accuracy": 0.9992663982960162,
+    "AUROC": 0.9999780370032335,
+    "AUPRC": 0.9999172280208823
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 46,
+    "Accuracy": 0.9976308750477646,
+    "Balanced Accuracy": 0.9944510297082032,
+    "AUROC": 0.9998677612459064,
+    "AUPRC": 0.999260076671352
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 47,
+    "Accuracy": 0.9990064580228515,
+    "Balanced Accuracy": 0.9994060401151368,
+    "AUROC": 0.9994060401151369,
+    "AUPRC": 0.9939647168059424
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 47,
+    "Accuracy": 0.8642720672525793,
+    "Balanced Accuracy": 0.628445718989596,
+    "AUROC": 0.6284457189895961,
+    "AUPRC": 0.31858082596175086
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 47,
+    "Accuracy": 0.9996751881997784,
+    "Balanced Accuracy": 0.9992422812797088,
+    "AUROC": 0.9999994504916094,
+    "AUPRC": 0.9999971958226145
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 47,
+    "Accuracy": 0.9980894153611005,
+    "Balanced Accuracy": 0.9964157898833961,
+    "AUROC": 0.9999533952817588,
+    "AUPRC": 0.9997523266328084
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 47,
+    "Accuracy": 0.9996560816232948,
+    "Balanced Accuracy": 0.999512628737812,
+    "AUROC": 0.9999985915513095,
+    "AUPRC": 0.9999927543018752
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 47,
+    "Accuracy": 0.996102407336645,
+    "Balanced Accuracy": 0.9939129842110725,
+    "AUROC": 0.9997507586496991,
+    "AUPRC": 0.9989091132818206
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 48,
+    "Accuracy": 0.9991975237876877,
+    "Balanced Accuracy": 0.9995202631699183,
+    "AUROC": 0.9995202631699182,
+    "AUPRC": 0.9951196839414362
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 48,
+    "Accuracy": 0.865418418035919,
+    "Balanced Accuracy": 0.628755328814212,
+    "AUROC": 0.6287553288142121,
+    "AUPRC": 0.32208158014278526
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 48,
+    "Accuracy": 0.9998280408116473,
+    "Balanced Accuracy": 0.9995215062325882,
+    "AUROC": 0.9999852459664644,
+    "AUPRC": 0.9999442850702259
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 48,
+    "Accuracy": 0.9989300726022162,
+    "Balanced Accuracy": 0.9967304997664643,
+    "AUROC": 0.9999803679758325,
+    "AUPRC": 0.9999069192102776
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 48,
+    "Accuracy": 0.9998280408116473,
+    "Balanced Accuracy": 0.9997093527416425,
+    "AUROC": 0.9999993944737638,
+    "AUPRC": 0.9999969081518768
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 48,
+    "Accuracy": 0.9979365685899886,
+    "Balanced Accuracy": 0.9951973240356067,
+    "AUROC": 0.9999400796479756,
+    "AUPRC": 0.9996920264150488
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 49,
+    "Accuracy": 0.9992930566701058,
+    "Balanced Accuracy": 0.9995773746973089,
+    "AUROC": 0.9995773746973089,
+    "AUPRC": 0.9956981746308569
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 49,
+    "Accuracy": 0.8650363011081391,
+    "Balanced Accuracy": 0.629466136124017,
+    "AUROC": 0.629466136124017,
+    "AUPRC": 0.32136418656005183
+  },
+  {
+    "model": "MLP2",
+    "run_type": "train",
+    "holdout": 49,
+    "Accuracy": 0.9998089342351637,
+    "Balanced Accuracy": 0.9995570455543736,
+    "AUROC": 0.9999996558903768,
+    "AUPRC": 0.9999982455290133
+  },
+  {
+    "model": "MLP2",
+    "run_type": "test",
+    "holdout": 49,
+    "Accuracy": 0.9983951089033244,
+    "Balanced Accuracy": 0.9958471440355521,
+    "AUROC": 0.9999763988926856,
+    "AUPRC": 0.9998794024091602
+  },
+  {
+    "model": "FFNN",
+    "run_type": "train",
+    "holdout": 49,
+    "Accuracy": 0.9995987618938439,
+    "Balanced Accuracy": 0.9993374769395869,
+    "AUROC": 0.9999925816367271,
+    "AUPRC": 0.9999623512381774
+  },
+  {
+    "model": "FFNN",
+    "run_type": "test",
+    "holdout": 49,
+    "Accuracy": 0.9976308750477646,
+    "Balanced Accuracy": 0.9955781212869868,
+    "AUROC": 0.9999236058190002,
+    "AUPRC": 0.9996091219822748
+  }
+]

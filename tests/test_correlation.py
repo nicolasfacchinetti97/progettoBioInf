@@ -2,7 +2,15 @@ from progettobioinf.data_processing import *
 
 
 def test_execute():
-    epi, lab = retrieve_epigenomes_labels("MCF-7", 200)
+    epi, lab = retrieve_epigenomes_labels("K562", 200)
+
+    rate_features_samples(epi)
+    nan_detection(epi)
+    epi = knn_imputation(epi)
+    check_class_balance(lab, "K562")
+    epi = drop_constant_features(epi)
+    epi = data_normalization(epi)
+
     uncorrelated = execute_pearson(epi, lab, 0.01)
     drop_features(epi, uncorrelated)
 
