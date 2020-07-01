@@ -64,3 +64,33 @@ Pearson test: remove column NR0B1 in enhancers
 Spearman test: remove column eGFP-TEAD2 in promoters
 Spearman test: remove column THRA in enhancers
 Spearman test: remove column RBM17 in enhancers
+Rate = Rate = shape[0] / shape[1] 
+x.shape[0]: 99909 
+x.shape[1]: 298 
+The rate between features and samples for promoters data is: 335.26510067114094
+================================================================================
+Rate = Rate = shape[0] / shape[1] 
+x.shape[0]: 65423 
+x.shape[1]: 298 
+The rate between features and samples for enhancers data is: 219.54026845637583
+================================================================================
+NaN values report for promoters data: 
+In the document there are 49 NaN values out of 29772882 values. 
+The sample (row) with most values has 4 Nan values out of 298 values. 
+The feature (column) with most values has 4 NaN values out of 99909 values. 
+================================================================================
+NaN values report for enhancers data: 
+In the document there are 0 NaN values out of 19496054 values. 
+The sample (row) with most values has 0 Nan values out of 298 values. 
+The feature (column) with most values has 0 NaN values out of 65423 values. 
+================================================================================
+Pearson test: remove column NCOA4 in promoters
+Pearson test: remove column BCLAF1 in promoters
+Pearson test: remove column THRAP3 in promoters
+Pearson test: remove column SNRNP70 in enhancers
+Pearson test: remove column SFPQ in enhancers
+Pearson test: remove column ZNF830 in enhancers
+Pearson test: remove column NR0B1 in enhancers
+Spearman test: remove column eGFP-TEAD2 in promoters
+Spearman test: remove column THRA in enhancers
+Spearman test: remove column RBM17 in enhancers

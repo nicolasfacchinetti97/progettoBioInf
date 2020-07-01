@@ -74,7 +74,7 @@ def create_log_folder():
 
 
 def create_log_file():
-    if not os.path.exists('/log/info.log'):
+    if not os.path.exists('/log/info.txt'):
         f = open("info.txt", "w+")
         f.write("Started")
         f.close()
