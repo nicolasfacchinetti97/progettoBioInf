@@ -1,0 +1,38 @@
+[
+  {
+    "model": "DecisionTreeClassifier",
+    "run_type": "train",
+    "holdout": 0,
+    "Accuracy": 0.9999426802705491,
+    "Balanced Accuracy": 0.9999602153674774,
+    "AUROC": 0.9999602153674774,
+    "AUPRC": 0.9997950539691215
+  },
+  {
+    "model": "DecisionTreeClassifier",
+    "run_type": "test",
+    "holdout": 0,
+    "Accuracy": 0.7499426824608331,
+    "Balanced Accuracy": 0.6898276165307624,
+    "AUROC": 0.6898276165307625,
+    "AUPRC": 0.4308260017967072
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "train",
+    "holdout": 0,
+    "Accuracy": 1.0,
+    "Balanced Accuracy": 1.0,
+    "AUROC": 1.0,
+    "AUPRC": 1.0
+  },
+  {
+    "model": "RandomForestClassifier",
+    "run_type": "test",
+    "holdout": 0,
+    "Accuracy": 0.8261367978601452,
+    "Balanced Accuracy": 0.729754540872945,
+    "AUROC": 0.729754540872945,
+    "AUPRC": 0.5423658672427097
+  }
+]

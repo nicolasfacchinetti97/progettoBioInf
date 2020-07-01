@@ -48,7 +48,7 @@ def main():
             logging.info('Data already retrieved! Load from .csv files...')
             epigenomes, labels, sequences = load_csv_retrieved_data(cell_line)
         else:
-            epigenomes, labels, sequences = dataRetrieval(cell_line, genome, window_size)
+            epigenomes, labels, sequences = data_retrieval(cell_line, genome, window_size)
 
         # Step 2. Data Elaboration
         logging.info('Step 2. Data Elaboration')
@@ -58,7 +58,7 @@ def main():
             logging.info('All the elaborations done! Load from .csv files...')
             epigenomes = load_csv_elaborated_data(cell_line)
         else:
-            epigenomes = dataElaboration(epigenomes, labels, cell_line, number_tuples, top_number)
+            epigenomes = data_elaboration(epigenomes, labels, cell_line, number_tuples, top_number)
 
         # Step 3. Data Visualization
         logging.info('Step 3. Data Visualization')

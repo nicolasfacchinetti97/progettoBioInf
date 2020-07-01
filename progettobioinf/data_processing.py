@@ -4,7 +4,7 @@ from progettobioinf.initial_setup import *
 
 
 # Data Retrieval
-def dataRetrieval(cell_line, genome, window_size):
+def data_retrieval(cell_line, genome, window_size):
     # retrieve epigenomic, labels and sequences data
     epigenomes, labels = retrieve_epigenomes_labels(cell_line, window_size)
     sequences = retrieve_sequences(epigenomes, genome, window_size)
@@ -40,7 +40,7 @@ def dataRetrieval(cell_line, genome, window_size):
 
 
 # Step 2. Data elaboration
-def dataElaboration(epigenomes, labels, cell_line, number_tuples, top_number):
+def data_elaboration(epigenomes, labels, cell_line, number_tuples, top_number):
     logging.info("Starting Data Elaboration")
 
     if are_epigenomics_elaborated(cell_line):

@@ -1,14 +1,16 @@
-from progettobioinf.data_retrieval import *
+from progettobioinf.data_processing import *
 
 
-def test_retrieve_epigenomes_labels():
-    retrieve_epigenomes_labels("K562", 200)
-
-
-def test_retrieve_sequences():
+def test_retrieve_and_visualization():
     genome = get_genome("hg19")
     epi, lab = retrieve_epigenomes_labels("MCF-7", 200)
     seq = retrieve_sequences(epi, genome, 200)
+
+    data_retrieval("MCF-7", genome, 200)
+
+    xs, ys, titles, colors = prepare_data(epi, lab, seq)
+
+    visualization_PCA(xs, ys, titles, colors, "MCF-7")
 
 
 def test_are_sequences_retrieved():
