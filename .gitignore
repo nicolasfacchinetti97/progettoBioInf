@@ -14,6 +14,7 @@ csv/
 genomes/
 img/
 progettobioinf/json/
+progettobioinf/log/info.txt
 epigenomes.csv
 *.png
 *.csv
