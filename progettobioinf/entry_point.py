@@ -112,7 +112,7 @@ def main():
             if os.path.exists('json/' + cell_line + '/results_tabular_' + region + ".json"):
                 df = pd.read_json("json/" + cell_line + "/results_tabular_" + region + ".json")
                 path_barplots_cell_line = "img/" + cell_line + "/results_tabular_" + region + "_{feature}"
-                # generate_barplots(df, path_barplots_cell_line, region)
+                generate_barplots(df, path_barplots_cell_line, region)
                 logging.info("Wilcoxon test [FFNN-MLP]")
                 f = open("log/info.txt", "a+")
                 f.write("{} Epigenomic: {} {}\n".format("=" * 40, region, "=" * 40))
@@ -128,7 +128,7 @@ def main():
             if os.path.exists('json/' + cell_line + '/results_sequence_' + region + ".json"):
                 df = pd.read_json("json/" + cell_line + "/results_sequence_" + region + ".json")
                 path_barplots_cell_line = "img/" + cell_line + "/results_sequence_" + region + "_{feature}"
-                # generate_barplots(df, path_barplots_cell_line, region)
+                generate_barplots(df, path_barplots_cell_line, region)
                 f = open("log/info.txt", "a+")
                 f.write("{} Sequence: {} {}\n".format("=" * 40, region, "=" * 40))
                 f.close()
