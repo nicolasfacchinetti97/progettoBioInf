@@ -10,7 +10,7 @@ keras_mixed_sequence==1.0.8
 validate_version_code==1.0.4
 pandas==1.0.4
 ucsc_genomes_downloader==1.1.18
-tensorflow==2.1.0
+tensorflow==2.1.2
 minepy==1.2.4
 tqdm==4.46.1
 compress_json==1.0.3
