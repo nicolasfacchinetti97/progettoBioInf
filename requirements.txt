@@ -16,5 +16,5 @@ tqdm==4.46.1
 compress_json==1.0.3
 scipy==1.4.1
 numpy==1.18.5
-Pillow==7.1.2
+Pillow==8.2.0
 scikit_learn==0.23.1
